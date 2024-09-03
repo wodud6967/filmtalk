@@ -1,0 +1,83 @@
+
+<div class="header">
+    <div class="nav__left">
+        <div class="dropdown__trigger">영화
+            <div class="dropdown__content">
+                <a href="/">전체영화</a>
+                <a href="#">현재상영작</a>
+                <a href="#">상역예정작</a>
+            </div>
+        </div>
+        <div class="dropdown__trigger">예매
+            <div class="dropdown__content">
+                <a href="/reservation/view">예매하기</a>
+                <a href="/reservation/schedule">상세시간표</a>
+            </div>
+        </div>
+        <div class="dropdown__trigger">영화관
+            <div class="dropdown__content"><!--디테일하게 들어가야함 회의-->
+                <a href="/sinema/view">전체</a>
+                <a href="/sinema/1">서울/경기</a>
+                <a href="/sinema/2">인천</a>
+                <a href="/sinema/3">충청/대전</a>
+                <a href="/sinema/4">전라/광주</a>
+                <a href="/sinema/4">경북/대구</a>
+                <a href="/sinema/4">경남/부산</a>
+            </div>
+        </div>
+
+    </div>
+    <div class="logo">
+        <a href="#"><img src="/img/logo.png"></a>
+    </div>
+    <div class="nav__right">
+        <div>이벤트</div>
+        <div>스토어</div>
+    </div>
+    <div class="right__link">
+        <div class="util">
+        {{#sessionUser}}
+            <a href="/logout">로그아웃</a>
+
+        {{/sessionUser}}
+        {{^sessionUser}}
+            <a href="/login-form">로그인</a>
+
+        {{/sessionUser}}
+
+            <a href="#">회원가입</a>
+            <a href="#">빠른예매</a>
+        </div>
+    </div>
+</div>
+<div class="header__line">
+
+</div>
+
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        document.querySelectorAll('.dropdown__trigger').forEach(item => {
+            item.addEventListener('mouseover', () => {
+                item.style.borderBottom = '2px solid yellow';
+                console.log("222222");
+                const dropdown = item.querySelector('.dropdown__content');
+                console.log(dropdown);
+                if (dropdown) {
+                    console.log("333333");
+                    dropdown.style.display = 'flex';
+                }
+            });
+
+            item.addEventListener('mouseout', () => {
+                item.style.borderBottom = '2px solid #111';
+                const dropdown = item.querySelector('.dropdown__content');
+                if (dropdown) {
+                    dropdown.style.display = 'none';
+                }
+            });
+        });
+    });
+</script>
+</body>
+</html>
