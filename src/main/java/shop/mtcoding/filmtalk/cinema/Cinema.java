@@ -15,6 +15,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Entity
 public class Cinema { //영화관 테이블
+    //TODO: 주석추가
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
