@@ -20,6 +20,7 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout() {
+        //TODO DFEEFㅇ
         session.invalidate(); //  락커의 특정 세션서랍만 날린다.
         return "redirect:/";
     }
