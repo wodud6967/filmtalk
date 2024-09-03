@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MovieController {
 
+    //열심히 만들겠습니다!
     @GetMapping("/")
     public String home(){
 
