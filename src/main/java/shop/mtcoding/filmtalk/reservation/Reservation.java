@@ -17,7 +17,7 @@ import java.sql.Timestamp;
 @NoArgsConstructor
 @Entity
 public class Reservation {
-
+    //TODO : 주석 지우기
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
