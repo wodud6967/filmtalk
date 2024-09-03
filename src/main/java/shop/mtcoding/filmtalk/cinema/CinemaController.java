@@ -16,6 +16,6 @@ public class CinemaController {
     @ResponseBody
     @GetMapping("/cineTest")
     public String test(){
-        return "테스트 성공";
+        return "테스트 성공ssss";
     }
 }
