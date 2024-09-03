@@ -6,4 +6,8 @@ import org.springframework.stereotype.Controller;
 @RequiredArgsConstructor
 @Controller
 public class PaymentController {
+//    public String test ("/test"){
+//        return "test";
+//    }
+
 }
