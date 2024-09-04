@@ -20,7 +20,7 @@ public class ReservationController {
     @GetMapping("/reservation")
     public String view(){
 
-        return "reservation/veiw";
+        return "reservation/view";
     }
 
     //TODO 쿼리 테스트
