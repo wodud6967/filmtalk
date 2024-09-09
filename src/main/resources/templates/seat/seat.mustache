@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{title}}</title> <!-- 좌석 선택 -->
+    <!-- 부트스트랩 CSS 링크 -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style3.css">
+</head>
+
+<body>
+<main>
+
+    <div class="container mt-5">
+        <!-- 상단 인원 / 좌석 -->
+        <div class="text-center mb-4">
+            <div class="bg-dark text-white py-2 mb-3">인원 / 좌석</div>
+        </div>
+        <section>
+            <div class="count__seat__section">
+                <!-- 인원 선택 -->
+                <div class="count__section">
+                    <div class="mb-4">
+                        <div class="text-center">
+                            <label>일반</label>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-outline-primary">0</label>
+                                <label class="btn btn-outline-primary">1</label>
+                                <label class="btn btn-outline-primary">2</label>
+                                <label class="btn btn-outline-primary">3</label>
+                                <label class="btn btn-outline-primary">4</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="vertical__line"></div>
+                <div class="movie__info__section">
+
+                    <!-- 상영 정보 -->
+                    <div class="text-center mb-4">
+                        <img src="images/베테랑2.jpg">
+                        <p class="font-weight-bold">CGV 센텀시티 | 4관 (Laser) | 남은좌석 281/303</p>
+                        <p>2024.09.04 (수) 20:15 ~ 22:10</p>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+
+
+        <!-- 좌석 배치 -->
+        <div class="seat-selection text-center mb-4">
+            <div class="bg-dark text-white py-2 mb-3">SCREEN</div>
+            <!--<div class="seats d-flex justify-content-center flex-wrap">
+                 좌석 A ~ L 행
+                <div class="d-flex align-items-center mb-2">
+                    <span class="mr-2">A</span>
+                    <button class="seat btn btn-outline-secondary mr-2"></button>
+                    <button class="seat btn btn-outline-secondary mr-2"></button>
+                    <button class="seat btn btn-outline-secondary mr-2"></button>
+                    <button class="seat btn btn-outline-secondary mr-2"></button>
+                </div> -->
+            <!-- 좌석 행 반복 추가 가능 -->
+            <div id="seat-container"></div>
+        </div>
+    </div>
+
+    <!-- 하단 검은창 -->
+    <div class="row bg-dark text-white py-2 mb-3">
+        <div class="col text-left">
+            <button class="btn btn-secondary">영화선택</button>
+        </div>
+
+        <div>
+            <img src="images/베테랑2.jpg">
+        </div>
+        <div>
+            <div>베테랑2</div>
+            <div>2D</div>
+            <div>12세 관람가</div>
+        </div>
+        <div>
+            <li>극장</li>
+            <li>일시</li>
+            <li>상영관</li>
+            <li>인원</li>
+        </div>
+        <li>좌석명</li>
+        <li>좌석번호</li>
+
+        <div class="col text-right">
+            <button class="btn btn-secondary">결제선택</button>
+        </div>
+    </div>
+    </div>
+
+    <!-- 부트스트랩 JS 및 jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/script3.js"></script>
+</main>
+</body>
+
+</html>
