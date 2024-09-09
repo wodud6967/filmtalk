@@ -14,4 +14,8 @@ public class MovieController {
 
         return "movie/view";
     }
+    @GetMapping("/movie/1")
+    public String detail(){
+        return "movie/detail";
+    }
 }
