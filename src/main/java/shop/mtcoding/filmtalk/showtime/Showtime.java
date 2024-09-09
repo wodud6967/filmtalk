@@ -24,24 +24,21 @@ public class Showtime {
     private Movie movie;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private Screen screen;
+    private Screen screen; //상영관
+
 
     @Column(nullable = false)
-    private Timestamp showTime; // 상영 시간
+    private Timestamp startedAt;
 
-    @Column(nullable = false)
-    private Timestamp createdAt;
 
-    @Column(nullable = false)
-    private Timestamp modifiedAt;
+
 
     @Builder
-    public Showtime(Long id, Movie movie, Screen screen, Timestamp showTime, Timestamp createdAt, Timestamp modifiedAt) {
+    public Showtime(Long id, Movie movie, Screen screen) {
         this.id = id;
         this.movie = movie;
         this.screen = screen;
-        this.showTime = showTime;
-        this.createdAt = createdAt;
-        this.modifiedAt = modifiedAt;
+
+
     }
 }

@@ -20,7 +20,7 @@ public class Cinema { //영화관 테이블
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id ;
 
-    private String address;
+
 
     private String imgName;
 
@@ -30,23 +30,18 @@ public class Cinema { //영화관 테이블
 
     private String name;
 
-    private String phone;
 
-    private Timestamp modifiedAt;
-    private Timestamp createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Region region;
 
-    public Cinema(Long id, String address, String imgName, String imgUname, String name, String phone, Timestamp modifiedAt, Timestamp createdAt, Region region) {
+
+    @Builder
+    public Cinema(Long id, String imgName, String imgUname, String name, Region region) {
         this.id = id;
-        this.address = address;
         this.imgName = imgName;
         this.imgUname = imgUname;
         this.name = name;
-        this.phone = phone;
-        this.modifiedAt = modifiedAt;
-        this.createdAt = createdAt;
         this.region = region;
     }
 }

@@ -5,7 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.filmtalk.cinema.Cinema;
 import shop.mtcoding.filmtalk.seat.Seat;
+import shop.mtcoding.filmtalk.showtime.Showtime;
 
 import java.sql.Timestamp;
 
@@ -19,22 +21,19 @@ public class Screen {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cinema cinema;
+
     private String name;
-    private String type; // 상영관 종류 특별관 일반관 ?????
 
 
-
-    private Timestamp modifiedAt;
-    private Timestamp createdAt;
 
     //totalseat 총 좌석수?
 
     @Builder
-    public Screen(Long id, String name, String type, Timestamp modifiedAt, Timestamp createdAt) {
+    public Screen(Long id, Cinema cinema, String name) {
         this.id = id;
+        this.cinema = cinema;
         this.name = name;
-        this.type = type;
-        this.modifiedAt = modifiedAt;
-        this.createdAt = createdAt;
     }
 }

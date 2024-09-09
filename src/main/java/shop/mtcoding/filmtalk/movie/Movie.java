@@ -32,7 +32,7 @@ public class Movie {
     @Column(nullable = false)
     private String posterUrl; //포스터 이미지 URL
     @Column(nullable = false)
-    private String runtime;  //상영시간
+    private Integer runtime;  //상영시간
     @Column(nullable = false)
     private String ratingGrade; // 관람기준 ex)15세, 18세
     @Column(nullable = false)
@@ -48,7 +48,7 @@ public class Movie {
 
     private Long apiId; //추후 api등록
 
-    public Movie(Long id, String movieNm, String prdtYear, String openDt, String nationNm, String genreNm, String director, String company, String posterUrl, String runtime, String ratingGrade, String audiAcc, String vodUrl, String plot, String actorNm, String stillUrl, Long apiId) {
+    public Movie(Long id, String movieNm, String prdtYear, String openDt, String nationNm, String genreNm, String director, String company, String posterUrl, Integer runtime, String ratingGrade, String audiAcc, String vodUrl, String plot, String actorNm, String stillUrl, Long apiId) {
         this.id = id;
         this.movieNm = movieNm;
         this.prdtYear = prdtYear;
