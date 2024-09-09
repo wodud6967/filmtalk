@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Custom Header</title>
+    <title>메인페이지</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -11,24 +11,66 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/header.css">
     <style>
-        #main{
+        #main {
             width: 100%;
             background-color: aliceblue;
             margin-top: 20px;
         }
-        .inner{
-            width: 1200px;
+
+        .inner {
+            /*width: 1200px;*/
             margin: 0 auto;
+            padding: 1px;
         }
-        #sec1{
+
+        #sec1 {
             color: black;
-            background-color: aquamarine;
-            height: 400px;
+            background-color: #fff8ec;
+            /*height: 400px;*/
         }
-        #sec2{
+
+        #sec2 {
             color: black;
-            background-color: bisque;
-            height: 400px;
+            background-color: #e2f8ff;
+            /*height: 400px;*/
+        }
+
+        #sec3 {
+            color: black;
+            background-color: #f4ffe9;
+            /*height: 400px;*/
+        }
+
+
+        .movie-card {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .movie-card img {
+            width: 100%;
+            height: auto;
+        }
+
+        .badge-custom {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+        }
+
+        .movie-info {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .movie-title {
+            font-size: 0.9rem;
+            font-weight: bold;
+        }
+
+        .movie-runtime {
+            font-size: 0.7rem;
+            color: #888;
         }
     </style>
 </head>
@@ -38,14 +80,208 @@
 
 <!-- 메인에서 작업하면되 1200px 중앙정렬-->
 <main id="main">
-    <h2>무비 메인페이지</h2>
     <section id="sec1" class="inner">
-        #sec1 여기서작업1 1200px inner
+        <div class="container mt-5"><!-- 현재 상영작 TOP 5 -->
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4 class="fw-bold">현재 상영작 <span class="text-danger">TOP 5</span></h4>
+                </div><!-- 영화 카드 -->
+                <div class="col">
+                    <div class="movie-card">
+                        <a href="movie/1">
+                            <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21478_103_1.jpg"
+                                    alt="영화 포스터">
+                            <span class="badge bg-success badge-custom">전체</span>
+                        </a>
+
+                        <div class="row mb-2">
+                            <div class="movie-info">
+                                <div class="movie-title">안녕, 할부지</div>
+                                <div class="movie-runtime">94분</div>
+                                <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202408/21254_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
+                        <div class="movie-info">
+                            <div class="movie-title">빅토리</div>
+                            <div class="movie-runtime">120분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21235_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
+                        <div class="movie-info">
+                            <div class="movie-title">비틀쥬스</div>
+                            <div class="movie-runtime">104분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202408/21028_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-danger badge-custom">15</span>
+                        <div class="movie-info">
+                            <div class="movie-title">에일리언: 로물루스</div>
+                            <div class="movie-runtime">119분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21258_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
+                        <div class="movie-info">
+                            <div class="movie-title">파일럿</div>
+                            <div class="movie-runtime">111분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
     <section id="sec2" class="inner">
-        #sec2 여기서작업1 1200px inner
+        <div class="container mt-5">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4 class="fw-bold">상영 예정작 <span class="text-danger">TOP 5</span></h4>
+                </div><!-- 영화 카드 -->
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202108/17726_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-danger badge-custom">롯시픽</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 1</div>
+                            <div class="movie-runtime">115분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21115_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 2</div>
+                            <div class="movie-runtime">115분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21456_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-danger badge-custom">15</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 3</div>
+                            <div class="movie-runtime">91분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21464_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-success badge-custom">전체</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 4</div>
+                            <div class="movie-runtime">115분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21479_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 5</div>
+                            <div class="movie-runtime">105분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="sec3" class="inner">
+        <div class="container mt-5">
+            <div class="row mb-4">
+                <div class="col-12">
+                    <h4 class="fw-bold">아르떼 영화 <span class="text-danger">TOP 5</span></h4>
+                </div><!-- 영화 카드 -->
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202007/16078_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-danger badge-custom">아르떼</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 6</div>
+                            <div class="movie-runtime">120분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21491_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 7</div>
+                            <div class="movie-runtime">95분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202108/17726_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-danger badge-custom">15</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 8</div>
+                            <div class="movie-runtime">91분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202408/21260_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-success badge-custom">전체</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 9</div>
+                            <div class="movie-runtime">115분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="movie-card"><img
+                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202102/16923_103_1.jpg"
+                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
+                        <div class="movie-info">
+                            <div class="movie-title">영화 제목 10</div>
+                            <div class="movie-runtime">105분</div>
+                            <button class="btn btn-primary btn-sm mt-2">예매하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
 </main>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
 
 {{>layout/footer}}
