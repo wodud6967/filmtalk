@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.filmtalk.cinema.Cinema;
 
 import java.sql.Timestamp;
 
@@ -35,6 +36,11 @@ public class Admin {
 
     @Column(nullable = false)
     private Timestamp createdAt;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    private Cinema cinema;
+
+
 
     public Admin(Long id, String username, String password, String email, String phone, String role, Timestamp createdAt) {
         this.id = id;

@@ -1,6 +1,7 @@
 package shop.mtcoding.filmtalk.payment;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -43,13 +44,12 @@ public class Payment {
     @Column(nullable = false, length = 40)
     private String impUid; // 결제 고유 API
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private User user; // User 엔티티와의 관계
+    @OneToOne(fetch = FetchType.LAZY)
+    private Reservation reservation; // User 엔티티와의 관계
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Reservation reservation; // Reservation 엔티티와의 관계
 
-    public Payment(Long id, String type, Double price, Timestamp payDate, Timestamp cnclDate, String mycoupon, Integer point, Integer state, String impUid, User user, Reservation reservation) {
+    @Builder
+    public Payment(Long id, String type, Double price, Timestamp payDate, Timestamp cnclDate, String mycoupon, Integer point, Integer state, String impUid, Reservation reservation) {
         this.id = id;
         this.type = type;
         this.price = price;
@@ -59,7 +59,7 @@ public class Payment {
         this.point = point;
         this.state = state;
         this.impUid = impUid;
-        this.user = user;
         this.reservation = reservation;
+
     }
 }

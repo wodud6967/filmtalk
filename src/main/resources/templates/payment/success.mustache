@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>결제 완료</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/payment.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header.css">
+</head>
+
+<body>
+
+{{> layout/header}}
+
+<!-- 메인 컨텐츠 -->
+<main id="main">
+    <section id="sec1" class="inner">
+        <h2 id="sec1__title">결제 완료</h2>
+        <br>
+        <h3>{{회원이름}} 회원님 결제가 완료 되었습니다.</h3>
+        <br>
+
+        <!-- 영화 정보 및 포스터 영역 -->
+        <div id="sec1__order_info">
+            <div class="order_info_top">
+                <div class="order_info_left">
+                    <img src="{{포스터_이미지}}" alt="영화 포스터">
+                </div>
+                <div class="order_info_right">
+                    <div class="info_row">
+                        <span class="info_label">예매번호</span>
+                        <span>{{예매번호}}</span>
+                    </div>
+                    <div class="divider"></div>
+                    <div class="info_row">
+                        <span class="info_label">상영 일시</span>
+                        <span>{{상영_일시}}</span>
+                    </div>
+                    <div class="info_row">
+                        <span class="info_label">상영관</span>
+                        <span>{{상영관}}</span>
+                    </div>
+                    <div class="info_row">
+                        <span class="info_label">관람 인원</span>
+                        <span>{{관람_인원}}</span>
+                    </div>
+                    <div class="info_row">
+                        <span class="info_label">좌석</span>
+                        <span>{{좌석}}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 결제 정보 하단 영역 -->
+            <div class="order_info_bottom">
+                <div class="bottom_section">
+                    <span>주문 금액</span> <strong>{{주문금액}}</strong>
+                </div>
+
+                <div class="bottom_section middle">
+                    <div class="middle_row">
+                        <span>할인 금액</span> <strong>{{할인금액}}</strong>
+                    </div>
+                    <br><br>
+                    <div class="middle_row">
+                        <span>관람권 or 할인권</span> <strong>{{할인권_금액}}</strong>
+                    </div>
+                </div>
+
+                <div class="bottom_section">
+                    <span>총 결제 금액</span> <strong>{{총결제금액}}</strong>
+                </div>
+            </div>
+        </div>
+
+        <div id="sec1__notice">
+            • 온라인 예매 내역 취소는 상영 시작 20분 전까지 온라인에서 가능합니다.<br>
+            • 상영시작 20분 전 이후 부터는 영화관 현장에서만 취소 가능합니다.<br>
+        </div>
+        <div id="sec1-1__notice">
+            • 적립 예정 POINT는 영화 관람 다음 날 적립 됩니다.<br>
+            • 예고편 상영 등 사정에 의해 본 영화 시작이 10여분 정도 차이 날 수 있습니다.<br>
+            • 개인정보 보호 정책에 따라 주민번호로 예매 티켓을 찾을 수 없습니다. 꼭 예매 번호를 확인해주세요.
+        </div>
+        <div id="sec1__btn_group">
+            <a href="/mypage/reservDetail.html"><button class="btn btn-outline-primary">결제내역</button></a>
+            <a href="/"><button class="btn btn-primary">홈으로 바로가기</button></a>
+        </div>
+    </section>
+</main>
+
+{{> layout/footer}}
+
+</body>
+</html>
