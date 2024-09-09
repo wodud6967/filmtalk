@@ -37,6 +37,9 @@ public class PaymentController {
         model.addAttribute("", "");
         model.addAttribute("", "");
         model.addAttribute("", "");
+
+        return "payment/success";
+
     }
 
 }
