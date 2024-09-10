@@ -53,4 +53,5 @@ public class Qna {
         this.user = user;
     }
 
+
 }
