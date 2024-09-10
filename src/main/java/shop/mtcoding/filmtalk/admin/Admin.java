@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.CreationTimestamp;
 import shop.mtcoding.filmtalk.cinema.Cinema;
 
 import java.sql.Timestamp;
@@ -28,13 +29,13 @@ public class Admin {
     @Column(nullable = false, unique = true)
     private String email;
 
-    @Column(nullable = false)
+
     private String phone;
 
-    @Column(nullable = false)
+
     private String role; // ROLE_ADMIN, ROLE_SUPERADMIN 등
 
-    @Column(nullable = false)
+    @CreationTimestamp
     private Timestamp createdAt;
 
     @ManyToOne(fetch = FetchType.LAZY)

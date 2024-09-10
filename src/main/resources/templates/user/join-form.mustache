@@ -1,29 +1,178 @@
-{{> layout/header}}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>회원가입 페이지</title>
+    <!-- 부트스트랩 CSS 링크 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <style>
+        .container{
+            min-width: 640px;
+            width: 640px;
+            margin:  0 auto;
 
-<div class="container p-5">
+        }
+        .back{
+            width: 100%;
+            height: 64px;
+            display: flex;
+            align-items: center;
+            border-bottom: 1px solid rgb(242, 243, 245);
+        }
+        .back svg{
+            width: 24px;
+            height: 24px;
+        }
+        .signup-container {
 
-    <!-- 요청을 하면 localhost:8080/join POST로 요청됨
-    username=사용자입력값&password=사용자값&email=사용자입력값 -->
+            padding: 30px;
 
-    <div class="card">
-        <div class="card-header"><b>회원가입을 해주세요</b></div>
-        <div class="card-body">
-            <form action="/join" method="post" enctype="application/x-www-form-urlencoded">
-                <div class="mb-3">
-                    <input type="text" class="form-control" placeholder="Enter username" name="username" value="haha">
-                </div>
-                <div class="mb-3">
-                    <input type="password" class="form-control" placeholder="Enter password" name="password"
-                           value="1234">
-                </div>
-                <div class="mb-3">
-                    <input type="email" class="form-control" placeholder="Enter email" name="email"
-                           value="haha@nate.com">
-                </div>
-                <button type="submit" class="btn btn-primary form-control">회원가입</button>
-            </form>
+
+
+        }
+        .form-text {
+            color: red;
+        }
+        .btn-custom {
+            background-color: #00aaff;
+            color: white;
+            border: none;
+        }
+        .btn-custom-cancel {
+            background-color: #ffcc00;
+            color: white;
+            border: none;
+        }
+        .btn-custom:hover {
+            background-color: #007acc;
+        }
+        .btn-custom-cancel:hover {
+            background-color: #e6b800;
+        }
+        .text__title{
+            margin: 25px 0;
+        }
+        .text__title .text__box{
+            width: 40%;
+            display: flex;
+            flex-direction: column;
+
+        }
+        .text__title .text__box h3{
+            font-weight: 700;
+            font-size: 24px;
+            line-height: 34px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="back">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512"><!--!Font Awesome Free 6.6.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+            <path d="M9.4 233.4c-12.5 12.5-12.5 32.8 0 45.3l192 192c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L77.3 256 246.6 86.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0l-192 192z"/></svg>
+    </div>
+    <div class="signup-container">
+        <div class="text__title">
+            <div class="text__box">
+                <h3>회원가입</h3>
+
+            </div>
+            <p>회원이 되어 다영한 혜택을 경험해 보세요</p>
         </div>
+        <form action="/join" method="post" enctype="application/x-www-form-urlencoded">
+            <!-- 아이디 입력 -->
+            <div class="mb-3">
+
+                <input type="text" class="form-control" id="userId" name="username" value="haha" placeholder="Enter username">
+                <div class="form-text">사용할 수 없는 아이디입니다</div>
+                <button type="button" class="btn btn-custom mt-2">중복 확인</button>
+            </div>
+
+            <!-- 비밀번호 입력 -->
+            <div class="mb-3">
+
+                <input type="password" class="form-control"  id="password" placeholder="Enter password" name="password" value="1234">
+                <div class="form-text">20자 이내의 비밀번호를 입력해주세요</div>
+            </div>
+
+            <!-- 비밀번호 확인 -->
+            <div class="mb-3">
+
+                <input type="password" class="form-control" id="confirmPassword" placeholder="비밀번호 재입력">
+                <div class="form-text">비밀번호가 일치하지 않습니다</div>
+            </div>
+
+            <!-- 이름 입력 -->
+            <div class="mb-3">
+
+                <input type="text" class="form-control" id="name" placeholder="이름을 입력해주세요">
+            </div>
+
+            <!-- 전화번호 입력 -->
+            <div class="mb-3">
+
+                <input type="tel" class="form-control" id="phone" placeholder="휴대폰 번호 입력 ('-' 제외 11자리 입력)">
+            </div>
+
+            <!-- 이메일 입력 -->
+            <div class="mb-3">
+
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="Enter email" name="email" value="haha@nate.com">
+                </div>
+                <!--
+                <div class="input-group">
+                    <input type="text" class="form-control" placeholder="이메일 주소" id="email">
+                    <span class="input-group-text">@</span>
+                    <input type="text" class="form-control" value="naver.com">
+                </div>
+            -->
+            </div>
+
+            <!-- 생년월일 입력 -->
+            <div class="mb-3">
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <select class="form-select">
+                            <option selected>년도</option>
+                            <option>1990</option>
+                            <option>1991</option>
+                            <!-- 추가 연도 입력 -->
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select">
+                            <option selected>월</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <!-- 추가 월 입력 -->
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select class="form-select">
+                            <option selected>일</option>
+                            <option>1</option>
+                            <option>2</option>
+                            <!-- 추가 일 입력 -->
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 가입하기 / 가입취소 버튼 -->
+            <div class="d-flex justify-content-between">
+                <button type="submit" class="btn btn-custom w-50">가입하기</button>
+                <button type="button" class="btn btn-custom-cancel w-50 ms-2">가입취소</button>
+            </div>
+        </form>
     </div>
 </div>
 
-{{> layout/footer}}
+<!-- 부트스트랩 JS 링크 -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
