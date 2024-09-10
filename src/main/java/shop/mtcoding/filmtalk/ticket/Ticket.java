@@ -1,6 +1,7 @@
 package shop.mtcoding.filmtalk.ticket;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -34,5 +35,12 @@ public class Ticket {
     @Column(nullable = false)
     private Timestamp createdAt;
 
-
+    @Builder
+    public Ticket(Long id, Seat seat, Showtime showtime, Reservation reservation, Timestamp createdAt) {
+        this.id = id;
+        this.seat = seat;
+        this.showtime = showtime;
+        this.reservation = reservation;
+        this.createdAt = createdAt;
+    }
 }

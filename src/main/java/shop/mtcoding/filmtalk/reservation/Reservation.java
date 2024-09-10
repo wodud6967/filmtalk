@@ -25,13 +25,9 @@ public class Reservation {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Ticket ticket;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
-
-
 
 
 
@@ -39,11 +35,9 @@ public class Reservation {
     private Timestamp createdAt;
 
     @Builder
-    public Reservation(Long id, User user, Timestamp bookingTime) {
+    public Reservation(Long id, User user, Timestamp createdAt) {
         this.id = id;
-
         this.user = user;
-
-
+        this.createdAt = createdAt;
     }
 }

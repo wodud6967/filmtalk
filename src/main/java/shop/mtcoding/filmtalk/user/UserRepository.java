@@ -7,9 +7,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.filmtalk.seat.Seat;
 
-import java.util.Optional;
-
-public interface BoardRepository extends JpaRepository<Seat, Long> {
+public interface UserRepository extends JpaRepository<Seat, Long> {
 
 
     @Modifying
