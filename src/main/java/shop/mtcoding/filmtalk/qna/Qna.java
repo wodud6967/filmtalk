@@ -52,4 +52,5 @@ public class Qna {
         this.admin = admin;
         this.user = user;
     }
+
 }
