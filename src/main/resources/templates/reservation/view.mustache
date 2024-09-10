@@ -114,11 +114,11 @@
                         <div class="movie__reservation">
                             <div class="time__item">
                                 <div>14:35</div>
-                                <div class="seats">85 / 90</div>
+                                <div onclick="goSeat()" class="seats">85 / 90</div>
                             </div>
                             <div class="time__item">
                                 <div>17:00</div>
-                                <div class="seats low">20 / 90</div>
+                                <div onclick="goSeat()"  class="seats low">20 / 90</div>
                             </div>
                         </div>
                     </div>
@@ -131,5 +131,10 @@
     </section>
 
 </main>
+<script>
+    function goSeat(){
+        location.href ="/seat"
+    }
+</script>
 
 {{>layout/footer}}

@@ -1,5 +1,359 @@
 
-{{>layout/header}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion Menu</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin/header.css">
+    <style>
+
+        /* Sidebar styles */
+        aside {
+            width: 250px;
+        }
+        aside .side__icon {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        aside nav ul {
+            margin-bottom: 20px;
+        }
+        aside nav ul li {
+            margin-bottom: 10px;
+        }
+        aside nav > ul> li> a {
+            display: block;
+            background-color: #f6f6f6;
+            border-top: 1px solid #cfcfcf;
+            padding: 0 0 0 17px;
+            font-size: 12px;
+            line-height: 2.8;
+            font-weight: 600;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        aside nav ul li ul {
+            display: none;
+            margin-top: 10px;
+            padding-left: 24px;
+        }
+        aside nav ul li ul.on {
+            display: block;
+        }
+        aside nav ul li ul li {
+            background-color: #fff;
+        }
+        aside nav ul li ul li.active a{
+            color: red;
+        }
+        aside nav ul li ul li a {
+            font-size: 13px;
+            color: #555;
+            background-color: #fff;
+        }
+        aside nav ul li ul li a:hover {
+            background-color: #eaeaea;
+        }
+
+        /*----------------------*/
+        main {
+            display: flex;
+        }
+        main section {
+            flex: 1;
+            min-height: 700px;
+            border-left: 1px solid #ccc;
+            padding-bottom: 100px;
+            background-color: #ccc;
+
+        }
+        .sec__top{
+            background-color: #fff;
+        }
+        .content__route{
+            border-bottom: 1px solid #d7d7d7;
+            margin-left: 16px;
+            padding-left: 24px;
+            color: #666;
+            background: #fff;
+            line-height: 28px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+        .content__route div{
+            font-size: 11px;
+        }
+        .content__title{
+            position: relative;
+            height: 56px;
+
+            margin-left: 16px;
+            padding-left: 24px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+        }
+        table{
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #d7d7d7;
+        }
+        .fb__filter__title{
+            padding-left: 35px;
+            color: #000;
+            font-size: 13px;
+            font-weight: normal;
+            text-align: left;
+            background: #f9f9f9;
+            border-right: 1px solid #d7d7d7;;
+        }
+        .name__filter__text{
+            width: 360px;
+            height: 30px;
+            margin-right: 10px;
+            padding: 5px;
+            border: 1px solid #d7d7d7;
+            box-sizing: border-box;
+        }
+
+        /*---------------------------*/
+
+
+        .sec__center {
+            margin: 20px;
+            background-color: #fff;
+            padding: 20px;
+            width: 100%;
+            border: 1px solid #d7d7d7;
+            height: auto;
+
+        }
+
+
+        #cards {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 첫 번째 줄 4개 */
+            grid-template-rows: 250px 350px 350px; /* 모든 줄의 높이를 400px로 고정 */
+            gap: 20px;
+        }
+
+        .card {
+
+            padding: 20px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            justify-content: flex-start;
+        }
+
+        /* 첫번째 줄은 4개, 두번째 줄은 2개, 세번째 줄도 2개 */
+        #cards div:nth-child(1),
+        #cards div:nth-child(2),
+        #cards div:nth-child(3),
+        #cards div:nth-child(4) {
+            grid-column: span 1;
+        }
+
+        #cards div:nth-child(5),
+        #cards div:nth-child(6) {
+            grid-column: span 2; /* 두 번째 줄에 2개 */
+        }
+
+        #cards div:nth-child(7),
+        #cards div:nth-child(8) {
+            grid-column: span 2; /* 세 번째 줄에 2개 */
+        }
+
+        /* 화면이 1024px 이하일 때 */
+        @media (max-width: 1024px) {
+            #cards {
+                grid-template-columns: repeat(2, 1fr); /* 첫 번째 줄에 2개 */
+            }
+
+            #cards div:nth-child(1),
+            #cards div:nth-child(2) {
+                grid-column: span 1; /* 첫번째 줄 2개 */
+            }
+
+            #cards div:nth-child(3),
+            #cards div:nth-child(4) {
+                grid-column: span 2; /* 두번째 줄에 1개 */
+            }
+
+            #cards div:nth-child(5),
+            #cards div:nth-child(6) {
+                grid-column: span 2; /* 두번째 줄에 1개 */
+            }
+
+            #cards div:nth-child(7),
+            #cards div:nth-child(8) {
+                grid-column: span 2; /* 세번째 줄에 1개 */
+            }
+        }
+
+        /* 화면이 768px 이하일 때 1열로 변경 */
+        @media (max-width: 768px) {
+            #cards {
+                grid-template-columns: 1fr; /* 모든 카드가 1열로 나열 */
+            }
+
+            #cards div {
+                grid-column: span 1;
+            }
+        }
+
+        /*------------------------------------------*/
+        .user-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .user-card-header span {
+            font-weight: bold;
+        }
+
+        .register-btn {
+            background-color: #007bff;
+            color: #fff;
+            padding: 8px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .register-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .user-info {
+            margin-top: 10px;
+        }
+
+        .user-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .user-row:last-child {
+            border-bottom: none;
+        }
+
+        .tooltip {
+            background-color: #e0e0e0;
+            border-radius: 50%;
+            padding: 2px 6px;
+            margin-left: 5px;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .two__show .table__container {
+            width: 100%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            text-align: center;
+        }
+        .two__show .table__top{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .two__show h3 {
+            font-size: 18px;
+            margin: 0;
+            position: relative;
+            padding-left: 10px;
+        }
+
+        .two__show h3:before {
+            display: inline-block;
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 4px;
+            height: 16px;
+            background: #1a4e99;
+            content: '';
+        }
+
+        .two__show table {
+            width: 100%;
+            border: 1px solid #ddd;
+        }
+
+        .two__show table th,.two__show  table td {
+            padding: 10px;
+            border: 1px solid #ddd;
+        }
+
+        .two__show thead th {
+            background-color: #f5f5f5;
+            font-weight: bold;
+        }
+
+        .two__show tbody tr:nth-child(even) {
+
+        }
+
+        .two__show .btn {
+
+            padding: 10px 15px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            font-size: 14px;
+            border-radius: 5px;
+        }
+
+        .two__show .btn:hover {
+            background-color: #555;
+        }
+
+
+    </style>
+</head>
+<body>
+
+
+<header>
+    <div class="header__top">
+        <h1><img src="" alt=""><a href="/admin/dashboard">Admin</a></h1>
+        <ul>
+            <li><a href="#">서면롯데시네마</a></li>
+            <li><a href="#">메인페이지</a></li>
+            <li><a href="#">로그아웃</a></li>
+        </ul>
+    </div>
+    <div class="header__bottom">
+        <ul>
+            <li class="active"><a href="/admin/dashboard">데시보드</a> </li>
+            <li><a href="/admin/member">회원관리</a></li>
+            <li><a href="/admin/cinema">상영관등록</a></li>
+            <li ><a href="/admin/movie">영화관리</a></li>
+            <li><a href="/admin/showtime">상영관관리</a></li>
+            <li><a href="#">영화관관리</a></li>
+        </ul>
+    </div>
+</header>
+
 <main>
     <aside>
         <div class="side__icon">
@@ -7,6 +361,15 @@
         </div>
 
         <nav>
+            <ul class="dashboard__info">
+                <li>
+                    <a href="#">롯데시네마</a>
+                    <ul class="on" >
+                        <li class="active"><a href="#">데시보드</a></li>
+
+                    </ul>
+                </li>
+            </ul>
             <ul class="admin__info">
                 <li>
                     <a href="#">영화등록</a>
@@ -22,8 +385,8 @@
             <ul class="point">
                 <li>
                     <a href="#">상영관관리</a>
-                    <ul class="on">
-                        <li class="active"><a href="#">상영관등록</a></li>
+                    <ul>
+                        <li><a href="#">상영관등록</a></li>
                         <li><a href="#">상영관스케줄등록</a></li>
                         <li><a href="#">좌석등록</a></li>
                     </ul>
@@ -67,9 +430,66 @@
                     </div>
                 </div>
 
-                <div class="card">Card 2</div>
-                <div class="card">Card 3</div>
-                <div class="card">Card 4</div>
+                <div class="card">
+                    <div class="user-card-header">
+                        <span>문의하기</span>
+                        <button class="register-btn">문의 등록</button>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-row">
+                            <span>총 문의내용 <i class="tooltip">?</i></span>
+                            <span>20개</span>
+                        </div>
+                        <div class="user-row">
+                            <span>미답변 <i class="tooltip">?</i></span>
+                            <span>10개</span>
+                        </div>
+                        <div class="user-row">
+                            <span>오늘 문의내용 <i class="tooltip">?</i></span>
+                            <span>3개</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="user-card-header">
+                        <span>상영스케줄</span>
+                        <button class="register-btn">스케줄 등록</button>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-row">
+                            <span>오늘 5일 (28/28) <i class="tooltip">?</i></span>
+                            <span>등록 완료</span>
+                        </div>
+                        <div class="user-row">
+                            <span>내일 6일 (26/28) <i class="tooltip">?</i></span>
+                            <span>2개 등록필요</span>
+                        </div>
+                        <div class="user-row">
+                            <span>모레 7일 (15/28)<i class="tooltip">?</i></span>
+                            <span>13개 등록필요</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="user-card-header">
+                        <span>등록된 영화 (총 20개)</span>
+                        <button class="register-btn">영화검색하기</button>
+                    </div>
+                    <div class="user-info">
+                        <div class="user-row">
+                            <span>현재상영중인영화 <i class="tooltip">?</i></span>
+                            <span>10개</span>
+                        </div>
+                        <div class="user-row">
+                            <span>상영예정영화 <i class="tooltip">?</i></span>
+                            <span>5개</span>
+                        </div>
+                        <div class="user-row">
+                            <span>미상용영화 <i class="tooltip">?</i></span>
+                            <span>5명</span>
+                        </div>
+                    </div>
+                </div>
                 <div class="card two__show">
                     <div class="table__container">
                         <div class="table__top">
@@ -124,8 +544,8 @@
                 </div>
                 <div class="card two__show"><div class="table__container">
                     <div class="table__top">
-                        <h3>최근 회원가입</h3>
-                        <button class="btn">회원관리바로가기</button>
+                        <h3>최근 결제내역</h3>
+                        <button class="btn">결제내역바로가기</button>
                     </div>
                     <table>
                         <thead>
@@ -175,7 +595,7 @@
                 <div class="card two__show">
                     <div class="table__container"></div>
                     <div class="table__top">
-                        <h3>최근 회원가입</h3>
+                        <h3>상영예정작</h3>
                         <button class="btn">회원관리바로가기</button>
                     </div>
                     <table>

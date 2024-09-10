@@ -1,0 +1,564 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion Menu</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin/header.css">
+    <style>
+
+        /* Sidebar styles */
+        aside {
+            width: 250px;
+        }
+        aside .side__icon {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        aside nav ul {
+            margin-bottom: 20px;
+        }
+        aside nav ul li {
+            margin-bottom: 10px;
+        }
+        aside nav > ul> li> a {
+            display: block;
+            background-color: #f6f6f6;
+            border-top: 1px solid #cfcfcf;
+            padding: 0 0 0 17px;
+            font-size: 12px;
+            line-height: 2.8;
+            font-weight: 600;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        aside nav ul li ul {
+            display: none;
+            margin-top: 10px;
+        }
+        aside nav ul li ul.on {
+            display: block;
+        }
+        aside nav ul li ul li {
+            background-color: #fff;
+        }
+        aside nav ul li ul li.active a{
+            color: red;
+        }
+        aside nav ul li ul li a {
+            font-size: 13px;
+            color: #555;
+            background-color: #fff;
+        }
+        aside nav ul li ul li a:hover {
+            background-color: #eaeaea;
+        }
+
+        /*----------------------*/
+        main {
+            display: flex;
+        }
+        main section {
+            flex: 1;
+            min-height: 700px;
+            border-left: 1px solid #ccc;
+            padding-bottom: 100px;
+            background-color: #ccc;
+        }
+        .sec__top {
+            background-color: #fff;
+        }
+        .content__route {
+            border-bottom: 1px solid #d7d7d7;
+            margin-left: 16px;
+            padding-left: 24px;
+            color: #666;
+            background: #fff;
+            line-height: 28px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+        .content__route div {
+            font-size: 11px;
+        }
+        .content__title {
+            position: relative;
+            height: 56px;
+            margin-left: 16px;
+            padding-left: 24px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #d7d7d7;
+        }
+        .cinema {
+            margin: 20px;
+            background-color: #fff;
+            padding: 20px;
+            width: 60%;
+            border: 1px solid #d7d7d7;
+        }
+        .cinema__list {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 20px;
+        }
+        .screen-item {
+            margin-bottom: 15px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            text-align: center;
+        }
+        .screen-item img {
+            width: 100%;
+            height: auto;
+        }
+        .screen-item h5 {
+            margin: 10px 0;
+        }
+        .screen-actions {
+            margin-top: 10px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 100;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 1200px;
+            position: relative;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 24px;
+            border-bottom: 1px solid #d7d7d7;
+        }
+
+        .container__seat {
+            display: grid;
+            grid-template-columns: 3fr 4fr;
+            height: 500px;
+        }
+
+        .container__seat > div {
+            border-right: 1px solid #d7d7d7;
+            padding: 15px 30px;
+            overflow-y: auto; /* 개별적으로 스크롤이 생기도록 */
+            max-height: 500px; /* 최대 높이를 설정하여 초과할 경우 스크롤 발생 */
+        }
+
+        .container__seat > div:first-child {
+            border-left: 1px solid #d7d7d7;
+        }
+
+        .modal-bottom {
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #d7d7d7;
+            padding: 16px 24px;
+        }
+
+        .save-button {
+            padding: 12px;
+            background-color: #6200ee;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        .close-button {
+            padding: 12px;
+            background-color: #fff;
+            border: 1px solid #d7d7d7;
+            border-radius: 4px;
+            cursor: pointer;
+            text-align: center;
+        }
+
+        #seat__create {
+            background-color: #b7b7b7;
+        }
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /*----------------------------------------------*/
+
+        #seat-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            align-items: center;
+            align-items: center;
+            margin: 20px;
+        }
+
+        .row {
+            display: flex;
+            margin-bottom: 10px;
+        }
+
+        .seat {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            background-color: #a3a3a3;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .aisle {
+            width: 30px;
+            height: 30px;
+            margin: 5px;
+            background-color: transparent;
+        }
+
+        .horizontal-aisle {
+            height: 20px;
+            /* 통로 높이 설정 */
+            margin-bottom: 20px;
+            /* 위와 아래 좌석 사이 간격 설정 */
+        }
+
+        .seat:hover {
+            background-color: #d20000;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header__top">
+        <h1><img src="" alt=""><a href="/admin/dashboard">Admin</a></h1>
+        <ul>
+            <li><a href="#">서면롯데시네마</a></li>
+            <li><a href="#">메인페이지</a></li>
+            <li><a href="#">로그아웃</a></li>
+        </ul>
+    </div>
+    <div class="header__bottom">
+        <ul>
+            <li><a href="/admin/dashboard">데시보드</a> </li>
+            <li><a href="/admin/member">회원관리</a></li>
+            <li><a href="/admin/cinema">상영관등록</a></li>
+            <li class="active" ><a href="/admin/movie">영화관리</a></li>
+            <li><a href="/admin/showtime">상영관관리</a></li>
+            <li><a href="#">영화관관리</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <aside>
+        <div class="side__icon">
+            <div>영화관리</div>
+        </div>
+
+        <nav>
+            <ul class="admin__info">
+                <li>
+                    <a href="#">영화등록</a>
+                    <ul >
+                        <li><a href="#">최신영화</a></li>
+                        <li><a href="#">보유중인영화</a></li>
+                        <li><a href="#">상영중인영화</a></li>
+                        <li ><a href="#">영화배급받기</a></li>
+                        <li><a href="#">영화등록하기</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="point">
+                <li>
+                    <a href="#">상영관관리</a>
+                    <ul class="on">
+                        <li class="active"><a href="#">상영관등록</a></li>
+                        <li><a href="#">상영관스케줄등록</a></li>
+                        <li><a href="#">좌석등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <section>
+        <div class="sec__top">
+            <div class="content__route">
+                <div>상영관관리</div>
+                <div>></div>
+                <div>상영관등록하기</div>
+            </div>
+            <div class="content__title">
+                <h3>상영관등록하기</h3>
+            </div>
+        </div>
+        <div class="cinema">
+            <div class="form-group">
+                <label for="theater">영화관 선택</label>
+                <select class="form-control" id="theater">
+                    <option value="">영화관을 선택하세요</option>
+                    <option value="서면">서면</option>
+                    <option value="강남">강남</option>
+                    <option value="홍대">홍대</option>
+                </select>
+            </div>
+
+            <div id="screenList">
+                <h4>상영관 목록</h4>
+                <div class="cinema__list">
+                    <div class="screen-item" id="screen1">
+                        <img src="/img/cinema01.jpg" alt="Screen 1" />
+                        <h5>1관</h5>
+                        <div class="screen-actions">
+                            <button class="btn btn-secondary btn-seat">
+                                좌석 배치하기
+                            </button>
+                            <button class="btn btn-primary btn-manage-time">
+                                상영 시간 관리
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="screen-item" id="screen2">
+                        <img src="/img/cinema01.jpg" alt="Screen 2" />
+                        <h5>2관</h5>
+                        <div class="screen-actions">
+                            <button class="btn btn-secondary btn-seat">
+                                좌석 배치하기
+                            </button>
+                            <button class="btn btn-primary btn-manage-time">
+                                상영 시간 관리
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="screen-item" id="screen3">
+                        <img src="/img/cinema01.jpg" alt="Screen 3" />
+                        <h5>3관</h5>
+                        <div class="screen-actions">
+                            <button class="btn btn-secondary btn-seat">
+                                좌석 배치하기
+                            </button>
+                            <button class="btn btn-primary btn-manage-time">
+                                상영 시간 관리
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="screen-item" id="screen4">
+                        <img src="/img/cinema01.jpg" alt="Screen 4" />
+                        <h5>4관</h5>
+                        <div class="screen-actions">
+                            <button class="btn btn-secondary btn-seat">
+                                좌석 배치하기
+                            </button>
+                            <button class="btn btn-primary btn-manage-time">
+                                상영 시간 관리
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 상영관 추가 버튼 -->
+            <button class="btn btn-primary mt-3" id="openModal">
+                상영관 추가하기
+            </button>
+        </div>
+    </section>
+</main>
+
+<!-- 상영관 추가 모달 -->
+<div id="addScreenModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3>상영관 등록하기</h3>
+            <span class="close-btn">&times;</span>
+        </div>
+        <div class="container__seat">
+            <div class="schedule-info">
+                <div class="form-group">
+                    <label for="cinema__name">서면 롯데시네마</label>
+                    <select id="cinema__name">
+                        <option value="1">서면 롯데시네마</option>
+                        <option value="2">홍천 롯데시네마</option>
+                        <option value="3">일산 롯데시네마</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="channel">상영관명</label>
+                    <input type="text" id="channel" placeholder="하이라이트" />
+                </div>
+                <div class="form-group">
+                    <label for="seat-info">스케줄 정보</label>
+                    <input type="text" id="seat-info" value="255 석" />
+                </div>
+                <div class="form-group">
+                    <label for="presenter-info">담당자 정보</label>
+                    <input
+                            type="text"
+                            id="presenter-info"
+                            placeholder="상영관담장자명"
+                    />
+                </div>
+                <div class="form-group">
+                    <label for="row__info">행 </label>
+                    <input type="text" id="row__info" placeholder="행" />
+                </div>
+                <div class="form-group">
+                    <label for="column__info">열</label>
+                    <input type="text" id="column__info" placeholder="열" />
+                </div>
+                <div class="form-group">
+                    <label for="aisle_info">통로만들기</label>
+                    <input type="text" id="aisle_info" placeholder="통로" />
+                </div>
+            </div>
+
+            <div class="schedule-list">
+                <div class="form-group">
+                    <label for="list">좌석 등록</label>
+                </div>
+
+                <div id="seat__create">
+                    <!-- 좌석 행 반복 추가 가능 -->
+                    <div id="seat-container"></div>
+                </div>
+            </div>
+        </div>
+        <div class="modal-bottom">
+            <button class="save-button">저장</button>
+            <button class="close-button">취소</button>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap JS, jQuery -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    const addScreenModal = document.getElementById("addScreenModal");
+    const openModalBtn = document.getElementById("openModal");
+    const closeModalBtn = document.querySelector(".close-btn");
+
+    openModalBtn.addEventListener("click", () => {
+        addScreenModal.style.display = "flex";
+    });
+
+    closeModalBtn.addEventListener("click", () => {
+        addScreenModal.style.display = "none";
+    });
+
+    window.addEventListener("click", (e) => {
+        if (e.target == addScreenModal) {
+            addScreenModal.style.display = "none";
+        }
+    });
+
+    // 좌석 배치하기 버튼 클릭 시
+    $(document).on("click", ".btn-seat", function () {
+        let screenName = $(this).closest(".screen-item").find("h5").text();
+        alert(screenName + "의 좌석 배치 페이지로 이동합니다.");
+    });
+
+    // 상영 시간 관리 버튼 클릭 시
+    $(document).on("click", ".btn-manage-time", function () {
+        let screenName = $(this).closest(".screen-item").find("h5").text();
+        alert(screenName + "의 상영 시간 관리 페이지로 이동합니다.");
+    });
+</script>
+<script>
+    const rows = 10; // 행의 수
+    const columns = 12; // 열의 수
+    const aisleColumns = [4, 9]; // 통로가 들어갈 열 번호
+    const horizontalAisleRow = 5; // 통로가 들어갈 행 번호
+
+    let seatLayout = [];
+
+    // 좌석 배열 생성
+    for (let i = 0; i < rows; i++) {
+        if (i === horizontalAisleRow) {
+            seatLayout.push("horizontal-aisle"); // 가로 통로 추가
+        }
+
+        let row = [];
+        for (let j = 0; j < columns; j++) {
+            if (aisleColumns.includes(j)) {
+                row.push("aisle"); // 통로를 'aisle'로 표시
+            } else {
+                row.push(`${i + 1}${j + 1}`); // 좌석 번호를 R1C1, R1C2 등으로 표시
+            }
+        }
+        seatLayout.push(row);
+    }
+
+    // 좌석 및 통로 렌더링
+    seatLayout.forEach((row) => {
+        if (row === "horizontal-aisle") {
+            let aisleDiv = document.createElement("div");
+            aisleDiv.classList.add("horizontal-aisle");
+            document.getElementById("seat-container").appendChild(aisleDiv);
+        } else {
+            let rowDiv = document.createElement("div");
+            rowDiv.classList.add("row");
+
+            row.forEach((seat) => {
+                let seatDiv = document.createElement("div");
+                seatDiv.classList.add(seat === "aisle" ? "aisle" : "seat");
+                seatDiv.textContent = seat === "aisle" ? "" : seat;
+                rowDiv.appendChild(seatDiv);
+            });
+
+            document.getElementById("seat-container").appendChild(rowDiv);
+        }
+    });
+</script>
+
+</body>
+</html>

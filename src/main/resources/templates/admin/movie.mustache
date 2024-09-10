@@ -1,0 +1,616 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accordion Menu</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/admin/header.css">
+    <style>
+
+        /* Sidebar styles */
+        aside {
+            width: 250px;
+        }
+        aside .side__icon {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+        aside nav ul {
+            margin-bottom: 20px;
+        }
+        aside nav ul li {
+            margin-bottom: 10px;
+        }
+        aside nav > ul> li> a {
+            display: block;
+            background-color: #f6f6f6;
+            border-top: 1px solid #cfcfcf;
+            padding: 0 0 0 17px;
+            font-size: 12px;
+            line-height: 2.8;
+            font-weight: 600;
+            vertical-align: middle;
+            cursor: pointer;
+        }
+        aside nav ul li ul {
+            display: none;
+            margin-top: 10px;
+        }
+        aside nav ul li ul.on {
+            display: block;
+        }
+        aside nav ul li ul li {
+            background-color: #fff;
+        }
+        aside nav ul li ul li.active a{
+            color: red;
+        }
+        aside nav ul li ul li a {
+            font-size: 13px;
+            color: #555;
+            background-color: #fff;
+        }
+        aside nav ul li ul li a:hover {
+            background-color: #eaeaea;
+        }
+/* ------------------------------------  */
+
+        main {
+            display: flex;
+        }
+        main section {
+            flex: 1;
+            min-height: 700px;
+            border-left: 1px solid #ccc;
+            padding-bottom: 100px;
+            background-color: #ccc;
+        }
+        .sec__top {
+            background-color: #fff;
+        }
+        .content__route {
+            border-bottom: 1px solid #d7d7d7;
+            margin-left: 16px;
+            padding-left: 24px;
+            color: #666;
+            background: #fff;
+            line-height: 28px;
+            display: flex;
+            justify-content: flex-start;
+            gap: 20px;
+        }
+        .content__route div {
+            font-size: 11px;
+        }
+        .content__title {
+            position: relative;
+            height: 56px;
+
+            margin-left: 16px;
+            padding-left: 24px;
+            background: #fff;
+            display: flex;
+            align-items: center;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            border-spacing: 0;
+            border: 1px solid #d7d7d7;
+        }
+        .fb__filter__title {
+            padding-left: 35px;
+            color: #000;
+            font-size: 13px;
+            font-weight: normal;
+            text-align: left;
+            background: #f9f9f9;
+            border-right: 1px solid #d7d7d7;
+        }
+        .name__filter__text {
+            width: 360px;
+            height: 30px;
+            margin-right: 10px;
+            padding: 5px;
+            border: 1px solid #d7d7d7;
+            box-sizing: border-box;
+        }
+        .container {
+            width: 60%;
+
+            padding: 20px;
+            margin: 0;
+            margin-top: 10px;
+
+        }
+        .container form {
+            background-color: #fff;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th,
+        td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f9f9f9;
+            font-weight: normal;
+        }
+        input[type="text"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            margin-top: 5px;
+            margin-bottom: 10px;
+            height: 43px;
+        }
+        input[type="button"] {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 5px;
+        }
+        input[type="button"]:hover {
+            background-color: #45a049;
+        }
+        .fb-filter__title {
+            width: 150px;
+        }
+        .button-group {
+            text-align: center;
+            margin-top: 20px;
+        }
+        form button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        button[type="reset"] {
+            background-color: #f44336;
+        }
+        button:hover {
+            opacity: 0.8;
+        }
+        .search__bar {
+        }
+        .flex__line {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .flex__line input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        .flex__line button {
+            background-color: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-left: 10px;
+        }
+        .flex__line button[type="reset"] {
+            background-color: #f44336;
+        }
+        .flex__line button:hover {
+            opacity: 0.8;
+        }
+        table tr {
+            width: 100%;
+            display: flex;
+        }
+        table td {
+            flex: 1;
+        }
+        .fb-filter__select {
+            width: 200px;
+        }
+        #result {
+            padding: 20px;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            align-items: center;
+            text-align: center;
+            border: 1px solid #ddd;
+            border-collapse: collapse;
+            background-color: #fff;
+        }
+        #result div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid #ddd;
+            padding: 8px;
+            height: 50px;
+            min-width: 50px;
+        }
+        #result .result__th {
+            font-weight: 600;
+            letter-spacing: -0.05em;
+            background: #f8f8f8;
+        }
+        #result .movie__img {
+            position: relative;
+        }
+        #result .movie__img img {
+            height: 100%;
+            object-fit: cover;
+        }
+        #result .movie__img.on img {
+            width: 240px;
+            height: auto;
+
+            position: absolute;
+            /* 이미지 2배 확대 */
+            right: -300px; /* 오른쪽에 배치 */
+            bottom: 0; /* 상단 정렬 */
+            z-index: 10; /* 위에 표시되도록 */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header__top">
+        <h1><img src="" alt=""><a href="/admin/dashboard">Admin</a></h1>
+        <ul>
+            <li><a href="#">서면롯데시네마</a></li>
+            <li><a href="#">메인페이지</a></li>
+            <li><a href="#">로그아웃</a></li>
+        </ul>
+    </div>
+    <div class="header__bottom">
+        <ul>
+            <li><a href="/admin/dashboard">데시보드</a> </li>
+            <li><a href="/admin/member">회원관리</a></li>
+            <li><a href="/admin/cinema">상영관등록</a></li>
+            <li class="active" ><a href="/admin/movie">영화관리</a></li>
+            <li><a href="/admin/showtime">상영관관리</a></li>
+            <li><a href="#">영화관관리</a></li>
+        </ul>
+    </div>
+</header>
+
+<main>
+    <aside>
+        <div class="side__icon">
+            <div>영화관리</div>
+        </div>
+
+        <nav>
+            <ul class="admin__info">
+                <li>
+                    <a href="#">영화등록</a>
+                    <ul class="on">
+                        <li><a href="#">최신영화</a></li>
+                        <li><a href="#">보유중인영화</a></li>
+                        <li><a href="#">상영중인영화</a></li>
+                        <li class="active"><a href="#">영화배급받기</a></li>
+                        <li><a href="#">영화등록하기</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <ul class="point">
+                <li>
+                    <a href="#">상영관관리</a>
+                    <ul>
+                        <li><a href="#">상영관등록</a></li>
+                        <li><a href="#">상영관스케줄등록</a></li>
+                        <li><a href="#">좌석등록</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <section>
+        <div class="sec__top">
+            <div class="content__route">
+                <div>영화관리</div>
+                <div>></div>
+                <div>영화배급받기</div>
+            </div>
+            <div class="content__title">
+                <h3>영화등록하기</h3>
+            </div>
+        </div>
+        <div class="container">
+            <form action="#" method="get">
+                <fieldset>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th class="fb-filter__title">영화감독</th>
+                            <td class="flex__line">
+                                <input
+                                        type="text"
+                                        name="seller"
+                                        id="devCompanyText"
+                                        class="fb-filter__text"
+                                        readonly
+                                />
+                                <input
+                                        type="button"
+                                        value="검색"
+                                        class="fb-filter__search-icon"
+                                        id="devSearchCompanyPopup"
+                                />
+                                <input
+                                        type="button"
+                                        value="초기화"
+                                        class="fb-filter__delete-icon"
+                                        id="devSearchCompanyReset"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="fb-filter__title">영화검색</th>
+                            <td class="flex__line">
+                                <select name="filterType" class="fb-filter__select">
+                                    <option value="pname" selected>영화이름</option>
+                                    <option value="id">영화코드</option>
+                                </select>
+                                <textarea
+                                        name="filterText"
+                                        class="fb-filter__text fb-filter__text--70"
+                                        id="devSearchProductFilterText"
+                                ></textarea>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="fb-filter__title">기간</th>
+                            <td class="flex__line">
+                                <select name="dateType" class="fb-filter__select">
+                                    <option value="">선택해주세요</option>
+                                    <option value="regdate">영화등록일</option>
+                                    <option value="editdate">영화상영일</option>
+                                </select>
+                                <input
+                                        type="date"
+                                        name="startDate"
+                                        class="fb-filter__text fb-filter__input__day"
+                                        id="devBetweenDatePickerStart"
+                                />
+                                ~
+                                <input
+                                        type="date"
+                                        name="endDate"
+                                        class="fb-filter__text fb-filter__input__day"
+                                        id="devBetweenDatePickerEnd"
+                                />
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="fb-filter__title">국가</th>
+                            <td colspan="3">
+                                <select
+                                        class="fb-filter__select"
+                                        id="regionSelect"
+                                        onchange="updateCountryOptions()"
+                                >
+                                    <option value="all">전체</option>
+                                    <option value="asean">아세안</option>
+                                    <option value="europe">유럽</option>
+                                    <option value="northAmerica">북미</option>
+                                    <!-- 더 많은 지역 추가 가능 -->
+                                </select>
+                                <select class="fb-filter__select" id="countrySelect">
+                                    <option value="all">전체</option>
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="fb-filter__title">장르</th>
+                            <td colspan="3">
+                                <label
+                                ><input type="checkbox" name="state[]" value="0" />
+                                    로맨스</label
+                                >
+                                <label
+                                ><input type="checkbox" name="state[]" value="1" />
+                                    호러</label
+                                >
+                                <label
+                                ><input type="checkbox" name="state[]" value="2" />
+                                    코미디</label
+                                >
+                                <label
+                                ><input type="checkbox" name="state[]" value="3" />
+                                    액션</label
+                                >
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="fb-filter__title">상영등급</th>
+                            <td colspan="3">
+                                <label><input type="radio" name="disp[]" value="1" checked />
+                                    상관없음</label>
+                                <label><input type="radio" name="disp[]" value="0" /> 전체
+                                    관람가</label>
+                                <label><input type="radio" name="disp[]" value="0" /> 12세
+                                    관람가</label>
+                                <label><input type="radio" name="disp[]" value="0" /> 청소년
+                                    관람 불가</label>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="fb-filter__title">영화타입</th>
+                            <td class="flex__line">
+                                <label><input
+                                        type="radio"
+                                        name="is_mobile_use"
+                                        value="A"
+                                        checked/>
+                                    전체</label>
+                                <label><input type="radio" name="is_mobile_use" value="W" />2D</label>
+                                <label><input type="radio" name="is_mobile_use" value="M" />3D</label>
+                            </td>
+                            <th class="fb-filter__title">배급사</th>
+                            <td class="flex__line">
+                                <input type="text"
+                                        name="brand"
+                                        class="fb-filter__text"
+                                        readonly/>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="button-group">
+                        <button type="submit">검색</button>
+                        <button type="reset">초기화</button>
+                    </div>
+                </fieldset>
+            </form>
+            <div id="result">
+                <!-- 테이블 헤더 -->
+                <div class="result__th"><strong>영화 이미지</strong></div>
+                <div class="result__th"><strong>영화이름</strong></div>
+                <div class="result__th"><strong>영화코드</strong></div>
+                <div class="result__th"><strong>감독명</strong></div>
+                <div class="result__th"><strong>나라</strong></div>
+                <div class="result__th"><strong>배급사</strong></div>
+                <div class="result__th"><strong>상영등급</strong></div>
+                <div class="result__th"><strong>장르</strong></div>
+                <div class="result__th"><strong>개봉일</strong></div>
+                <div class="result__th"><strong>상태</strong></div>
+
+                <!-- 첫 번째 데이터 행 -->
+                <div class="movie__img">
+                    <img src="/img/movie_name1.jpg" alt="" />
+                </div>
+                <div>파일럿</div>
+                <div>0000000027</div>
+                <div>김한결</div>
+                <div>한국</div>
+                <div>쇼박스</div>
+                <div>청소년관람불가</div>
+                <div>코미디</div>
+                <div>2024.07.31</div>
+
+                <div><button type="button">구입</button></div>
+
+                <!-- 두 번째 데이터 행 -->
+                <div class="movie__img"><img src="/img/movie_name2.jpg" /></div>
+                <div>에이리언3</div>
+                <div>0000000026</div>
+                <div>페데 알바레즈</div>
+                <div>미국</div>
+                <div>플러스엠</div>
+                <div>15세 이상</div>
+                <div>공포</div>
+                <div>2024.08.14</div>
+
+                <div><button type="button">수정</button></div>
+
+                <!-- 세 번째 데이터 행 -->
+                <div class="movie__img"><img src="/img/movie_name3.jpg" /></div>
+                <div>비틀쥬스 비틀쥬스</div>
+                <div>0000000025</div>
+                <div>팀 버튼</div>
+                <div>미국</div>
+                <div>판씨네마</div>
+                <div>13세 이상</div>
+                <div>공포</div>
+                <div>2024.09.04</div>
+
+                <div><button type="button">구입함</button></div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    // Get all list items with submenus
+    const menuItems = document.querySelectorAll("aside nav ul li a");
+
+    // Loop through all the menu items and add click event listeners
+    menuItems.forEach((item) => {
+        item.addEventListener("click", (e) => {
+            // Prevent default behavior of the link
+            e.preventDefault();
+
+            // Get the next sibling (which should be the submenu)
+            const submenu = item.nextElementSibling;
+
+            // Toggle the "on" class to show or hide the submenu
+            if (submenu.classList.contains("on")) {
+                submenu.classList.remove("on");
+            } else {
+                submenu.classList.add("on");
+            }
+        });
+    });
+
+    function updateCountryOptions() {
+        var regionSelect = document.getElementById("regionSelect");
+        var countrySelect = document.getElementById("countrySelect");
+        var selectedRegion = regionSelect.value;
+
+        // 모든 국가 옵션을 지우고 초기화
+        countrySelect.innerHTML = '<option value="all">전체</option>';
+
+        // 선택된 지역에 따라 국가 목록 업데이트
+        if (selectedRegion === "asean") {
+            countrySelect.innerHTML += '<option value="korea">한국</option>';
+            countrySelect.innerHTML += '<option value="japan">일본</option>';
+            countrySelect.innerHTML += '<option value="china">중국</option>';
+            // 더 많은 아세안 국가 추가 가능
+        } else if (selectedRegion === "europe") {
+            countrySelect.innerHTML += '<option value="france">프랑스</option>';
+            countrySelect.innerHTML += '<option value="germany">독일</option>';
+            countrySelect.innerHTML += '<option value="uk">영국</option>';
+            // 더 많은 유럽 국가 추가 가능
+        } else if (selectedRegion === "northAmerica") {
+            countrySelect.innerHTML += '<option value="usa">미국</option>';
+            countrySelect.innerHTML += '<option value="canada">캐나다</option>';
+            // 더 많은 북미 국가 추가 가능
+        }
+    }
+</script>
+<script>
+    $(".movie__img").hover(
+            function () {
+                $(this).addClass("on"); // 이미지 확대 클래스 추가
+            },
+            function () {
+                $(this).removeClass("on"); // 이미지 확대 클래스 제거
+            }
+    );
+</script>
+</body>
+</html>
