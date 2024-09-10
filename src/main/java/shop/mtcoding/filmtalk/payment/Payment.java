@@ -26,7 +26,6 @@ public class Payment {
     private Double price; // 결제 금액
 
     @Column(nullable = false)
-    @Temporal(TemporalType.TIMESTAMP)
     private Timestamp payDate; // 결제 일자
 
 
@@ -35,7 +34,7 @@ public class Payment {
     @Column(length = 40)
     private String mycoupon; // 결제 시 적용할 쿠폰
 
-    @Column(nullable = false)
+
     private Integer point ; // 결제 시 적용할 포인트
 
     @Column(nullable = false)

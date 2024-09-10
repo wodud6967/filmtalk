@@ -1,13 +1,14 @@
-package shop.mtcoding.filmtalk.user;
+package shop.mtcoding.filmtalk.cinema;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import shop.mtcoding.filmtalk.user.UserRepository;
 
 @DataJpaTest
-public class UserRepositoryTest {
+public class CinemaRepositoryTest {
     @Autowired
-    private UserRepository userRepository;
+    private CinemaRepository userRepository;
 
     @Test
     public void findByUsernameAndPassword_test(){
