@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/header.css">
 </head>
 
-<body>
+<body class="success-page"> <!-- 컨테이너 클래스 추가 -->
 
 {{> layout/header}}
 
@@ -22,36 +22,36 @@
     <section id="sec1" class="inner">
         <h2 id="sec1__title">결제 완료</h2>
         <br>
-        <h3>{{회원이름}} 회원님 결제가 완료 되었습니다.</h3>
+        <h3>{{userName}} 회원님 결제가 완료 되었습니다.</h3>
         <br>
 
         <!-- 영화 정보 및 포스터 영역 -->
         <div id="sec1__order_info">
             <div class="order_info_top">
                 <div class="order_info_left">
-                    <img src="{{포스터_이미지}}" alt="영화 포스터">
+                    <img src="{{posterImg}}" alt="영화 포스터">
                 </div>
                 <div class="order_info_right">
                     <div class="info_row">
                         <span class="info_label">예매번호</span>
-                        <span>{{예매번호}}</span>
+                        <span>{{reservId}}</span>
                     </div>
                     <div class="divider"></div>
                     <div class="info_row">
                         <span class="info_label">상영 일시</span>
-                        <span>{{상영_일시}}</span>
+                        <span>{{showTime}}</span>
                     </div>
                     <div class="info_row">
                         <span class="info_label">상영관</span>
-                        <span>{{상영관}}</span>
+                        <span>{{cinema}}</span>
                     </div>
                     <div class="info_row">
                         <span class="info_label">관람 인원</span>
-                        <span>{{관람_인원}}</span>
+                        <span>{{people}}</span>
                     </div>
                     <div class="info_row">
                         <span class="info_label">좌석</span>
-                        <span>{{좌석}}</span>
+                        <span>{{seat}}</span>
                     </div>
                 </div>
             </div>
@@ -59,21 +59,21 @@
             <!-- 결제 정보 하단 영역 -->
             <div class="order_info_bottom">
                 <div class="bottom_section">
-                    <span>주문 금액</span> <strong>{{주문금액}}</strong>
+                    <span>주문 금액</span> <strong>{{price}}</strong>
                 </div>
 
                 <div class="bottom_section middle">
                     <div class="middle_row">
-                        <span>할인 금액</span> <strong>{{할인금액}}</strong>
+                        <span>할인 금액</span> <strong>{{discount}}</strong>
                     </div>
                     <br><br>
                     <div class="middle_row">
-                        <span>관람권 or 할인권</span> <strong>{{할인권_금액}}</strong>
+                        <span>관람권 or 할인권</span> <strong>{{coupon}}</strong>
                     </div>
                 </div>
 
                 <div class="bottom_section">
-                    <span>총 결제 금액</span> <strong>{{총결제금액}}</strong>
+                    <span>총 결제 금액</span> <strong>{{payPrice}}</strong>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
             • 개인정보 보호 정책에 따라 주민번호로 예매 티켓을 찾을 수 없습니다. 꼭 예매 번호를 확인해주세요.
         </div>
         <div id="sec1__btn_group">
-            <a href="/mypage/reservDetail.html"><button class="btn btn-outline-primary">결제내역</button></a>
+            <a href="/mypage/paymentDetail.html"><button class="btn btn-outline-primary">결제내역</button></a>
             <a href="/"><button class="btn btn-primary">홈으로 바로가기</button></a>
         </div>
     </section>
