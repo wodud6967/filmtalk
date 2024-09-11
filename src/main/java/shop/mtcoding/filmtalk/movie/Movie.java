@@ -50,7 +50,6 @@ public class Movie {
     private List<Poster> posterUrls;
     @OneToMany(mappedBy = "movie")
     private List<Still> stillUrls;
-
     @OneToMany(mappedBy = "movie")
     private List<Comment> comments;
 
