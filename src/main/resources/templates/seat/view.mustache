@@ -7,10 +7,14 @@
     <title>title</title> <!-- 좌석 선택 -->
     <!-- 부트스트랩 CSS 링크 -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style3.css">
+    <link rel="stylesheet" href="css/seat.css">
+    <link rel="stylesheet" href="/css/header.css">
 </head>
 
 <body>
+
+{{>layout/header}}
+
 <main>
 
     <div class="container mt-5">
@@ -40,7 +44,7 @@
 
                     <!-- 상영 정보 -->
                     <div class="text-center mb-4">
-                        <img src="images/베테랑2.jpg">
+                        <img class="screen__img" src="img/cinema01.jpg">
                         <p class="font-weight-bold">CGV 센텀시티 | 4관 (Laser) | 남은좌석 281/303</p>
                         <p>2024.09.04 (수) 20:15 ~ 22:10</p>
                     </div>
@@ -48,7 +52,6 @@
             </div>
 
         </section>
-
 
 
         <!-- 좌석 배치 -->
@@ -73,24 +76,51 @@
         <div class="col text-left">
             <button class="btn btn-secondary">영화선택</button>
         </div>
-
         <div>
-            <img src="images/베테랑2.jpg">
+        <div>
+            <img class="movie__img" src="img/movie_name1.jpg">
         </div>
         <div>
             <div>베테랑2</div>
-            <div>2D</div>
             <div>12세 관람가</div>
         </div>
         <div>
-            <li>극장</li>
-            <li>일시</li>
-            <li>상영관</li>
-            <li>인원</li>
+            <table>
+                <tr>
+                    <td>극장</td><td>CGV판교</td>
+                </tr>
+                <tr>
+                    <td>일시</td><td>2024.9.14(토) 12:00</td>
+                </tr>
+                <tr>
+                    <td>상영관</td><td>1관</td>
+                </tr>
+                <tr>
+                    <td>인원</td><td>일반 2명</td>
+                </tr>
+            </table>
         </div>
-        <li>좌석명</li>
-        <li>좌석번호</li>
+        <div>
+            <!-- JS 로 동적으로 넣기 -->
+            <table>
+                <tr>
+                    <td>좌석번호</td><td>E9, E10</td>
+                </tr>
+            </table>
+        </div>
+        <div>
+            <!-- JS 로 동적으로 넣기 -->
+            <table>
+                <tr>
+                    <td>일반</td><td>20,000원 * 2</td>
+                </tr>
+                <tr>
+                    <td>총금액</td><td>40,000원</td><!-- 빨간색 -->
+                </tr>
 
+            </table>
+        </div>
+        </div>
         <div class="col text-right">
             <button class="btn btn-secondary">결제선택</button>
         </div>
@@ -101,8 +131,11 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/script3.js"></script>
+    <script src="js/seat.js"></script>
 </main>
+
+{{>layout/footer}}
+
 </body>
 
 </html>
