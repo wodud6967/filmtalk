@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.filmtalk.core.util.Resp;
-
 import java.util.UUID;
+
 
 @RequiredArgsConstructor
 @Controller
@@ -37,9 +37,11 @@ public class PaymentController {
         model.addAttribute("cinema", "서면롯데시네마 Screen 1");
         model.addAttribute("people", "성인 2");
         model.addAttribute("seat", "1, 4");
+
         model.addAttribute("price", "10"); // TODO: 테스트를 위해 최소금액으로 진행
         model.addAttribute("discount", "0");
         model.addAttribute("payPrice", "10");
+
         model.addAttribute("userName", "신민재");
         model.addAttribute("email", "example@example.com");
         model.addAttribute("phone", "010-1234-5678");
