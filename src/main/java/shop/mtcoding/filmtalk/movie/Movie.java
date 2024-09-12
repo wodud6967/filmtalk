@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.filmtalk.comment.Comment;
 import shop.mtcoding.filmtalk.poster.Poster;
 import shop.mtcoding.filmtalk.still.Still;
 
@@ -50,10 +51,13 @@ public class Movie {
     @OneToMany(mappedBy = "movie")
     private List<Still> stillUrls;
 
+    @OneToMany(mappedBy = "movie")
+    private List<Comment> comments;
+
     private Long apiId; //추후 api등록
 
     @Builder
-    public Movie(Long id, String movieNm, String prdtYear, String openDt, String nationNm, String genreNm, String director, String company, Integer runtime, String ratingGrade, String vodUrl, String plot, String actorNm, List<Poster> posterUrls, List<Still> stillUrls, Long apiId) {
+    public Movie(Long id, String movieNm, String prdtYear, String openDt, String nationNm, String genreNm, String director, String company, Integer runtime, String ratingGrade, String vodUrl, String plot, String actorNm, List<Poster> posterUrls, List<Still> stillUrls, List<Comment> comments, Long apiId) {
         this.id = id;
         this.movieNm = movieNm;
         this.prdtYear = prdtYear;
@@ -69,6 +73,7 @@ public class Movie {
         this.actorNm = actorNm;
         this.posterUrls = posterUrls;
         this.stillUrls = stillUrls;
+        this.comments = comments;
         this.apiId = apiId;
     }
 }

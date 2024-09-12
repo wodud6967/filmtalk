@@ -22,8 +22,10 @@ public class Comment {
     private String content;
     @CreationTimestamp
     private String timestamp;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Movie movie;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private User user;
     public Comment(Long id, String content, String timestamp, Movie movie, User user) {
