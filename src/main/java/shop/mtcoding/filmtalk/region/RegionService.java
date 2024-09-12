@@ -10,4 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class RegionService {
     private final RegionRepository regionRepository;
     private final RegionQueryRepository regionQueryRepository;
+
+
 }

@@ -4,4 +4,6 @@ import lombok.Data;
 
 public class ReservationRequest {
 
+
+
 }
