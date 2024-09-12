@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/css/payment.css">
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/header.css">
+    <script src="https://cdn.iamport.kr/v1/iamport.js"></script>
 </head>
 <body class="view-page"> <!-- 컨테이너 클래스 추가 -->
 
@@ -36,7 +37,7 @@
                         </li>
                         <li>
                             <strong>영화관</strong>
-                            <div>{{cinema}}</div>
+                            <div>{{cinema}}관</div>
                         </li>
                         <li>
                             <strong>인원</strong>
@@ -80,11 +81,11 @@
             <div class="section__content">
                 <div class="payment__summary">
                     <ul>
-                        <li>상품금액 <span>{{price}}</span></li>
-                        <li>할인금액 <span>{{discount}}</span></li>
-                        <li>결제금액 <span>{{payPrice}}</span></li>
+                        <li>상품금액 <span>{{price}}원</span></li>
+                        <li>할인금액 <span>{{discount}}원</span></li>
+                        <li>결제금액 <span>{{payPrice}}원</span></li>
                     </ul>
-                    <button class="btn">결제하기</button>
+                    <button class="btn" onclick="requestPay()">결제하기</button>
                 </div>
             </div>
         </div>
@@ -92,6 +93,61 @@
 </main>
 
 {{> layout/footer}}
+
+<script>
+    var IMP = window.IMP;
+    IMP.init("imp28446715"); // 고객사 식별코드
+
+    function requestPay() {
+
+        var orderUid = '{{reservationId}}';
+        var itemName = '{{movieTitle}}';
+        var paymentPrice = '{{payPrice}}';
+        var buyerName = '{{userName}}';
+        var buyerEmail = '{{email}}';
+        var phone = '{{phone}}';
+
+        console.log(orderUid, itemName, paymentPrice, buyerName, buyerEmail, phone);
+
+        IMP.request_pay({
+                    // m_redirect_url: "/payment",
+                    pg : 'html5_inicis.INIpayTest',
+                    pay_method : 'card',
+                    merchant_uid: orderUid, // 예매 번호
+                    name : itemName, // 영화 제목
+                    amount : paymentPrice, // 티켓 가격
+                    buyer_email : buyerEmail, // 유저 이메일
+                    buyer_name : buyerName, // 유저 이름
+                    buyer_tel : phone, // 유저 연락처
+                    buyer_postcode : '', // 임의의 값
+                },
+                function(rsp) {
+                    if (rsp.success) {
+                        alert('call back!!: ' + JSON.stringify(rsp));
+                        // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
+                        // jQuery로 HTTP 요청
+                        jQuery.ajax({
+                            url: "/payment",
+                            method: "POST",
+                            headers: {"Content-Type": "application/json"},
+                            data: JSON.stringify({
+                                "impUid": rsp.imp_uid,      // 포트원 결제 고유번호
+                                "reservationId": rsp.merchant_uid   // 주문번호 (예매번호)
+                            })
+                        }).done(function (response) {
+                            console.log(response);
+                            alert('결제가 완료되었습니다.');
+                            window.location.href = "/payment/success";
+                        })
+                    } else {
+                        alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
+                        alert('결제 실패. 좌석 페이지로 이동합니다.');
+                        window.location.href = "/seat"; // TODO: 결제 실패 페이지를 만들지, 좌석 페이지로 redirect 할지
+                    }
+                });
+    }
+</script>
+
 
 </body>
 </html>
