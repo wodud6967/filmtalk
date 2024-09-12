@@ -110,6 +110,9 @@ values (2, '화명2상영관');
 
 
 
+insert into screen_tb (cinema_id, name)
+values (1, '서면롯데시네마 Screen 3');
+
 -- 사상롯데시네마 상영관 더미 데이터 삽입
 insert into screen_tb (cinema_id, name)
 values (2, '1상영관');
@@ -127,7 +130,7 @@ values (1, 1, '2024-09-12 18:00:00');
 
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at)
-values (1, 2, '2024-09-12 17:00:00');
+values (2, 1, '2024-09-12 17:00:00');
 
 
 -- 2번 영화 (movie_id = 2), 사상롯데시네마 Screen 1에서 상영
@@ -140,7 +143,7 @@ values (2, 4, '2024-09-12 20:00:00');
 
 -- 서면롯데시네마 Screen 1 좌석 더미 데이터 삽입
 insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-values (1, 'A1', 'A', '1'), (1, 'A2', 'A', '2'), (1, 'A3', 'A', '3'), (1, 'A4', 'A', '4'), (1, 'A5', 'A', '5');
+values (1, 'A1', 'A', '2'), (1, 'A3', 'A', '3'), (1, 'A4', 'A', '4'), (1, 'A5', 'A', '5');
 
 insert into seat_tb (showtime_id, seat_number, row_num, col_num)
 values (1, 'B1', 'B', '1'), (1, 'B2', 'B', '2'), (1, 'B3', 'B', '3'), (1, 'B4', 'B', '4'), (1, 'B5', 'B', '5');

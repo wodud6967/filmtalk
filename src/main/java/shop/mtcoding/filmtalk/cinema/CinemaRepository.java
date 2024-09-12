@@ -3,6 +3,7 @@ package shop.mtcoding.filmtalk.cinema;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import java.util.List;
 
 public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
@@ -17,6 +18,12 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
     //@Query("SELECT c FROM Cinema c JOIN FETCH c.screens s JOIN FETCH s.showtimes st WHERE c.id = :id")
     @Query("select Distinct c from  Cinema c  join fetch c.screens s where c.id=:id")
-    Cinema mFindCinemaById(@Param("id") Long id);
+    Cinema mFindByIdWithScreen(@Param("id") Long id);
+
+    @Query("select c from  Cinema c  join fetch c.screens s where c.id in :cinemaIds")
+    List<Cinema> mFindIdsByIdsWithScreen(@Param("cinemaIds") List<Long> cinemaIds);
+
+
 }
+
 

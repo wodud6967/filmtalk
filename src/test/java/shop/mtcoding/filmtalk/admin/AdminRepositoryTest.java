@@ -41,10 +41,10 @@ public class AdminRepositoryTest {
     /*상영시간 등록하기 */
 
     @Test
-    public void shotime_mFindScreenShowtime_test(){
+    public void shotime_mFindById_test(){
         //상영관을 가져와서 Lazy하는 방식
         Long cinameId = 1L;
-        Cinema cinema =  cinemaRepository.mFindCinemaById(cinameId);
+        Cinema cinema =  cinemaRepository.mFindByIdWithScreen(cinameId);
 
         System.out.println(cinema.getScreens().size());
         List<Screen> screens = cinema.getScreens();
@@ -73,10 +73,10 @@ public class AdminRepositoryTest {
 
 
     @Test
-    public void shotime_mFindScreenShowtime_test2(){
+    public void shotime_mFindById_test2(){
         //상영관을 가져와서 Lazy하는 방식
         Long cinameId = 1L;
-        Cinema cinema =  cinemaRepository.mFindCinemaById(cinameId);
+        Cinema cinema =  cinemaRepository.mFindByIdWithScreen(cinameId);
 
         System.out.println(cinema.getScreens().size());
         List<Screen> screens = cinema.getScreens();
