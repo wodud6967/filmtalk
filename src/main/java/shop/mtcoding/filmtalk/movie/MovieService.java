@@ -27,9 +27,9 @@ public class MovieService {
     }
 
     public MovieResponse.DetailDTO 영화상세보기(int id, User sessionUser) {
-//        Movie movie = movieRepository.mFindByIdWithAll(id)
-//                .orElseThrow(() -> new Exception404("영화가 없습니다."));
-        Movie movie = movieRepository.findById(Long.valueOf(id)).orElseThrow(()->new Exception404("Movie not found"));
+        Movie movie = movieRepository.mFindOneWithCommentsById(id)
+                .orElseThrow(() -> new Exception404("영화가 없습니다."));
+//        Movie movie = movieRepository.findById(Long.valueOf(id)).orElseThrow(()->new Exception404("Movie not found"));
 
 
         return new MovieResponse.DetailDTO(movie,sessionUser);

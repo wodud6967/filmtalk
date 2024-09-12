@@ -8,6 +8,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import shop.mtcoding.filmtalk.movie.Movie;
 import shop.mtcoding.filmtalk.user.User;
 
+
 @Getter
 @Setter
 @Table(name = "comment_tb")

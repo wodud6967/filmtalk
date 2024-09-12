@@ -81,12 +81,14 @@ public class MovieResponse {
             private String content;
             private String username;
             private boolean isOwner;
+            private String createdAt;
 
             public CommentDTO(Comment comment, User sessionUser) {
                 this.id = comment.getId();
                 this.content = comment.getContent();
                 this.username = comment.getUser().getUsername();
                 this.isOwner =false;
+                this.createdAt=comment.getTimestamp();
 
                 if (sessionUser != null) {
                     if (comment.getUser().getId() == sessionUser.getId()) {
