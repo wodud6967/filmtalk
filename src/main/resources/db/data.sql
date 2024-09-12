@@ -11,7 +11,7 @@ values ('부산', '서면');
 
 -- 사상 지역 데이터 삽입
 insert into region_tb (city, name)
-values ('부산', '사상');
+values ('부산', '화명');
 
 -- 서면롯데시네마 영화관 데이터 삽입
 insert into cinema_tb (img_name, img_uname, name, region_id)
@@ -19,18 +19,20 @@ values ('seomyeon_lotte_img.jpg', 'unique_seomyeon_lotte_img.jpg', '서면롯데
 
 -- 사상롯데시네마 영화관 데이터 삽입
 insert into cinema_tb (img_name, img_uname, name, region_id)
-values ('sasang_lotte_img.jpg', 'unique_sasang_lotte_img.jpg', '사상롯데시네마', 2);
+values ('sasang_lotte_img.jpg', 'unique_sasang_lotte_img.jpg', '화명cgv', 2);
 
 
--- 관리자 더미 데이터 삽입 예시
-insert into admin_tb (username, password, email, phone, role, created_at, cinema_id)
-values ('ssar', '1234', 'ssar@nate.com', '01048086967', 'ROLE_ADMIN', now(), 1);
+-- 첫 번째 레코드
+insert into admin_tb (username, password, email, phone, name, role, approved, profile_url, created_at, cinema_id)
+values ('ssar', '1234', 'ssar@nate.com', '01048086967', '강재영', 'ROLE_ADMIN', true, 'http://example.com/profile1.jpg', now(), 1);
 
-insert into admin_tb (username, password, email, phone, role, created_at, cinema_id)
-values ('cos', '1234', 'cos@nate.com', '01048086967', 'ROLE_ADMIN', now(), 1);
+-- 두 번째 레코드
+insert into admin_tb (username, password, email, phone, name, role, approved, profile_url, created_at, cinema_id)
+values ('cos', '1234', 'cos@nate.com', '01048086967', '진선우', 'ROLE_SUPERADMIN', true, 'http://example.com/profile2.jpg', now(), 1);
 
-insert into admin_tb (username, password, email, phone, role, created_at, cinema_id)
-values ('love', '1234', 'love@nate.com', '01048086967', 'ROLE_SUPERADMIN', now(), 2);
+-- 세 번째 레코드
+insert into admin_tb (username, password, email, phone, name, role, approved, profile_url, created_at, cinema_id)
+values ('love', '1234', 'love@nate.com', '01048086967', '박관호', 'ROLE_SUPERADMIN', false, 'http://example.com/profile3.jpg', now(), 2);
 
 -- Movie 테이블 더미 데이터 삽입
 insert into movie_tb (movie_nm, prdt_year, open_dt, nation_nm, genre_nm, director, company, runtime, rating_grade, vod_url, plot, actor_nm, api_id)
@@ -90,25 +92,43 @@ values
     ('https://example.com/stills/yourname_2.jpg', 4);
 -- 서면롯데시네마 상영관 더미 데이터 삽입
 insert into screen_tb (cinema_id, name)
-values (1, '서면롯데시네마 Screen 1');
+values (1, '서면1상영관');
 
 insert into screen_tb (cinema_id, name)
-values (1, '서면롯데시네마 Screen 2');
+values (1, '서면2상영관');
+
+insert into screen_tb (cinema_id, name)
+values (1, '서면3상영관');
+
+insert into screen_tb (cinema_id, name)
+values (2, '화명1상영관');
+insert into screen_tb (cinema_id, name)
+values (2, '화명2상영관');
+
+
+
+
+
 
 -- 사상롯데시네마 상영관 더미 데이터 삽입
 insert into screen_tb (cinema_id, name)
-values (2, '사상롯데시네마 Screen 1');
+values (2, '1상영관');
 
 insert into screen_tb (cinema_id, name)
-values (2, '사상롯데시네마 Screen 2');
+values (2, '2상영관');
 
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 1에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at)
 values (1, 1, '2024-09-12 14:00:00');
+insert into showtime_tb (movie_id, screen_id, started_at)
+values (1, 1, '2024-09-12 16:00:00');
+insert into showtime_tb (movie_id, screen_id, started_at)
+values (1, 1, '2024-09-12 18:00:00');
 
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at)
 values (1, 2, '2024-09-12 17:00:00');
+
 
 -- 2번 영화 (movie_id = 2), 사상롯데시네마 Screen 1에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at)
@@ -165,7 +185,7 @@ values (3, 3, 3, now());
 
 -- ssar 사용자의 또 다른 티켓 (4번 좌석, 4번 상영시간, 1번 예약)
 insert into ticket_tb (seat_id, showtime_id, reservation_id, created_at)
-values (4, 4, 1, now());
+values (4, 1, 1, now());
 
 -- ssar 사용자의 결제 (결제 완료 상태, 신용카드 사용)
 insert into payment_tb (type, price, pay_date, cncl_date, mycoupon, point, state, imp_uid, reservation_id)

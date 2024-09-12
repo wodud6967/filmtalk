@@ -10,6 +10,7 @@ import shop.mtcoding.filmtalk.seat.Seat;
 import shop.mtcoding.filmtalk.showtime.Showtime;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -26,14 +27,16 @@ public class Screen {
 
     private String name;
 
-
+    @OneToMany(mappedBy = "screen", fetch = FetchType.LAZY)
+    private List<Showtime> showtimes;
 
     //totalseat 총 좌석수?
 
     @Builder
-    public Screen(Long id, Cinema cinema, String name) {
+    public Screen(Long id, Cinema cinema, String name, List<Showtime> showtimes) {
         this.id = id;
         this.cinema = cinema;
         this.name = name;
+        this.showtimes = showtimes;
     }
 }
