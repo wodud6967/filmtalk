@@ -190,17 +190,17 @@ values (3, 3, 3, now());
 insert into ticket_tb (seat_id, showtime_id, reservation_id, created_at)
 values (4, 1, 1, now());
 
--- ssar 사용자의 결제 (결제 완료 상태, 신용카드 사용)
-insert into payment_tb (type, price, pay_date, cncl_date, mycoupon, point, state, imp_uid, reservation_id)
-values ('신용카드', 15000.00, '2024-09-10 14:00:00', null, 'WELCOME10', 500, 1, 'imp_1234567890', 1);
-
--- cos 사용자의 결제 (결제 완료 상태, 카카오페이 사용)
-insert into payment_tb (type, price, pay_date, cncl_date, mycoupon, point, state, imp_uid, reservation_id)
-values ('카카오페이', 18000.00, '2024-09-10 15:00:00', null, 'DISCOUNT20', 1000, 1, 'imp_0987654321', 2);
-
--- love 사용자의 결제 (결제 취소 상태, 신용카드 사용)
-insert into payment_tb (type, price, pay_date, cncl_date, mycoupon, point, state, imp_uid, reservation_id)
-values ('신용카드', 20000.00, '2024-09-09 13:00:00', '2024-09-09 16:00:00', 'WELCOME10', 0, 2, 'imp_1122334455', 3);
+-- -- ssar 사용자의 결제 (결제 완료 상태, 신용카드 사용)
+-- insert into payment_tb (type, price, pay_date, cncl_date, mycoupon, point, state, imp_uid, reservation_id)
+-- values ('신용카드', 15000.00, '2024-09-10 14:00:00', null, 'WELCOME10', 500, 1, 'imp_1234567890', 1);
+--
+-- -- cos 사용자의 결제 (결제 완료 상태, 카카오페이 사용)
+-- insert into payment_tb (type, price, pay_date, cncl_date, mycoupon, point, state, imp_uid, reservation_id)
+-- values ('카카오페이', 18000.00, '2024-09-10 15:00:00', null, 'DISCOUNT20', 1000, 1, 'imp_0987654321', 2);
+--
+-- -- love 사용자의 결제 (결제 취소 상태, 신용카드 사용)
+-- insert into payment_tb (type, price, pay_date, cncl_date, mycoupon, point, state, imp_uid, reservation_id)
+-- values ('신용카드', 20000.00, '2024-09-09 13:00:00', '2024-09-09 16:00:00', 'WELCOME10', 0, 2, 'imp_1122334455', 3);
 
 -- 1. 사용자 ssar가 올린 QnA, 관리자가 답변한 경우
 insert into qna_tb (type, title, content, created_at, state, answered_at, admin_id, user_id)

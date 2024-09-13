@@ -34,7 +34,7 @@
                 <div class="order_info_right">
                     <div class="info_row">
                         <span class="info_label">예매번호</span>
-                        <span>{{reservId}}</span>
+                        <span>{{reservationId}}</span>
                     </div>
                     <div class="divider"></div>
                     <div class="info_row">
@@ -59,21 +59,21 @@
             <!-- 결제 정보 하단 영역 -->
             <div class="order_info_bottom">
                 <div class="bottom_section">
-                    <span>주문 금액</span> <strong>{{price}}</strong>
+                    <span>주문 금액</span> <strong>{{price}}원</strong>
                 </div>
 
                 <div class="bottom_section middle">
                     <div class="middle_row">
-                        <span>할인 금액</span> <strong>{{discount}}</strong>
+                        <span>할인 금액</span> <strong>{{discount}}원</strong>
                     </div>
                     <br><br>
                     <div class="middle_row">
-                        <span>관람권 or 할인권</span> <strong>{{coupon}}</strong>
+                        <span>관람권 or 할인권</span> <strong>{{coupon}}원</strong>
                     </div>
                 </div>
 
                 <div class="bottom_section">
-                    <span>총 결제 금액</span> <strong>{{payPrice}}</strong>
+                    <span>총 결제 금액</span> <strong>{{payPrice}}원</strong>
                 </div>
             </div>
         </div>
@@ -88,7 +88,7 @@
             • 개인정보 보호 정책에 따라 주민번호로 예매 티켓을 찾을 수 없습니다. 꼭 예매 번호를 확인해주세요.
         </div>
         <div id="sec1__btn_group">
-            <a href="/mypage/paymentDetail.html"><button class="btn btn-outline-primary">결제내역</button></a>
+            <a href="/mypage/paymentDetail"><button class="btn btn-outline-primary">결제내역</button></a>
             <a href="/"><button class="btn btn-primary">홈으로 바로가기</button></a>
         </div>
     </section>

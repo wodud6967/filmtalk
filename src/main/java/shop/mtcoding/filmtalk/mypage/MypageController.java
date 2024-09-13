@@ -17,21 +17,21 @@ public class MypageController {
         List<Map<String, Object>> reservation = new ArrayList<>();
 
         Map<String, Object> ticket = new HashMap<>();
-        ticket.put("date", "2024.09.04 (수)");
-        ticket.put("movieTitle", "에이리언: 로물루스");
-        ticket.put("price", "14,000");
-        ticket.put("reservId", "22462010");
-        ticket.put("posterImg", "/img/poster.png");
-        ticket.put("showDate", "2024.09.04 (수)");
-        ticket.put("showTime", "18:45 ~ 20:45");
-        ticket.put("cinema", "센텀시티 6관");
-        ticket.put("people", "성인 1");
-        ticket.put("seat", "L15");
-        ticket.put("paymentDate", "2024-09-04 오후 3:38:08");
-        ticket.put("orderPrice", "7,000원");
+        ticket.put("date", "2024.09.12 (목)");
+        ticket.put("movieTitle", "인터스텔라");
+        ticket.put("price", "28,000");
+        ticket.put("reservId", "12345678");
+        ticket.put("posterImg", "/img/inter.jpg");
+        ticket.put("showDate", "2024.09.12 (목)");
+        ticket.put("showTime", "14:00 ~ 16:30");
+        ticket.put("cinema", "서면롯데시네마 Screen 1");
+        ticket.put("people", "성인 2");
+        ticket.put("seat", "1, 4");
+        ticket.put("paymentDate", "2024-09-12 오후 2:43:44");
+        ticket.put("orderPrice", "28,000원");
         ticket.put("discountPrice", "0원");
-        ticket.put("couponPrice", "7,000원");
-        ticket.put("payPrice", "7,000원");
+        ticket.put("couponPrice", "28,000원");
+        ticket.put("payPrice", "28,000원");
 
         reservation.add(ticket);
 
@@ -46,23 +46,23 @@ public class MypageController {
         List<Map<String, Object>> reservation = new ArrayList<>();
 
         Map<String, Object> ticketCncl = new HashMap<>();
-        ticketCncl.put("date", "2024.09.04 (수)");
-        ticketCncl.put("movieTitle", "에이리언: 로물루스");
-        ticketCncl.put("price", "14,000");
-        ticketCncl.put("reservId", "22462010");
-        ticketCncl.put("cnclDate", "2024.09.04");
-        ticketCncl.put("posterImg", "/img/poster.png");
-        ticketCncl.put("showDate", "2024-09-04 (수)");
-        ticketCncl.put("showTime", "18:45 ~ 20:45");
-        ticketCncl.put("cinema", "센텀시티 6관");
-        ticketCncl.put("people", "성인 1");
-        ticketCncl.put("seat", "L15");
-        ticketCncl.put("paymentDate", "2024-09-04 오후 3:38:08");
+        ticketCncl.put("date", "2024.09.12 (목)");
+        ticketCncl.put("movieTitle", "인터스텔라");
+        ticketCncl.put("price", "28,000");
+        ticketCncl.put("reservationId", "12345678");
+        ticketCncl.put("cnclDate", "2024.09.12");
+        ticketCncl.put("posterImg", "/img/inter.jpg");
+        ticketCncl.put("showDate", "2024-09-02 (목)");
+        ticketCncl.put("showTime", "14:00 ~ 16:30");
+        ticketCncl.put("cinema", "서면롯데시네마 Screen 1");
+        ticketCncl.put("people", "성인 2");
+        ticketCncl.put("seat", "1, 4");
+        ticketCncl.put("paymentDate", "2024-09-12 오후 2:23:44");
         ticketCncl.put("orderPrice", "7,000");
         ticketCncl.put("discountPrice", "0");
         ticketCncl.put("couponPrice", "7,000");
         ticketCncl.put("cnclPrice", "0");
-        ticketCncl.put("cnclDateTime", "2024-09-04 오후 3:41:29");
+        ticketCncl.put("cnclDateTime", "2024-09-12 오후 6:41:29");
 
         reservation.add(ticketCncl);
 
