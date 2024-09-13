@@ -41,7 +41,8 @@ public class PaymentService {
             }
 
             // Payment Insert
-            Reservation reservationPS = reservationRepository.findById(saveDTO.getReservationId())
+            //Reservation reservationPS = reservationRepository.findById(saveDTO.getReservationId())
+            Reservation reservationPS = reservationRepository.findById(1L) // TODO: 결제 테스트 후 변경 예정
                     .orElseThrow(() -> new ExceptionApi404("예매 내역이 존재하지 않아서 결제할 수 없습니다"));
             Payment payment = Payment.builder()
                     .price(100.0)

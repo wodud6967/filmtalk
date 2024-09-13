@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.filmtalk.core.util.Resp;
 
+import java.util.UUID;
+
 @RequiredArgsConstructor
 @Controller
 public class PaymentController {
@@ -28,16 +30,16 @@ public class PaymentController {
     @GetMapping("/payment/view")
     public String paymentView(Model model) {
         // 임시 더미
-        model.addAttribute("reservationId", "3");
+        model.addAttribute("reservationId", UUID.randomUUID().toString());
         model.addAttribute("posterImg", "/img/inter.jpg");
         model.addAttribute("movieTitle", "인터스텔라");
         model.addAttribute("showTime", "2024-09-12 (목) 12:00 ~ 16:30");
         model.addAttribute("cinema", "서면롯데시네마 Screen 1");
         model.addAttribute("people", "성인 2");
         model.addAttribute("seat", "1, 4");
-        model.addAttribute("price", "100");
+        model.addAttribute("price", "10"); // TODO: 테스트를 위해 최소금액으로 진행
         model.addAttribute("discount", "0");
-        model.addAttribute("payPrice", "100");
+        model.addAttribute("payPrice", "10");
         model.addAttribute("userName", "신민재");
         model.addAttribute("email", "example@example.com");
         model.addAttribute("phone", "010-1234-5678");
