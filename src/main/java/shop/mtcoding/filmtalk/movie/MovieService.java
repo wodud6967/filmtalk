@@ -40,7 +40,6 @@ public class MovieService {
         List<Poster> posters = posterRepository.mFindAllByMovie(movie);
         movie.setStillUrls(stills);
         movie.setPosterUrls(posters);
-        System.out.println("==============================검색은 완료되어야 한다============");
 
         return new MovieResponse.DetailDTO(movie,sessionUser);
     }

@@ -1,10 +1,12 @@
 package shop.mtcoding.filmtalk.admin;
 
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import shop.mtcoding.filmtalk.admin.kormoviedata.needdata.NeedData;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -41,7 +43,9 @@ public class AdminController {
         return "admin/cinema-add";
     }
     @GetMapping("/admin/movie")
-    public String movie(){
+    public String movie(HttpServletRequest request){
+        List<AdminResponse.MovieDTO> rawMovies = adminService.API영화보여주기();
+        request.setAttribute("models", rawMovies);
         return "admin/movie";
     }
     @GetMapping("/admin/showtime")

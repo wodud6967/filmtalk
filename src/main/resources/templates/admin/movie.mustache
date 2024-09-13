@@ -241,7 +241,7 @@
         #result {
             padding: 20px;
             display: grid;
-            grid-template-columns: repeat(10, 1fr);
+            grid-template-columns: repeat(9, 1fr);
             align-items: center;
             text-align: center;
             border: 1px solid #ddd;
@@ -349,6 +349,7 @@
                 <h3>영화등록하기</h3>
             </div>
         </div>
+<!--    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    -->
         <div class="container">
             <form action="#" method="get">
                 <fieldset>
@@ -500,7 +501,6 @@
                 <!-- 테이블 헤더 -->
                 <div class="result__th"><strong>영화 이미지</strong></div>
                 <div class="result__th"><strong>영화이름</strong></div>
-                <div class="result__th"><strong>영화코드</strong></div>
                 <div class="result__th"><strong>감독명</strong></div>
                 <div class="result__th"><strong>나라</strong></div>
                 <div class="result__th"><strong>배급사</strong></div>
@@ -510,45 +510,22 @@
                 <div class="result__th"><strong>상태</strong></div>
 
                 <!-- 첫 번째 데이터 행 -->
+                {{#models}}
                 <div class="movie__img">
-                    <img src="/img/movie_name1.jpg" alt="" />
+                    <img src="{{posterUrl}}" alt="" />
                 </div>
-                <div>파일럿</div>
-                <div>0000000027</div>
-                <div>김한결</div>
-                <div>한국</div>
-                <div>쇼박스</div>
-                <div>청소년관람불가</div>
-                <div>코미디</div>
-                <div>2024.07.31</div>
+                <div>{{movieNm}}</div>
+                <div>{{director}}</div>
+                <div>{{nationNm}}</div>
+                <div>{{company}}</div>
+                <div>{{ratingGrade}}</div>
+                <div>{{genreNm}}</div>
+                <div>{{openDt}}</div>
 
                 <div><button type="button">구입</button></div>
 
-                <!-- 두 번째 데이터 행 -->
-                <div class="movie__img"><img src="/img/movie_name2.jpg" /></div>
-                <div>에이리언3</div>
-                <div>0000000026</div>
-                <div>페데 알바레즈</div>
-                <div>미국</div>
-                <div>플러스엠</div>
-                <div>15세 이상</div>
-                <div>공포</div>
-                <div>2024.08.14</div>
+                {{/models}}
 
-                <div><button type="button">수정</button></div>
-
-                <!-- 세 번째 데이터 행 -->
-                <div class="movie__img"><img src="/img/movie_name3.jpg" /></div>
-                <div>비틀쥬스 비틀쥬스</div>
-                <div>0000000025</div>
-                <div>팀 버튼</div>
-                <div>미국</div>
-                <div>판씨네마</div>
-                <div>13세 이상</div>
-                <div>공포</div>
-                <div>2024.09.04</div>
-
-                <div><button type="button">구입함</button></div>
             </div>
         </div>
     </section>
