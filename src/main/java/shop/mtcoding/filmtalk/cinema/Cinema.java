@@ -11,6 +11,7 @@ import shop.mtcoding.filmtalk.screen.Screen;
 import java.sql.Timestamp;
 import java.util.List;
 
+
 @Getter
 @Setter
 @Table(name = "cinema_tb")
@@ -29,11 +30,13 @@ public class Cinema { //영화관 테이블
 
     private String name;
 
+
+    @OneToMany(mappedBy = "cinema")
+    private List<Screen> screens;
+
     @ManyToOne(fetch = FetchType.LAZY)
     private Region region;
 
-    @OneToMany(mappedBy = "cinema",fetch = FetchType.LAZY)
-    private List<Screen> screens;
 
 
     @Builder

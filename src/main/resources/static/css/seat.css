@@ -76,6 +76,31 @@ main {
     margin-bottom: 5px;
 }
 
+.blackbox__middle__container {
+    display: flex;
+    width: 1200px;
+
+}
+
+.blackbox__img__div {
+    margin-right: 30px;
+}
+
+.blackbox__movie__div {
+    margin-right: 30px;
+}
+
+.left__td{
+    width: 90px;
+}
+
+.right__td{
+    width: 200px;
+}
+
+.seat__num__box {
+    margin-right: 50px;
+}
 /* 좌석 css */
 /* 기본 스타일 설정 */
 #seat-container {

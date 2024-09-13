@@ -26,7 +26,7 @@ public class UserRepositoryTest {
         //존재하는 유저
         String username = "ssar";
         String passwrod = "1234";
-        Optional<User> userOP = userRepository.findByUsernameAndPassword(username, passwrod);
+        Optional<User> userOP = userRepository.mFindByUsernameAndPassword(username, passwrod);
         if(userOP.isPresent()){
             System.out.println("테스트성공");
             System.out.println(userOP.get().getUsername());
@@ -73,7 +73,7 @@ public class UserRepositoryTest {
         User user = User.builder()
                 .username(username)
                 .build();
-        Optional<User> existingUser = userRepository.findByUsername(user.getUsername());
+        Optional<User> existingUser = userRepository.mFindByUsername(user.getUsername());
 
         assertFalse(existingUser.isEmpty(),"테스트실패-디비에 없는 유저입니다.");
         if (existingUser.isPresent()){
@@ -85,7 +85,7 @@ public class UserRepositoryTest {
         User user2 = User.builder()
                 .username("wodud6967")
                 .build();
-        Optional<User> nonExistingUser= userRepository.findByUsername(user2.getUsername());
+        Optional<User> nonExistingUser= userRepository.mFindByUsername(user2.getUsername());
         assertFalse(nonExistingUser.isPresent(),"테스트실패");
         if (nonExistingUser.isEmpty()){
             System.out.println("테스트성공");

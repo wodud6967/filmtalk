@@ -21,14 +21,16 @@ public class Screen {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    //fk
     @ManyToOne(fetch = FetchType.LAZY)
     private Cinema cinema;
 
     private String name;
 
-    @OneToMany(mappedBy = "screen", fetch = FetchType.LAZY)
+
+    @OneToMany(mappedBy = "screen")
     private List<Showtime> showtimes;
+
 
     //totalseat 총 좌석수?
 
