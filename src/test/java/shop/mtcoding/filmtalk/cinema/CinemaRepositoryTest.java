@@ -45,6 +45,15 @@ public class CinemaRepositoryTest {
         }
 
     }
+
+    @Test
+    public void mFindByIdWithScreen_test() {
+
+        Long CinemaId = 1L;
+
+
+
+    }
 }
 
 

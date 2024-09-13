@@ -42,3 +42,22 @@ seatLayout.forEach(row => {
         document.getElementById('seat-container').appendChild(rowDiv);
     }
 });
+
+// 일반 버튼 선택 시 value 가져오기
+// 선택한 value 만큼 좌석 선택 가능
+
+function getNum(value){
+    console.log("You clicked on value:", value);
+    // 여기에서 원하는 동작을 추가하세요
+    alert("Selected value: " + value);
+    //console.log(document.getElementById("count1").value);
+
+}
+// 선택한 value 만큼 좌석 선택하고 나면
+// 1. 더이상 좌석 선택 못하게 막기
+// 2. 동시에 하단 검은창에 선택한 좌석 번호랑 선택한 좌석의 갯수 및 해당 좌석의 가격(showtime에 있음) 띄우기
+// 연산해서 총금액까지
+
+// 결제선택을 누르는 순간
+// reservation insert하고나서 ticket insert 하고나서
+// session에 reservation id 담아서 보내기
