@@ -3,6 +3,8 @@ package shop.mtcoding.filmtalk.showtime;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import shop.mtcoding.filmtalk.cinema.Cinema;
+import java.util.List;
 import java.util.Optional;
 import java.util.List;
 
@@ -22,5 +24,4 @@ public interface ShowtimeRepository extends JpaRepository<Showtime,Long> {
 
     @Query("select st from Showtime st left join fetch st.movie mt where st.id=:id")
     Optional<Showtime> mFindById(@Param("id") int id);
-
 }

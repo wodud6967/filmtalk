@@ -5,8 +5,10 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
 
-public interface CinemaRepository extends JpaRepository<Cinema, Long> {
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 
+public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
 
     //bag 오류 onetomany 두번사용 컬렉션 +컬렉션 오류
@@ -22,8 +24,10 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
     @Query("select c from  Cinema c  join fetch c.screens s where c.id in :cinemaIds")
     List<Cinema> mFindIdsByIdsWithScreen(@Param("cinemaIds") List<Long> cinemaIds);
+    @Query("select c from  Cinema c  join fetch c.screens s where c.id=:id")
+    Cinema mFindCinemaById(@Param("id") Long id);
 
+    @Query("select c from Cinema c join fetch c.region r where c.id=:id")
+    Cinema mFindCinemaRegionById(@Param("id") Long id);
 
 }
-
-
