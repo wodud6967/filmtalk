@@ -4,6 +4,7 @@ import jakarta.transaction.Transactional;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import retrofit2.http.PUT;
 import shop.mtcoding.filmtalk.cinema.Cinema;
 import shop.mtcoding.filmtalk.cinema.CinemaRepository;
 import shop.mtcoding.filmtalk.movie.Movie;
@@ -39,6 +40,20 @@ public class AdminRepositoryTest {
     private ShowtimeRepository showtimeRepository;
 
 
+    @Test
+    public  void mFindAllWithScreen(){
+     List<Cinema> cinemas = cinemaRepository.mFindAllWithScreen();
+     for (Cinema cinema : cinemas) {
+         System.out.println(cinema.getName());
+            List<Screen> screens =  cinema.getScreens();
+                 for (Screen screen : screens) {
+
+                     System.out.println(screen.getName());
+
+                 }
+     }
+
+    }
 
     @Test
     public void mFindByOneUsernameAndPassword_test(){
