@@ -86,68 +86,26 @@
                 <div class="col-12">
                     <h4 class="fw-bold">현재 상영작 <span class="text-danger">TOP 5</span></h4>
                 </div><!-- 영화 카드 -->
+                {{#models}}
                 <div class="col">
                     <div class="movie-card">
-                        <a href="movie/1">
-                            <img src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21478_103_1.jpg"
+                        <a href="movie/{{id}}">
+                            <img src="{{posterUrl}}"
                                     alt="영화 포스터">
-                            <span class="badge bg-success badge-custom">전체</span>
+                            <span class="badge bg-success badge-custom">{{ratingGrade}}</span>
                         </a>
 
                         <div class="row mb-2">
                             <div class="movie-info">
-                                <div class="movie-title">안녕, 할부지</div>
-                                <div class="movie-runtime">94분</div>
+                                <div class="movie-title">{{movieNm}}</div>
+                                <div class="movie-runtime">{{runtime}}분</div>
                                 <button onclick="go__reservaion()"  class=" btn btn-primary btn-sm mt-2">예매하기</button>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <div class="col">
-                    <div class="movie-card"><img
-                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202408/21254_103_1.jpg"
-                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
-                        <div class="movie-info">
-                            <div class="movie-title">빅토리</div>
-                            <div class="movie-runtime">120분</div>
-                            <button onclick="go__reservaion()"  class=" btn btn-primary btn-sm mt-2">예매하기</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card"><img
-                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202409/21235_103_1.jpg"
-                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
-                        <div class="movie-info">
-                            <div class="movie-title">비틀쥬스</div>
-                            <div class="movie-runtime">104분</div>
-                            <button onclick="go__reservaion()"  class="btn btn-primary btn-sm mt-2" >예매하기</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card"><img
-                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202408/21028_103_1.jpg"
-                            alt="영화 포스터"><span class="badge bg-danger badge-custom">15</span>
-                        <div class="movie-info">
-                            <div class="movie-title">에일리언: 로물루스</div>
-                            <div class="movie-runtime">119분</div>
-                            <button onclick="go__reservaion()"  class="btn btn-primary btn-sm mt-2">예매하기</button>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="movie-card"><img
-                            src="https://cf.lottecinema.co.kr//Media/MovieFile/MovieImg/202407/21258_103_1.jpg"
-                            alt="영화 포스터"><span class="badge bg-warning badge-custom">12</span>
-                        <div class="movie-info">
-                            <div class="movie-title">파일럿</div>
-                            <div class="movie-runtime">111분</div>
-                            <button onclick="go__reservaion()"  class=" btn btn-primary btn-sm mt-2">예매하기</button>
-                        </div>
-                    </div>
-                </div>
+                {{/models}}
             </div>
         </div>
     </section>
