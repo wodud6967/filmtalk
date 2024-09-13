@@ -10,6 +10,16 @@ import org.springframework.data.repository.query.Param;
 
 public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
+    Cinema findCinemaById(@Param("Long") Long cinemaId,String name);
+
+    //mFindOneWithScreenBycinemaId    단건
+    //mFindAllWithScreenwithMovieBycinemaIdAndname list
+
+
+    //조인한거
+    //파라미터가져온거
+
+
 
     //bag 오류 onetomany 두번사용 컬렉션 +컬렉션 오류
   /*  @Query("SELECT c FROM Cinema c " +
