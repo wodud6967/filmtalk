@@ -35,7 +35,11 @@ public class PaymentService {
                 // 티켓도 2장 삭제
 
                 // 주문&결제 삭제 (예매=부모 삭제하면, 티켓도 삭제 되는지 확인)
-                reservationRepository.deleteById(saveDTO.getReservationId());
+                // TODO: 테스트 후 39라인 주석 해제
+                // reservationRepository.deleteById(saveDTO.getReservationId());
+                Long reservationId = Long.parseLong(saveDTO.getReservationId());
+                reservationRepository.deleteById(reservationId);
+
 
                 throw new ExceptionApi500("결제 미완료");
             }
