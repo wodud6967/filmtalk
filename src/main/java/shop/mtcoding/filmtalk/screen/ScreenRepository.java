@@ -14,5 +14,7 @@ public interface ScreenRepository extends JpaRepository<Screen, Long> {
 
     @Query("select s from Screen s where s.cinema.id in :cinemaIds")
     List<Screen> mFindScreenByCinemaIds(@Param("cinemaIds") List<Long> cinemaIds);
+    @Query("select s from Screen s where s.cinema.id in :cinemaId")
+    List<Screen> mfindByCinemaId(@Param("cinemaId") Long cinemaId);
 
 }

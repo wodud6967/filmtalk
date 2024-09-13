@@ -7,10 +7,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import shop.mtcoding.filmtalk.region.Region;
 import shop.mtcoding.filmtalk.screen.Screen;
-
 import java.sql.Timestamp;
 import java.util.List;
-
 
 @Getter
 @Setter
@@ -31,7 +29,8 @@ public class Cinema { //영화관 테이블
     private String name;
 
 
-    @OneToMany(mappedBy = "cinema")
+    @OneToMany(mappedBy="cinema")
+
     private List<Screen> screens;
 
     @ManyToOne(fetch = FetchType.LAZY)

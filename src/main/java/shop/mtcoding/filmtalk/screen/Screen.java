@@ -27,10 +27,8 @@ public class Screen {
 
     private String name;
 
-
     @OneToMany(mappedBy = "screen")
     private List<Showtime> showtimes;
-
 
     //totalseat 총 좌석수?
 
