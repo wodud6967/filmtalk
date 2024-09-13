@@ -27,6 +27,8 @@
         private Screen screen; //상영관
 
 
+        private Integer price;
+
         @Column(nullable = false)
         private Timestamp startedAt;
 
