@@ -272,7 +272,7 @@
         // 동적으로 모달을 생성
         $('body').append(`
           <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px;">
                 <div class="modal-body">
                   <iframe id="videoPlayer" width="900" height="600" src="{{model.vodUrl}}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                 </div>

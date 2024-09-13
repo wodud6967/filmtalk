@@ -4,6 +4,10 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.filmtalk.core.error.ex.Exception404;
+import shop.mtcoding.filmtalk.poster.Poster;
+import shop.mtcoding.filmtalk.poster.PosterRepository;
+import shop.mtcoding.filmtalk.still.Still;
+import shop.mtcoding.filmtalk.still.StillRepository;
 import shop.mtcoding.filmtalk.user.User;
 
 import java.util.ArrayList;
@@ -15,6 +19,9 @@ import java.util.List;
 public class MovieService {
     private final MovieRepository movieRepository;
     private final MovieQueryRepository movieQueryRepository;
+
+    private final StillRepository stillRepository;
+    private final PosterRepository posterRepository;
 
 
     public List<MovieResponse.ListDTO> 영화목록보기() {
@@ -29,8 +36,11 @@ public class MovieService {
     public MovieResponse.DetailDTO 영화상세보기(int id, User sessionUser) {
         Movie movie = movieRepository.mFindOneWithCommentsById(id)
                 .orElseThrow(() -> new Exception404("영화가 없습니다."));
-//        Movie movie = movieRepository.findById(Long.valueOf(id)).orElseThrow(()->new Exception404("Movie not found"));
-
+        List<Still> stills = stillRepository.mFindAllByMovie(movie);
+        List<Poster> posters = posterRepository.mFindAllByMovie(movie);
+        movie.setStillUrls(stills);
+        movie.setPosterUrls(posters);
+        System.out.println("==============================검색은 완료되어야 한다============");
 
         return new MovieResponse.DetailDTO(movie,sessionUser);
     }

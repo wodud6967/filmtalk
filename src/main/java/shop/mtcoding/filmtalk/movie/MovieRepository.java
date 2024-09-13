@@ -16,4 +16,5 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     @Query("select m from Movie m left join fetch m.comments c left join fetch c.user u " +
             " where m.id =:id")
     Optional<Movie> mFindOneWithCommentsById(int id);
+
 }
