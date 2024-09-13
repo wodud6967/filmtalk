@@ -28,7 +28,7 @@ public class CinemaRepositoryTest {
         System.out.println("==========================");
         List<Long> cinemaIds = cinemas.stream().map(cinema -> cinema.getId()).toList();
 
-        List<Screen> screens = screenRepository.mFindByCinemaIds(cinemaIds);
+        List<Screen> screens = screenRepository.mFindScreenByCinemaIds(cinemaIds);
         System.out.println("==========================");
         List<Long> screenIds = screens.stream().map(screen -> screen.getId()).toList();
 

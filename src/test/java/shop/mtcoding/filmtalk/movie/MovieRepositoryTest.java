@@ -4,18 +4,16 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-<<<<<<< HEAD
+
 import shop.mtcoding.filmtalk.comment.Comment;
-=======
->>>>>>> 299b12f (영화 메인, 상세보기 페이지 구현 완료)
+
 import shop.mtcoding.filmtalk.core.error.ex.Exception404;
 import shop.mtcoding.filmtalk.poster.Poster;
 import shop.mtcoding.filmtalk.poster.PosterRepository;
 import shop.mtcoding.filmtalk.still.Still;
-<<<<<<< HEAD
-=======
+
 import shop.mtcoding.filmtalk.still.StillRepository;
->>>>>>> 299b12f (영화 메인, 상세보기 페이지 구현 완료)
+
 
 import java.util.List;
 
@@ -35,7 +33,7 @@ public class MovieRepositoryTest {
     @Test
     public void makeMovieWithAll(){
         int id = 1;
-        Movie movie = movieRepository.mFindByIdWithComments(id).orElseThrow(() -> new Exception404("없다이놈아"));
+        Movie movie = movieRepository.mFindOneWithCommentsById(id).orElseThrow(() -> new Exception404("없다이놈아"));
         List<Still> stills = stillRepository.mFindAllByMovie(movie);
         List<Poster> posters = posterRepository.mFindAllByMovie(movie);
         System.out.println("=====================no more hiber ---------------");
@@ -48,7 +46,7 @@ public class MovieRepositoryTest {
     @Test
     public void findStillsByMovie(){
         int id = 1;
-        Movie movie = movieRepository.mFindByIdWithComments(id).orElseThrow(() -> new Exception404("없다이놈아"));
+        Movie movie = movieRepository.mFindOneWithCommentsById(id).orElseThrow(() -> new Exception404("없다이놈아"));
         List<Still> allByMovie = stillRepository.mFindAllByMovie(movie);
         Assertions.assertTrue(allByMovie.size() == 9);
 
@@ -57,7 +55,7 @@ public class MovieRepositoryTest {
     @Test
     public void findPostersByMovie(){
         int id = 1;
-        Movie movie = movieRepository.mFindByIdWithComments(id).orElseThrow(() -> new Exception404("없다이놈아"));
+        Movie movie = movieRepository.mFindOneWithCommentsById(id).orElseThrow(() -> new Exception404("없다이놈아"));
         List<Poster> allByMovie = posterRepository.mFindAllByMovie(movie);
         Assertions.assertTrue(allByMovie.size()==2);
 
@@ -68,7 +66,7 @@ public class MovieRepositoryTest {
     public void findAll_test() {
         List<Movie> movies = movieRepository.mFindAllWithPosterUrls();
         Assertions.assertTrue(movies.get(0).getPosterUrls().size() == 2);
-<<<<<<< HEAD
+
 
     }
 
@@ -107,7 +105,6 @@ public class MovieRepositoryTest {
         }
 
         System.out.println("----------코멘트 안 유저 읽기 완료------------");
-=======
->>>>>>> 299b12f (영화 메인, 상세보기 페이지 구현 완료)
+
     }
 }
