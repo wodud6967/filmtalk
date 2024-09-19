@@ -27,8 +27,13 @@ public class MovieService {
     public List<MovieResponse.ListDTO> 영화목록보기() {
         List<Movie> movies = movieRepository.mFindAllWithPosterUrls();
         List<MovieResponse.ListDTO> listDTO = new ArrayList<>();
+        int count = 0;
         for (Movie movie : movies) {
+            if (count >= 5) {
+                break; // 5개 항목을 초과하면 루프 종료
+            }
             listDTO.add(new MovieResponse.ListDTO(movie));
+            count++;
         }
         return listDTO;
     }

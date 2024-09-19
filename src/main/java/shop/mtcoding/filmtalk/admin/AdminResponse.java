@@ -1,6 +1,9 @@
 package shop.mtcoding.filmtalk.admin;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import shop.mtcoding.filmtalk.admin.kormoviedata.needdata.NeedData;
 import shop.mtcoding.filmtalk.admin.kormoviedata.needdata.Still;
 import shop.mtcoding.filmtalk.movie.MovieResponse;
@@ -13,6 +16,7 @@ public class AdminResponse {
     @Data
     public static class MovieDTO {
         private String movieNm;
+        private String prdtYear;
         private String openDt;
         private String runtime;
         private String ratingGrade;
@@ -28,6 +32,7 @@ public class AdminResponse {
 
         public MovieDTO(NeedData needData) {
             this.nationNm = needData.getNationNm();
+            this.prdtYear = needData.getPrdtYear();
             this.company = needData.getCompany();
             this.movieNm = needData.getMovieNm();
             this.openDt = needData.getOpenDt();
@@ -44,5 +49,6 @@ public class AdminResponse {
 
             }
         }
+
     }
 }

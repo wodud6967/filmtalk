@@ -30,8 +30,6 @@ public class KorRepo {
         String formattedAfter = sevenDaysAfter.format(formatter);
 
         String fullUrl = API_ADDRESS + "&ServiceKey="+API_KEY+"&listCount="+API_LIST_COUNT+"&releaseDts="+formattedBefore+"&releaseDte="+formattedAfter;
-        System.out.println("-----------------------------------------");
-        System.out.println(fullUrl);
         try {
             URL url = new URL(fullUrl);
 

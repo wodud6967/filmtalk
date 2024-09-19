@@ -1,12 +1,14 @@
 package shop.mtcoding.filmtalk.admin;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import shop.mtcoding.filmtalk.admin.kormoviedata.needdata.NeedData;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+import shop.mtcoding.filmtalk.core.util.Resp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -19,40 +21,57 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping("/admin/dashboard")
-    public String dashBoard(){
+    public String dashBoard() {
         return "admin/dashboard";
     }
 
     @GetMapping("/admin/dashboard")
-    public String NotAuthenticatedDashBoard(){
+    public String NotAuthenticatedDashBoard() {
 
         return "admin/dashboard";
     }
 
     @GetMapping("/admin")
-    public String login(){
+    public String login() {
         return "admin/login-form";
     }
 
     @GetMapping("/admin/member")
-    public String member(){
+    public String member() {
         return "admin/member";
     }
+
     @GetMapping("/admin/cinema")
-    public String cinema(){
+    public String cinema() {
         return "admin/cinema-add";
     }
+
     @GetMapping("/admin/movie")
-    public String movie(HttpServletRequest request){
-        List<AdminResponse.MovieDTO> rawMovies = adminService.API영화보여주기();
+    public String movie(HttpServletRequest request) {
+        List<AdminResponse.MovieDTO> rawMovies = adminService.API영화리스트보여주기();
         request.setAttribute("models", rawMovies);
         return "admin/movie";
     }
-    @GetMapping("/admin/showtime")
-    public String showtime(){
-        return "admin/showtime";
+
+    @PostMapping("admin/movie/save")
+    public ResponseEntity<?> saveMovie(@Valid @RequestBody AdminRequest.SaveMovieDTO saveMovieDTO, Errors errors) {
+        System.out.println(saveMovieDTO);
+        adminService.영화등록하기(saveMovieDTO);
+        return ResponseEntity.ok(Resp.ok(null));
     }
 
+    @GetMapping("/admin/movie/{movieNm}")
+    public String movie(@PathVariable String movieNm, HttpServletRequest request) {
+        AdminResponse.MovieDTO Movie = adminService.API영화상세보기(movieNm);
+        request.setAttribute("model", Movie);
+        return "admin/movie-detail";
+
+    }
+
+    @GetMapping("/admin/showtime")
+    public String showtime() {
+        return "admin/showtime";
+    }
 
 
     // TODO: qna 페이지 DTO 까지 건들이려니까 복잡해서 임시로 컨트롤러에서 포문으로 리스트 출력

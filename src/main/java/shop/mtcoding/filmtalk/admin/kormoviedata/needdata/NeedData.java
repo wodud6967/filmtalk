@@ -1,7 +1,6 @@
 package shop.mtcoding.filmtalk.admin.kormoviedata.needdata;
 
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import shop.mtcoding.filmtalk.admin.kormoviedata.kor.KorMovies;
 import shop.mtcoding.filmtalk.admin.kormoviedata.kor.Result;
 
@@ -9,7 +8,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 public class NeedData {
 
@@ -32,7 +32,7 @@ public class NeedData {
         List<NeedData> list = new ArrayList<NeedData>();
         for (Result a : korMovies.getData().getFirst().getResult()) {
             NeedData data = new NeedData();
-            data.setMovieNm(removeSpecialCharacters(a.getTitle()));
+            data.setMovieNm(cleanString(a.getTitle()));
             data.setPrdtYear(a.getProdYear());
             data.setOpenDt(a.getRepRlsDate());
             data.setNationNm(a.getNation());
@@ -61,10 +61,15 @@ public class NeedData {
         return Arrays.asList(urls.split("\\|"));
     }
 
-    private String removeSpecialCharacters(String input) {
+    private String cleanString(String input) {
         if (input != null) {
             // !HS와 !HE를 모두 제거
-            return input.replace("!HS", "").replace("!HE", "");
+            String result = input.replace("!HS", "").replace("!HE", "");
+            // 여러 개의 공백을 하나의 공백으로 줄이기
+            result = result.replaceAll("\\s+", " ");
+            // 문자열의 앞뒤 공백을 제거
+            result = result.trim();
+            return result;
         }
         return input;
     }

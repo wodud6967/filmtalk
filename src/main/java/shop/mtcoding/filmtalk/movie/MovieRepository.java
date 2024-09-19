@@ -8,7 +8,7 @@ import java.util.Optional;
 
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 
-    @Query("select m from Movie m left join fetch m.posterUrls p")
+    @Query("select m from Movie m left join fetch m.posterUrls p order by m.id desc")
     List<Movie> mFindAllWithPosterUrls();
 
 //    @Query("select m from Movie m left join fetch m.posterUrls p left join fetch m.stillUrls s " +

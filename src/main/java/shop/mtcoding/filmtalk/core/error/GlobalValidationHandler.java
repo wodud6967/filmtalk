@@ -9,11 +9,29 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.FieldError;
 import shop.mtcoding.filmtalk.core.error.ex.Exception400;
+import shop.mtcoding.filmtalk.core.error.ex.ExceptionApi400;
 
 
 @Component
 @Aspect //AOP 등록
 public class GlobalValidationHandler {
+
+    @Before("execution(* shop.mtcoding.filmtalk.admin.AdminController.saveMovie(..))")
+    public void apiValidation(JoinPoint jp) {
+        Object[] args = jp.getArgs();
+        for (Object arg : args) {
+            if (arg instanceof Errors) {
+                Errors errors = (Errors) arg;
+
+                if (errors.hasErrors()) {
+                    for (FieldError error : errors.getFieldErrors()) {
+                        throw new ExceptionApi400(error.getDefaultMessage() + " : " + error.getField());
+
+                    }
+                }
+            }
+        }
+    }
 
     //@Before("@annotation(org.springframework.web.bind.annotation.PostMapping) || @annotation(org.springframework.web.bind.annotation.PutMapping)")
     @Before("@annotation(org.springframework.web.bind.annotation.PostMapping)")

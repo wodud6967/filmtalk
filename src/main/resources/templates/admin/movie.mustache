@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,6 +13,7 @@
         aside {
             width: 250px;
         }
+
         aside .side__icon {
             font-weight: bold;
             font-size: 18px;
@@ -23,13 +23,16 @@
             align-items: center;
             padding: 20px;
         }
+
         aside nav ul {
             margin-bottom: 20px;
         }
+
         aside nav ul li {
             margin-bottom: 10px;
         }
-        aside nav > ul> li> a {
+
+        aside nav > ul > li > a {
             display: block;
             background-color: #f6f6f6;
             border-top: 1px solid #cfcfcf;
@@ -40,32 +43,40 @@
             vertical-align: middle;
             cursor: pointer;
         }
+
         aside nav ul li ul {
             display: none;
             margin-top: 10px;
         }
+
         aside nav ul li ul.on {
             display: block;
         }
+
         aside nav ul li ul li {
             background-color: #fff;
         }
-        aside nav ul li ul li.active a{
+
+        aside nav ul li ul li.active a {
             color: red;
         }
+
         aside nav ul li ul li a {
             font-size: 13px;
             color: #555;
             background-color: #fff;
         }
+
         aside nav ul li ul li a:hover {
             background-color: #eaeaea;
         }
-/* ------------------------------------  */
+
+        /* ------------------------------------  */
 
         main {
             display: flex;
         }
+
         main section {
             flex: 1;
             min-height: 700px;
@@ -73,9 +84,11 @@
             padding-bottom: 100px;
             background-color: #ccc;
         }
+
         .sec__top {
             background-color: #fff;
         }
+
         .content__route {
             border-bottom: 1px solid #d7d7d7;
             margin-left: 16px;
@@ -87,9 +100,11 @@
             justify-content: flex-start;
             gap: 20px;
         }
+
         .content__route div {
             font-size: 11px;
         }
+
         .content__title {
             position: relative;
             height: 56px;
@@ -100,12 +115,14 @@
             display: flex;
             align-items: center;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             border-spacing: 0;
             border: 1px solid #d7d7d7;
         }
+
         .fb__filter__title {
             padding-left: 35px;
             color: #000;
@@ -115,6 +132,7 @@
             background: #f9f9f9;
             border-right: 1px solid #d7d7d7;
         }
+
         .name__filter__text {
             width: 360px;
             height: 30px;
@@ -123,6 +141,7 @@
             border: 1px solid #d7d7d7;
             box-sizing: border-box;
         }
+
         .container {
             width: 60%;
 
@@ -131,22 +150,26 @@
             margin-top: 10px;
 
         }
+
         .container form {
             background-color: #fff;
             padding: 20px;
             margin-bottom: 30px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
         }
+
         th,
         td {
             padding: 10px;
             text-align: left;
             border: 1px solid #ddd;
         }
+
         th {
             display: flex;
             justify-content: center;
@@ -154,6 +177,7 @@
             background-color: #f9f9f9;
             font-weight: normal;
         }
+
         input[type="text"],
         select,
         textarea {
@@ -166,6 +190,7 @@
             margin-bottom: 10px;
             height: 43px;
         }
+
         input[type="button"] {
             background-color: #4caf50;
             color: white;
@@ -175,16 +200,20 @@
             cursor: pointer;
             margin-right: 5px;
         }
+
         input[type="button"]:hover {
             background-color: #45a049;
         }
+
         .fb-filter__title {
             width: 150px;
         }
+
         .button-group {
             text-align: center;
             margin-top: 20px;
         }
+
         form button {
             background-color: #4caf50;
             color: white;
@@ -194,25 +223,31 @@
             cursor: pointer;
             margin-right: 10px;
         }
+
         button[type="reset"] {
             background-color: #f44336;
         }
+
         button:hover {
             opacity: 0.8;
         }
+
         .search__bar {
         }
+
         .flex__line {
             display: flex;
             align-items: center;
             gap: 20px;
         }
+
         .flex__line input[type="text"] {
             flex: 1;
             padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
+
         .flex__line button {
             background-color: #4caf50;
             color: white;
@@ -222,22 +257,28 @@
             cursor: pointer;
             margin-left: 10px;
         }
+
         .flex__line button[type="reset"] {
             background-color: #f44336;
         }
+
         .flex__line button:hover {
             opacity: 0.8;
         }
+
         table tr {
             width: 100%;
             display: flex;
         }
+
         table td {
             flex: 1;
         }
+
         .fb-filter__select {
             width: 200px;
         }
+
         #result {
             padding: 20px;
             display: grid;
@@ -248,6 +289,7 @@
             border-collapse: collapse;
             background-color: #fff;
         }
+
         #result div {
             display: flex;
             justify-content: center;
@@ -257,18 +299,22 @@
             height: 50px;
             min-width: 50px;
         }
+
         #result .result__th {
             font-weight: 600;
             letter-spacing: -0.05em;
             background: #f8f8f8;
         }
+
         #result .movie__img {
             position: relative;
         }
+
         #result .movie__img img {
             height: 100%;
             object-fit: cover;
         }
+
         #result .movie__img.on img {
             width: 240px;
             height: auto;
@@ -279,6 +325,27 @@
             bottom: 0; /* 상단 정렬 */
             z-index: 10; /* 위에 표시되도록 */
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* 그림자 추가 */
+        }
+        .btn-link {
+            display: inline-block;
+            padding: 0.375rem 0.75rem;
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.5;
+            text-align: center;
+            text-decoration: none;
+            border: 1px solid transparent;
+            border-radius: 0.25rem;
+            color: #0d6efd;
+            background-color: transparent;
+            border-color: #0d6efd;
+        }
+
+        .btn-link:hover {
+            color: #0a58ca;
+            text-decoration: none;
+            background-color: #e9ecef;
+            border-color: #0a58ca;
         }
 
     </style>
@@ -296,7 +363,7 @@
     </div>
     <div class="header__bottom">
         <ul>
-            <li><a href="/admin/dashboard">데시보드</a> </li>
+            <li><a href="/admin/dashboard">데시보드</a></li>
             <li><a href="/admin/member">회원관리</a></li>
             <li class="active"><a href="/admin/cinema">상영관등록</a></li>
             <li><a href="/admin/movie">영화관리</a></li>
@@ -349,7 +416,7 @@
                 <h3>영화등록하기</h3>
             </div>
         </div>
-<!--    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    -->
+        <!--    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    -->
         <div class="container">
             <form action="#" method="get">
                 <fieldset>
@@ -439,19 +506,19 @@
                             <th class="fb-filter__title">장르</th>
                             <td colspan="3">
                                 <label
-                                ><input type="checkbox" name="state[]" value="0" />
+                                ><input type="checkbox" name="state[]" value="0"/>
                                     로맨스</label
                                 >
                                 <label
-                                ><input type="checkbox" name="state[]" value="1" />
+                                ><input type="checkbox" name="state[]" value="1"/>
                                     호러</label
                                 >
                                 <label
-                                ><input type="checkbox" name="state[]" value="2" />
+                                ><input type="checkbox" name="state[]" value="2"/>
                                     코미디</label
                                 >
                                 <label
-                                ><input type="checkbox" name="state[]" value="3" />
+                                ><input type="checkbox" name="state[]" value="3"/>
                                     액션</label
                                 >
                             </td>
@@ -459,13 +526,13 @@
                         <tr>
                             <th class="fb-filter__title">상영등급</th>
                             <td colspan="3">
-                                <label><input type="radio" name="disp[]" value="1" checked />
+                                <label><input type="radio" name="disp[]" value="1" checked/>
                                     상관없음</label>
-                                <label><input type="radio" name="disp[]" value="0" /> 전체
+                                <label><input type="radio" name="disp[]" value="0"/> 전체
                                     관람가</label>
-                                <label><input type="radio" name="disp[]" value="0" /> 12세
+                                <label><input type="radio" name="disp[]" value="0"/> 12세
                                     관람가</label>
-                                <label><input type="radio" name="disp[]" value="0" /> 청소년
+                                <label><input type="radio" name="disp[]" value="0"/> 청소년
                                     관람 불가</label>
                             </td>
                         </tr>
@@ -478,15 +545,15 @@
                                         value="A"
                                         checked/>
                                     전체</label>
-                                <label><input type="radio" name="is_mobile_use" value="W" />2D</label>
-                                <label><input type="radio" name="is_mobile_use" value="M" />3D</label>
+                                <label><input type="radio" name="is_mobile_use" value="W"/>2D</label>
+                                <label><input type="radio" name="is_mobile_use" value="M"/>3D</label>
                             </td>
                             <th class="fb-filter__title">배급사</th>
                             <td class="flex__line">
                                 <input type="text"
-                                        name="brand"
-                                        class="fb-filter__text"
-                                        readonly/>
+                                       name="brand"
+                                       class="fb-filter__text"
+                                       readonly/>
                             </td>
                         </tr>
                         </tbody>
@@ -511,18 +578,20 @@
 
                 <!-- 첫 번째 데이터 행 -->
                 {{#models}}
-                <div class="movie__img">
-                    <img src="{{posterUrl}}" alt="" />
-                </div>
-                <div>{{movieNm}}</div>
-                <div>{{director}}</div>
-                <div>{{nationNm}}</div>
-                <div>{{company}}</div>
-                <div>{{ratingGrade}}</div>
-                <div>{{genreNm}}</div>
-                <div>{{openDt}}</div>
+                    <div class="movie__img">
+                        <img src="{{posterUrl}}" alt=""/>
+                    </div>
+                    <div>{{movieNm}}</div>
+                    <div>{{director}}</div>
+                    <div>{{nationNm}}</div>
+                    <div>{{company}}</div>
+                    <div>{{ratingGrade}}</div>
+                    <div>{{genreNm}}</div>
+                    <div>{{openDt}}</div>
 
-                <div><button type="button">구입</button></div>
+                    <div>
+                        <a id="detailButton" class="btn-link" href="/admin/movie/{{movieNm}}">상세보기</a>
+                    </div>
 
                 {{/models}}
 
@@ -532,6 +601,7 @@
 </main>
 
 <script>
+
     // Get all list items with submenus
     const menuItems = document.querySelectorAll("aside nav ul li a");
 
