@@ -20,6 +20,8 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
             "WHERE c.id = :cinemaId")
     Cinema findCinemaWithScreensAndShowtimes(@Param("cinemaId") Long cinemaId);*/
 
+
+
     @Query("select c from Cinema c join  fetch c.screens s")
     List<Cinema> mFindAllWithScreen();
 
@@ -29,6 +31,7 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
     @Query("select c from  Cinema c  join fetch c.screens s where c.id in :cinemaIds")
     List<Cinema> mFindIdsByIdsWithScreen(@Param("cinemaIds") List<Long> cinemaIds);
+
     @Query("select c from  Cinema c  join fetch c.screens s where c.id=:id")
     Cinema mFindCinemaById(@Param("id") Long id);
 

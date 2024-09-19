@@ -11,7 +11,9 @@ import java.util.Optional;
 
 public interface ScreenRepository extends JpaRepository<Screen, Long> {
 
-    //Admin이 테스트중 5일의 상영관의 상영시간을 가져오기
+    //Admin이 테스트중 5일의 상영관의 상영시간을 가져오기 in :cinemaIds
+    @Query("SELECT s FROM Screen s LEFT JOIN FETCH s.showtimes st LEFT JOIN FETCH st.movie WHERE s.id IN :screenIds")
+    List<Screen> findScreensWithShowtimesByIds(@Param("screenIds") List<Long> screenIds);
 
     @Query("select s from Screen s where s.cinema.id in :cinemaIds")
     List<Screen> mFindScreenByCinemaIds(@Param("cinemaIds") List<Long> cinemaIds);

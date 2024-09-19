@@ -149,7 +149,7 @@ values (2, '화명2상영관');
 
 
 insert into screen_tb (cinema_id, name)
-values (1, '서면롯데시네마 Screen 3');
+values (1, '서면4상영관');
 
 -- 사상롯데시네마 상영관 더미 데이터 삽입
 insert into screen_tb (cinema_id, name)

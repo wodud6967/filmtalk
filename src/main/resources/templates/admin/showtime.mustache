@@ -314,12 +314,33 @@
                                 <!-- 여기서 data-screen-id는 숫자로 설정 -->
                                 <button class="btn-add-time" data-screen-id="{{screenId}}" data-next-available-time="{{formattedNextAvailableTime}}" data-toggle="modal" data-target="#addTimeModal">+</button>
 
+<<<<<<< HEAD
 
                             </div>
                         </div>
                     {{/screens}}
                 {{/model.cinemaSchedule}}
             </div>
+=======
+            {{#model}}
+                {{#screens}}
+                    <div class="screen-item" id="screen{{screenId}}" data-screen-id="{{screenId}}" data-date="5">
+                        <div class="screen-title">{{screenName}}</div>
+                        <div class="items">
+                            {{#showtimes}}
+                                <div class="time-item">
+                                    <span>12:30</span>
+                                    <span class="movie-name">{{movieName}}</span>
+                                    <span class="movie-runtime">{{runtime}}</span>
+                                </div>
+                            {{/showtimes}}
+                            <!-- 여기서 data-screen-id는 숫자로 설정 -->
+                            <button class="btn-add-time" data-screen-id="{{screenId}}" data-toggle="modal" data-target="#addTimeModal">+</button>
+                        </div>
+                    </div>
+                {{/screens}}
+            {{/model}}
+>>>>>>> 28cb02c (상영시간더하기 진행중)
 
 
 
@@ -469,6 +490,7 @@
         async function fetchShowtimes(selectedDate, clickedElement) {
 
 
+<<<<<<< HEAD
             // 모든 날짜의 active 클래스를 제거하고, 클릭한 날짜에 추가
             $('.date-item').removeClass('active');
             $(clickedElement).addClass('active');
@@ -483,11 +505,47 @@
             if (!response.ok) {
                 throw new Error('Network response was not ok');
             }
+=======
+</script>
+<script>
+    let selectedId= null;
+    let selectedScreenId = null;
+
+    // + 버튼 클릭 시 해당 상영관 ID를 저장 (이벤트 델리게이션 사용)
+    $(document).on('click', '.btn-add-time', function() {
+        selectedId = $(this).data('screen-id');
+        selectedScreenId = `screen`+selectedId;
+        console.log("Selected Screen ID: " + selectedScreenId); // 디버깅용 로그
+    });
+>>>>>>> 28cb02c (상영시간더하기 진행중)
 
             const data = await response.json();  // JSON 데이터를 파싱
             console.log(data.body)
             updateShowtimes(data.body);  // 받아온 데이터로 화면을 업데이트
 
+<<<<<<< HEAD
+=======
+        if (movieName && time && runtime && selectedScreenId) {
+            // 새로운 time-item 생성
+            const newTimeItem = `
+            <div class="time-item">
+                <span>${time}</span>
+                <span class="movie-name">${movieName}</span>
+                <span class="movie-runtime">${runtime}분</span>
+            </div>
+        `;
+            console.log(`Selector: #${selectedScreenId} .items .btn-add-time`);
+            // 선택된 상영관의 items 클래스 내에서 + 버튼 앞에 새 아이템을 추가
+            $(`#${selectedScreenId} .items .btn-add-time`).before(newTimeItem);
+
+            // 모달 닫기
+            $('#addTimeModal').modal('hide');
+
+            // 폼 초기화
+            $('#addTimeForm')[0].reset();
+        } else {
+            alert('모든 항목을 입력해주세요.');
+>>>>>>> 28cb02c (상영시간더하기 진행중)
         }
 
 

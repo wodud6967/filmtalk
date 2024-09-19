@@ -39,6 +39,30 @@ public class AdminRepositoryTest {
     @Autowired
     private ShowtimeRepository showtimeRepository;
 
+    @Test
+    public void admin_mFindAllwithScreenByIds(){
+        Long cinemaId = 1L;
+        Cinema cinemas = cinemaRepository.mFindByIdWithScreen(cinemaId);
+        List<Long> screenIds = new ArrayList<>();;
+        for (Screen screen : cinemas.getScreens()) {
+            screenIds.add(screen.getId());
+
+        }
+        for (Long screenId : screenIds) {
+            System.out.println("상영관id = " + screenId);
+        }
+
+        // 저장된 상영관 ID들을 통해 상영관과 그에 속한 showtime을 조회
+        List<Screen> screensWithShowtimes = screenRepository.findScreensWithShowtimesByIds(screenIds);
+
+        // 결과 출력 (테스트용)
+        for (Screen screen : screensWithShowtimes) {
+            System.out.println("상영관 id = " + screen.getId());
+            for (Showtime showtime : screen.getShowtimes()) {
+                System.out.println("상영시간 = " + showtime.getMovie().getRuntime());
+            }
+        }
+    }
 
     @Test
     public  void mFindAllWithScreen(){
