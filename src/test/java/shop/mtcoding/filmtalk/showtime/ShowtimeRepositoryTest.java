@@ -49,14 +49,15 @@ public class ShowtimeRepositoryTest {
         LocalTime time = startedAt.toLocalDateTime().toLocalTime();
 
         if (showtime.isPresent()) {
-            System.out.println(showtime.get().getMovie().getMovieNm());
-            System.out.println(showtime.get().getMovie().getRatingGrade());
-            System.out.println(showtime.get().getStartedAt().toString());
-            System.out.println(showtime.get().getScreen().getName());
-            System.out.println(showtime.get().getScreen().getCinema().getName());
-            System.out.println(showtime.get().getScreen().getCinema().getRegion().getCity());
+            System.out.println(showtime.get().getMovie().getMovieNm()); // 인터스텔라
+            System.out.println(showtime.get().getMovie().getRatingGrade()); // 12세
+            System.out.println(showtime.get().getStartedAt().toString()); // 시간
+            System.out.println(showtime.get().getScreen().getName()); // 레이지로딩. 서면 1상영관
+            System.out.println(showtime.get().getScreen().getCinema().getName()); // 레이지로딩 . 서면 롯데시네마
+            System.out.println(showtime.get().getScreen().getCinema().getRegion().getCity()); // 레이지 로딩. 부산
             System.out.println("Date: " + date);
             System.out.println("Time: " + time);
+
         } else {
             System.out.println("없어요");
         }

@@ -7,6 +7,7 @@ import org.springframework.data.repository.query.Param;
 import shop.mtcoding.filmtalk.showtime.Showtime;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ScreenRepository extends JpaRepository<Screen, Long> {
 
@@ -15,6 +16,10 @@ public interface ScreenRepository extends JpaRepository<Screen, Long> {
     @Query("select s from Screen s where s.cinema.id in :cinemaIds")
     List<Screen> mFindScreenByCinemaIds(@Param("cinemaIds") List<Long> cinemaIds);
     @Query("select s from Screen s where s.cinema.id in :cinemaId")
-    List<Screen> mfindByCinemaId(@Param("cinemaId") Long cinemaId);
+    List<Screen> mFindByCinemaId(@Param("cinemaId") Long cinemaId);
+    @Query("select s from Screen s Join Fetch s.cinema c where s.id = :id and c.id = :cinemaId")
+    Optional<Screen> mFindOneByIdAndCinemaId(@Param("id") Long id, @Param("cinemaId") Long cinemaId);
+    @Query("select s from Screen s where s.id = :id")
+    Optional<Screen> mFindAllById(@Param("id") Long id);
 
-}
+ }

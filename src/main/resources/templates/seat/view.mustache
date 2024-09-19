@@ -30,11 +30,11 @@
                         <div class="text-center">
                             <label>일반</label>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-outline-primary">0</label>
-                                <label class="btn btn-outline-primary">1</label>
-                                <label class="btn btn-outline-primary">2</label>
-                                <label class="btn btn-outline-primary">3</label>
-                                <label class="btn btn-outline-primary">4</label>
+                                <label class="btn btn-outline-primary" id="count0" value="0" onclick="getNum(0)"></label><!-- 0 클릭 시 초기화 -->
+                                <label class="btn btn-outline-primary" id="count1" value="1" onclick="getNum(1)">1</label>
+                                <label class="btn btn-outline-primary" value="2">2</label>
+                                <label class="btn btn-outline-primary" value="3">3</label>
+                                <label class="btn btn-outline-primary" value="4">4</label>
                             </div>
                         </div>
                     </div>
@@ -45,8 +45,8 @@
                     <!-- 상영 정보 -->
                     <div class="text-center mb-4">
                         <img class="screen__img" src="img/cinema01.jpg">
-                        <p class="font-weight-bold">CGV 센텀시티 | 4관 (Laser) | 남은좌석 281/303</p>
-                        <p>2024.09.04 (수) 20:15 ~ 22:10</p>
+                        <p class="font-weight-bold">{{model.cinemaNm}} | {{model.screenNm}} | 남은좌석 281/303</p>
+                        <p>{{model.startedAt}}</p><p>~ 22:10</p><!-- 2024.09.04 (수) 20:15 -->
                     </div>
                 </div>
             </div>
@@ -81,26 +81,26 @@
                 <img class="movie__img" src="img/movie_name1.jpg">
             </div>
             <div class="blackbox__movie__div">
-                <div>베테랑2</div>
-                <div>12세 관람가</div>
+                <div>{{model.movieNm}}</div>
+                <div>{{model.ratingGrade}}</div>
             </div>
             <div>
                 <table>
                     <tr>
                         <td class="left__td">극장</td>
-                        <td class="right__td">CGV판교</td>
+                        <td class="right__td">{{model.cinemaNm}}</td>
                     </tr>
                     <tr>
                         <td>일시</td>
-                        <td>2024.9.14(토) 12:00</td>
+                        <td>{{model.startedAt}}</td><!-- 2024.9.14(토) 12:00 -->
                     </tr>
                     <tr>
                         <td>상영관</td>
-                        <td>1관</td>
+                        <td>{{model.screenNm}}</td>
                     </tr>
                     <tr>
                         <td>인원</td>
-                        <td>일반 2명</td>
+                        <td>일반 2명</td><!-- js로 -->
                     </tr>
                 </table>
             </div>
