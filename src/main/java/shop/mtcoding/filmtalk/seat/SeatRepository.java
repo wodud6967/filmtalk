@@ -9,6 +9,8 @@ import java.util.Optional;
 
 public interface SeatRepository extends JpaRepository<Seat, Long> {
 
-    @Query("select s from Seat s join fetch s.showtime st where s.showtime=:showtimeId")
-    Optional<List<Seat>> findByShowtime(@Param("showtimeId") Long showtimeId);
+
+    @Query("select s from Seat s join fetch s.showtime st where st.id = :showtimeId")
+    List<Seat> mFindAllByShowtimeId(@Param("showtimeId") Long showtimeId);
+
 }
