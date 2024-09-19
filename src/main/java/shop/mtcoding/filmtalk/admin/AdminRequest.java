@@ -12,32 +12,46 @@ import java.util.List;
 public class AdminRequest {
     @Data
     public static class SaveMovieDTO {
-        @NotEmpty
+        @NotEmpty(message = "영화 제목은 필수 입력 항목입니다.")
         private String movieNm;
-        @NotEmpty
+
+        @NotEmpty(message = "제작 연도는 필수 입력 항목입니다.")
         private String prdtYear;
-        @NotEmpty
+
+        @NotEmpty(message = "개봉일은 필수 입력 항목입니다.")
         private String openDt;
-        @NotEmpty
+
+        @NotEmpty(message = "제작 국가는 필수 입력 항목입니다.")
         private String nationNm;
-        @NotEmpty
+
+        @NotEmpty(message = "장르명은 필수 입력 항목입니다.")
         private String genreNm;
-        @NotEmpty
+
+        @NotEmpty(message = "영화 감독 이름은 필수 입력 항목입니다.")
         private String director;
-        @NotEmpty
+
+        @NotEmpty(message = "제작사는 필수 입력 항목입니다.")
         private String company;
-        @NotEmpty
+
+        @NotEmpty(message = "러닝타임은 필수 입력 항목입니다.")
         private String runtime;
-        @NotEmpty
-        @Pattern(regexp = "\\d{2}세", message = "두 자릿수 숫자와 한글 \"세\"가 조합된 형식을 요구합니다.")
+
+        @NotEmpty(message = "관람 등급은 필수 입력 항목입니다.")
+        @Pattern(regexp = "\\d{2}세", message = "관람 등급은 두 자릿수 숫자와 '세'로 입력해야 합니다. 예: 12세, 15세")
         private String ratingGrade;
-        @NotEmpty
+
+        @NotEmpty(message = "VOD URL은 필수 입력 항목입니다.")
         private String vodUrl;
-        @NotEmpty
+
+        @NotEmpty(message = "줄거리는 필수 입력 항목입니다.")
         private String plot;
-        @NotEmpty
+
+        @NotEmpty(message = "배우명은 필수 입력 항목입니다.")
         private String actorNm;
+
+        @NotEmpty(message = "포스터URL은 필수 입력 항목입니다.")
         private List<String> posterUrls; // 포스터 이미지 URL 리스트
+        @NotEmpty(message = "스틸컷URL은 필수 입력 항목입니다.")
         private List<String> stillUrls;  // 스틸컷 이미지 URL 리스트
 
         public Movie toEntity() {
@@ -67,7 +81,9 @@ public class AdminRequest {
 
             // Movie 객체에 Poster와 Still 리스트를 설정
             movie.setPosterUrls(posters);
+            System.out.println("포스터 : " + posters);
             movie.setStillUrls(stills);
+            System.out.println("스틸 : " + stills);
             return movie;
 
         }

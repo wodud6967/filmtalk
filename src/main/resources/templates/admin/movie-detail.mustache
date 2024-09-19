@@ -197,14 +197,16 @@
             <div class="movie-detail__stillcut-section">
                 <h5>스틸컷</h5>
                 <div class="stillcut-grid">
-                    {{#model.stillUrls}}
-                        <div class="stillcut-item">
-                            <img class="stillcut-image" src="{{.}}" alt="스틸컷 이미지">
-                            <input type="text" class="form-control mt-2 stillcut-url-input" value="{{.}}"
-                                   placeholder="스틸컷 URL">
-                            <button type="button" class="btn btn-danger btn-sm mt-2 delete-stillcut-btn">삭제</button>
-                        </div>
-                    {{/model.stillUrls}}
+                    {{#model.hasStills}}
+                        {{#model.stillUrls}}
+                            <div class="stillcut-item">
+                                <img class="stillcut-image" src="{{.}}" alt="스틸컷 이미지">
+                                <input type="text" class="form-control mt-2 stillcut-url-input" value="{{.}}"
+                                       placeholder="스틸컷 URL">
+                                <button type="button" class="btn btn-danger btn-sm mt-2 delete-stillcut-btn">삭제</button>
+                            </div>
+                        {{/model.stillUrls}}
+                    {{/model.hasStills}}
                     <!-- 마지막 빈 칸 -->
                     <div class="stillcut-item">
                         <input type="text" class="form-control mt-2 stillcut-url-input new-url-input"
@@ -263,8 +265,6 @@
             alert(responseBody.msg);
         }
     };
-
-
 
 
     $(document).on('click', '.delete-stillcut-btn', function () {

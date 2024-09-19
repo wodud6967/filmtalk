@@ -1,8 +1,6 @@
 package shop.mtcoding.filmtalk.core.error;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.springframework.stereotype.Component;
@@ -25,7 +23,7 @@ public class GlobalValidationHandler {
 
                 if (errors.hasErrors()) {
                     for (FieldError error : errors.getFieldErrors()) {
-                        throw new ExceptionApi400(error.getDefaultMessage() + " : " + error.getField());
+                        throw new ExceptionApi400(error.getDefaultMessage());
 
                     }
                 }

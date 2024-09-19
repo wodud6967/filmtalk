@@ -1,12 +1,8 @@
 package shop.mtcoding.filmtalk.admin;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
-import lombok.NoArgsConstructor;
 import shop.mtcoding.filmtalk.admin.kormoviedata.needdata.NeedData;
 import shop.mtcoding.filmtalk.admin.kormoviedata.needdata.Still;
-import shop.mtcoding.filmtalk.movie.MovieResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +24,7 @@ public class AdminResponse {
         private String company;
         private String director;
         private String actorNm;
+        private boolean hasStills = false;
         private List<String> stillUrls = new ArrayList<>();
 
         public MovieDTO(NeedData needData) {
@@ -44,11 +41,12 @@ public class AdminResponse {
             this.genreNm = needData.getGenreNm();
             this.director = needData.getDirector();
             this.actorNm = needData.getActorNm();
-            for(Still s : needData.getStillUrls()) {
-                stillUrls.add(s.getUrl());
-
+            if (!needData.getStillUrls().getFirst().getUrl().equals("")) {
+                this.hasStills = true;
+                for (Still s : needData.getStillUrls()) {
+                    stillUrls.add(s.getUrl());
+                }
             }
         }
-
     }
 }

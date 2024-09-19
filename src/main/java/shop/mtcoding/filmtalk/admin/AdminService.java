@@ -1,7 +1,6 @@
 package shop.mtcoding.filmtalk.admin;
 
 
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,8 +11,6 @@ import shop.mtcoding.filmtalk.movie.MovieRepository;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -43,12 +40,6 @@ public class AdminService {
         }
         // 원본 리스트에서 삭제
         rawMovie.removeAll(toRemove);
-//        Set<String> registMovieNames = registMovie.stream()
-//                .map(Movie::getMovieNm) // Movie의 이름 필드
-//                .collect(Collectors.toSet());
-//        rawMovie.stream()
-//                .filter(a -> !registMovieNames.contains(a.getMovieNm())) // 영화명이 registMovieNames에 없을 때만 필터링
-//                .collect(Collectors.toList());
         List<AdminResponse.MovieDTO> movieDTOS = new ArrayList<>();
         for (NeedData needData : rawMovie) {
             movieDTOS.add(new AdminResponse.MovieDTO(needData));
