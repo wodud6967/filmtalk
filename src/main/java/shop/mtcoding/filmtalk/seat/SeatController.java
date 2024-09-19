@@ -35,9 +35,8 @@ public class SeatController {
     }
     
 
-/*
 
-    //TODO: /api 추가하기
+/*    //TODO: /api 추가하기
     @GetMapping("/seat/{showtimeId}")
     public @ResponseBody SeatResponse.SeatDTO seatSelect(@PathVariable("showtimeId") Long showtimeId){
 
@@ -46,8 +45,7 @@ public class SeatController {
 
         return seatDTO;
 
-    }
-*/
+    }*/
 
 
 

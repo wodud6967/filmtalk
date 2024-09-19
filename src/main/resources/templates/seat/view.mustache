@@ -30,13 +30,13 @@
                     <div class="mb-4">
                         <div class="text-center">
                             <label>일반</label>
-<!--                            <div class="btn-group btn-group-toggle" data-toggle="buttons">-->
-<!--                                <label class="btn btn-outline-primary" id="count0" value="0">0</label>&lt;!&ndash; 0 클릭 시 초기화 &ndash;&gt;-->
-<!--                                <label class="btn btn-outline-primary" id="count1" value="1">1</label>-->
-<!--                                <label class="btn btn-outline-primary" value="2">2</label>-->
-<!--                                <label class="btn btn-outline-primary" value="3">3</label>-->
-<!--                                <label class="btn btn-outline-primary" value="4">4</label>-->
-<!--                            </div>-->
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <button class="btn btn-outline-primary" id="count0" value="0" onclick="resetCount()">0</button><!-- 0 클릭 시 초기화 -->
+                                <button class="btn btn-outline-primary" id="count1" value="1" onclick="getCount(this.value)">1</button>
+                                <button class="btn btn-outline-primary" id="count2" value="2" onclick="getCount(this.value)">2</button>
+                                <button class="btn btn-outline-primary" id="count3" value="3" onclick="getCount(this.value)">3</button>
+                                <button class="btn btn-outline-primary" id="count4" value="4" onclick="getCount(this.value)">4</button>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -58,17 +58,8 @@
         <!-- 좌석 배치 -->
         <div class="seat-selection text-center mb-4">
             <div class="bg-dark text-white py-2 mb-3">SCREEN</div>
-            <!--<div class="seats d-flex justify-content-center flex-wrap">
-                 좌석 A ~ L 행
-                <div class="d-flex align-items-center mb-2">
-                    <span class="mr-2">A</span>
-                    <button class="seat btn btn-outline-secondary mr-2"></button>
-                    <button class="seat btn btn-outline-secondary mr-2"></button>
-                    <button class="seat btn btn-outline-secondary mr-2"></button>
-                    <button class="seat btn btn-outline-secondary mr-2"></button>
-                </div> -->
-            <!-- 좌석 행 반복 추가 가능 -->
             <div id="seat-container"></div>
+            <!-- 좌석 반복 추가 -->
         </div>
     </div>
 
@@ -138,7 +129,6 @@
     <!-- 부트스트랩 JS 및 jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="js/seat2.js"></script>
 </main>
 
