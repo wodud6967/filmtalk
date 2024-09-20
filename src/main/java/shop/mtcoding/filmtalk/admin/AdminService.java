@@ -118,7 +118,8 @@ public class AdminService {
     public void 보유중인영화삭제하기(Long id) {
         Movie movie = movieRepository.findById(id).orElseThrow(() -> new ExceptionApi404("영화를 찾을 수 없습니다."));
 
-        movieRepository.deleteById(id);
+        //showtime_tb 연관성으로 삭제 불가
+//        movieRepository.deleteById(id);
 
     }
 }
