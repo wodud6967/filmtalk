@@ -48,14 +48,13 @@ public class AdminController {
 
     @GetMapping("/admin/movie")
     public String movie(HttpServletRequest request) {
-        List<AdminResponse.MovieDTO> rawMovies = adminService.API영화리스트보여주기();
-        request.setAttribute("models", rawMovies);
+        List<AdminResponse.MovieDTO> RawMovies = adminService.API영화리스트보여주기();
+        request.setAttribute("models", RawMovies);
         return "admin/movie";
     }
 
     @PostMapping("admin/movie/save")
     public ResponseEntity<?> saveMovie(@Valid @RequestBody AdminRequest.SaveMovieDTO saveMovieDTO, Errors errors) {
-        System.out.println(saveMovieDTO);
         adminService.영화등록하기(saveMovieDTO);
         return ResponseEntity.ok(Resp.ok(null));
     }
@@ -67,6 +66,32 @@ public class AdminController {
         return "admin/movie-detail";
 
     }
+    @GetMapping("/admin/movie/owned")
+    public String ownedMovie(HttpServletRequest request) {
+        List<AdminResponse.OwnedMovieDTO> OwnedMovie = adminService.보유중인영화리스트보여주기();
+        request.setAttribute("models", OwnedMovie);
+        return "admin/movie-owned";
+    }
+
+    @GetMapping("/admin/movie/owned/{id}")
+    public String ownedMovie(@PathVariable int id, HttpServletRequest request) {
+        AdminResponse.OwnedMovieDetailDTO movie = adminService.보유중인영화상세보기(id);
+        request.setAttribute("model", movie);
+        return "admin/movie-owned-detail";
+    }
+    @PutMapping("/admin/movie/owned/{id}")
+    public ResponseEntity<?> updateMovie(@PathVariable Long id, @Valid @RequestBody AdminRequest.SaveMovieDTO saveMovieDTO, Errors errors) {
+        adminService.보유중인영화수정하기(id, saveMovieDTO);
+        return ResponseEntity.ok(Resp.ok(null));
+
+    }
+
+    @DeleteMapping("/admin/movie/owned/{id}")
+    public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
+        adminService.보유중인영화삭제하기(id);
+        return ResponseEntity.ok(Resp.ok(null));
+    }
+
 
     @GetMapping("/admin/showtime")
     public String showtime() {

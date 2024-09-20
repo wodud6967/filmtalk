@@ -20,10 +20,17 @@ public class MovieController {
     //열심히 만들겠습니다!
     @GetMapping("/")
     public String list(HttpServletRequest request) {
-        List<MovieResponse.ListDTO> movieList = movieService.영화목록보기();
+        List<MovieResponse.ListDTO> movieList = movieService.영화메인목록보기();
         request.setAttribute("models", movieList);
 
         return "movie/view";
+    }
+    @GetMapping("/movie/more")
+    public String more(HttpServletRequest request) {
+        List<MovieResponse.ListDTO> movieList = movieService.영화더보기();
+        request.setAttribute("models", movieList);
+
+        return "movie/more";
     }
 
     @GetMapping("/movie/{id}")

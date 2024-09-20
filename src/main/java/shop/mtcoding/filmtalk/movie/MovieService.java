@@ -24,7 +24,7 @@ public class MovieService {
     private final PosterRepository posterRepository;
 
 
-    public List<MovieResponse.ListDTO> 영화목록보기() {
+    public List<MovieResponse.ListDTO> 영화메인목록보기() {
         List<Movie> movies = movieRepository.mFindAllWithPosterUrls();
         List<MovieResponse.ListDTO> listDTO = new ArrayList<>();
         int count = 0;
@@ -47,5 +47,14 @@ public class MovieService {
         movie.setPosterUrls(posters);
 
         return new MovieResponse.DetailDTO(movie,sessionUser);
+    }
+
+    public List<MovieResponse.ListDTO> 영화더보기() {
+        List<Movie> movies = movieRepository.mFindAllWithPosterUrls();
+        List<MovieResponse.ListDTO> listDTO = new ArrayList<>();
+        for (Movie movie : movies) {
+            listDTO.add(new MovieResponse.ListDTO(movie));
+        }
+        return listDTO;
     }
 }

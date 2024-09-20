@@ -37,8 +37,9 @@ public class AdminRequest {
         private String runtime;
 
         @NotEmpty(message = "관람 등급은 필수 입력 항목입니다.")
-        @Pattern(regexp = "\\d{2}세", message = "관람 등급은 두 자릿수 숫자와 '세'로 입력해야 합니다. 예: 12세, 15세")
+        @Pattern(regexp = "(\\d{2}세|전체)", message = "관람 등급은 '전체' 또는 두 자릿수 숫자와 '세'로 입력해야 합니다. 예: 12세, 15세, 전체")
         private String ratingGrade;
+
 
         @NotEmpty(message = "VOD URL은 필수 입력 항목입니다.")
         private String vodUrl;
@@ -81,9 +82,7 @@ public class AdminRequest {
 
             // Movie 객체에 Poster와 Still 리스트를 설정
             movie.setPosterUrls(posters);
-            System.out.println("포스터 : " + posters);
             movie.setStillUrls(stills);
-            System.out.println("스틸 : " + stills);
             return movie;
 
         }
