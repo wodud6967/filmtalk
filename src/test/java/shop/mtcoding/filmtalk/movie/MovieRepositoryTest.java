@@ -31,6 +31,13 @@ public class MovieRepositoryTest {
     PosterRepository posterRepository;
 
     @Test
+    public void search_test(){
+        String movieNm = "nter";
+        List<Movie> movieList = movieRepository.mFindAll(movieNm, null, null, null, null);
+        Assertions.assertTrue(movieList.size() == 1);
+    }
+
+    @Test
     public void deleteById_test() {
         Integer Id = 1;
         movieRepository.deleteById(Long.valueOf(Id));

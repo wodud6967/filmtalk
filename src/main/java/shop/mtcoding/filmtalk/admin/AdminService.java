@@ -16,7 +16,6 @@ import shop.mtcoding.filmtalk.still.Still;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -71,8 +70,14 @@ public class AdminService {
 
     }
 
-    public List<AdminResponse.OwnedMovieDTO> 보유중인영화리스트보여주기() {
-        List<Movie> all = movieRepository.findAll();
+    public List<AdminResponse.OwnedMovieDTO> 보유중인영화리스트보여주기(String movieNm, String director, String nationNm, String company, String ratingGrade) {
+        List<Movie> all;
+        if (movieNm == null && director == null && nationNm == null && company == null && ratingGrade == null) {
+            all = movieRepository.findAll();
+        } else {
+            all = movieRepository.mFindAll(movieNm, director, nationNm, company, ratingGrade);
+        }
+
         List<AdminResponse.OwnedMovieDTO> ownedMovieDTO = new ArrayList<>();
         for (Movie movie : all) {
             ownedMovieDTO.add(new AdminResponse.OwnedMovieDTO(movie));

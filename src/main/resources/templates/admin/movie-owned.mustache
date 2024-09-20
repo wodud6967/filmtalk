@@ -424,161 +424,58 @@
         <div class="sec__top">
             <div class="content__route">
                 <div>영화관리</div>
-                <div>></div>
-                <div>영화배급받기</div>
             </div>
             <div class="content__title">
-                <h3>영화등록하기</h3>
+                <h3>보유중인영화</h3>
             </div>
         </div>
         <!--    ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------    -->
         <div class="container">
-            <!--            <form action="#" method="get">-->
-            <!--                <fieldset>-->
-            <!--                    <table>-->
-            <!--                        <tbody>-->
-            <!--                        <tr>-->
-            <!--                            <th class="fb-filter__title">영화감독</th>-->
-            <!--                            <td class="flex__line">-->
-            <!--                                <input-->
-            <!--                                        type="text"-->
-            <!--                                        name="seller"-->
-            <!--                                        id="devCompanyText"-->
-            <!--                                        class="fb-filter__text"-->
-            <!--                                        readonly-->
-            <!--                                />-->
-            <!--                                <input-->
-            <!--                                        type="button"-->
-            <!--                                        value="검색"-->
-            <!--                                        class="fb-filter__search-icon"-->
-            <!--                                        id="devSearchCompanyPopup"-->
-            <!--                                />-->
-            <!--                                <input-->
-            <!--                                        type="button"-->
-            <!--                                        value="초기화"-->
-            <!--                                        class="fb-filter__delete-icon"-->
-            <!--                                        id="devSearchCompanyReset"-->
-            <!--                                />-->
-            <!--                            </td>-->
-            <!--                        </tr>-->
-            <!--                        <tr>-->
-            <!--                            <th class="fb-filter__title">영화검색</th>-->
-            <!--                            <td class="flex__line">-->
-            <!--                                <select name="filterType" class="fb-filter__select">-->
-            <!--                                    <option value="pname" selected>영화이름</option>-->
-            <!--                                    <option value="id">영화코드</option>-->
-            <!--                                </select>-->
-            <!--                                <textarea-->
-            <!--                                        name="filterText"-->
-            <!--                                        class="fb-filter__text fb-filter__text--70"-->
-            <!--                                        id="devSearchProductFilterText"-->
-            <!--                                ></textarea>-->
-            <!--                            </td>-->
-            <!--                        </tr>-->
-            <!--                        <tr>-->
-            <!--                            <th class="fb-filter__title">기간</th>-->
-            <!--                            <td class="flex__line">-->
-            <!--                                <select name="dateType" class="fb-filter__select">-->
-            <!--                                    <option value="">선택해주세요</option>-->
-            <!--                                    <option value="regdate">영화등록일</option>-->
-            <!--                                    <option value="editdate">영화상영일</option>-->
-            <!--                                </select>-->
-            <!--                                <input-->
-            <!--                                        type="date"-->
-            <!--                                        name="startDate"-->
-            <!--                                        class="fb-filter__text fb-filter__input__day"-->
-            <!--                                        id="devBetweenDatePickerStart"-->
-            <!--                                />-->
-            <!--                                ~-->
-            <!--                                <input-->
-            <!--                                        type="date"-->
-            <!--                                        name="endDate"-->
-            <!--                                        class="fb-filter__text fb-filter__input__day"-->
-            <!--                                        id="devBetweenDatePickerEnd"-->
-            <!--                                />-->
-            <!--                            </td>-->
-            <!--                        </tr>-->
-            <!--                        <tr>-->
-            <!--                            <th class="fb-filter__title">국가</th>-->
-            <!--                            <td colspan="3">-->
-            <!--                                <select-->
-            <!--                                        class="fb-filter__select"-->
-            <!--                                        id="regionSelect"-->
-            <!--                                        onchange="updateCountryOptions()"-->
-            <!--                                >-->
-            <!--                                    <option value="all">전체</option>-->
-            <!--                                    <option value="asean">아세안</option>-->
-            <!--                                    <option value="europe">유럽</option>-->
-            <!--                                    <option value="northAmerica">북미</option>-->
-            <!--                                    &lt;!&ndash; 더 많은 지역 추가 가능 &ndash;&gt;-->
-            <!--                                </select>-->
-            <!--                                <select class="fb-filter__select" id="countrySelect">-->
-            <!--                                    <option value="all">전체</option>-->
-            <!--                                </select>-->
-            <!--                            </td>-->
-            <!--                        </tr>-->
-            <!--                        <tr>-->
-            <!--                            <th class="fb-filter__title">장르</th>-->
-            <!--                            <td colspan="3">-->
-            <!--                                <label-->
-            <!--                                ><input type="checkbox" name="state[]" value="0"/>-->
-            <!--                                    로맨스</label-->
-            <!--                                >-->
-            <!--                                <label-->
-            <!--                                ><input type="checkbox" name="state[]" value="1"/>-->
-            <!--                                    호러</label-->
-            <!--                                >-->
-            <!--                                <label-->
-            <!--                                ><input type="checkbox" name="state[]" value="2"/>-->
-            <!--                                    코미디</label-->
-            <!--                                >-->
-            <!--                                <label-->
-            <!--                                ><input type="checkbox" name="state[]" value="3"/>-->
-            <!--                                    액션</label-->
-            <!--                                >-->
-            <!--                            </td>-->
-            <!--                        </tr>-->
-            <!--                        <tr>-->
-            <!--                            <th class="fb-filter__title">상영등급</th>-->
-            <!--                            <td colspan="3">-->
-            <!--                                <label><input type="radio" name="disp[]" value="1" checked/>-->
-            <!--                                    상관없음</label>-->
-            <!--                                <label><input type="radio" name="disp[]" value="0"/> 전체-->
-            <!--                                    관람가</label>-->
-            <!--                                <label><input type="radio" name="disp[]" value="0"/> 12세-->
-            <!--                                    관람가</label>-->
-            <!--                                <label><input type="radio" name="disp[]" value="0"/> 청소년-->
-            <!--                                    관람 불가</label>-->
-            <!--                            </td>-->
-            <!--                        </tr>-->
-            <!--                        <tr>-->
-            <!--                            <th class="fb-filter__title">영화타입</th>-->
-            <!--                            <td class="flex__line">-->
-            <!--                                <label><input-->
-            <!--                                        type="radio"-->
-            <!--                                        name="is_mobile_use"-->
-            <!--                                        value="A"-->
-            <!--                                        checked/>-->
-            <!--                                    전체</label>-->
-            <!--                                <label><input type="radio" name="is_mobile_use" value="W"/>2D</label>-->
-            <!--                                <label><input type="radio" name="is_mobile_use" value="M"/>3D</label>-->
-            <!--                            </td>-->
-            <!--                            <th class="fb-filter__title">배급사</th>-->
-            <!--                            <td class="flex__line">-->
-            <!--                                <input type="text"-->
-            <!--                                       name="brand"-->
-            <!--                                       class="fb-filter__text"-->
-            <!--                                       readonly/>-->
-            <!--                            </td>-->
-            <!--                        </tr>-->
-            <!--                        </tbody>-->
-            <!--                    </table>-->
-            <!--                    <div class="button-group">-->
-            <!--                        <button type="submit">검색</button>-->
-            <!--                        <button type="reset">초기화</button>-->
-            <!--                    </div>-->
-            <!--                </fieldset>-->
-            <!--            </form>-->
+            <form action="/admin/movie/owned" method="get">
+                <fieldset>
+                    <table>
+                        <tbody>
+                        <tr>
+                            <th class="fb-filter__title">영화 이름</th>
+                            <td class="flex__line">
+                                <input name="movieNm" type="text">
+                            </td>
+                            <th class="fb-filter__title">감독명</th>
+                            <td class="flex__line">
+                                <input type="text" name="director">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="fb-filter__title">나라</th>
+                            <td class="flex__line">
+                                <input type="text" name="nationNm">
+                            </td>
+                            <th class="fb-filter__title">배급사</th>
+                            <td class="flex__line">
+                                <input type="text" name="company">
+                            </td>
+                        </tr>
+                        <tr>
+                            <th class="fb-filter__title">상영등급</th>
+                            <td class="flex__line">
+                                <select name="ratingGrade" class="fb-filter__select">
+                                    <option value="" selected>-----</option>
+                                    <option value="전체이용가">전체이용가</option>
+                                    <option value="12세">12세이용가</option>
+                                    <option value="15세">15세이용가</option>
+                                    <option value="18세">18세이용가</option>
+                                </select>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <div class="button-group">
+                        <button type="submit">검색</button>
+                        <button type="reset">초기화</button>
+                    </div>
+                </fieldset>
+            </form>
+
             <div id="result">
                 <!-- 테이블 헤더 -->
                 <div class="result__th"><strong>영화 이미지</strong></div>
@@ -615,33 +512,6 @@
     </section>
 </main>
 
-<script>
-    function updateCountryOptions() {
-        var regionSelect = document.getElementById("regionSelect");
-        var countrySelect = document.getElementById("countrySelect");
-        var selectedRegion = regionSelect.value;
-
-        // 모든 국가 옵션을 지우고 초기화
-        countrySelect.innerHTML = '<option value="all">전체</option>';
-
-        // 선택된 지역에 따라 국가 목록 업데이트
-        if (selectedRegion === "asean") {
-            countrySelect.innerHTML += '<option value="korea">한국</option>';
-            countrySelect.innerHTML += '<option value="japan">일본</option>';
-            countrySelect.innerHTML += '<option value="china">중국</option>';
-            // 더 많은 아세안 국가 추가 가능
-        } else if (selectedRegion === "europe") {
-            countrySelect.innerHTML += '<option value="france">프랑스</option>';
-            countrySelect.innerHTML += '<option value="germany">독일</option>';
-            countrySelect.innerHTML += '<option value="uk">영국</option>';
-            // 더 많은 유럽 국가 추가 가능
-        } else if (selectedRegion === "northAmerica") {
-            countrySelect.innerHTML += '<option value="usa">미국</option>';
-            countrySelect.innerHTML += '<option value="canada">캐나다</option>';
-            // 더 많은 북미 국가 추가 가능
-        }
-    }
-</script>
 <script>
     $(".movie__img").hover(
             function () {

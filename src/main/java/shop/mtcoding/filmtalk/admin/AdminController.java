@@ -67,8 +67,13 @@ public class AdminController {
 
     }
     @GetMapping("/admin/movie/owned")
-    public String ownedMovie(HttpServletRequest request) {
-        List<AdminResponse.OwnedMovieDTO> OwnedMovie = adminService.보유중인영화리스트보여주기();
+    public String ownedMovie(@RequestParam(required = false) String movieNm,
+                             @RequestParam(required = false) String director,
+                             @RequestParam(required = false) String nationNm,
+                             @RequestParam(required = false) String company,
+                             @RequestParam(required = false) String ratingGrade,
+                             HttpServletRequest request) {
+        List<AdminResponse.OwnedMovieDTO> OwnedMovie = adminService.보유중인영화리스트보여주기(movieNm, director, nationNm, company, ratingGrade);
         request.setAttribute("models", OwnedMovie);
         return "admin/movie-owned";
     }
