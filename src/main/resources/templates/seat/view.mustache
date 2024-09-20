@@ -96,32 +96,21 @@
                     </tr>
                 </table>
             </div>
-            <div class="seat__num__box">
+            <div class="seat__num__box" id="seatNumBox">
                 <!-- JS 로 동적으로 넣기 -->
-                <table>
-                    <tr>
-                        <td>좌석번호</td>
-                        <td>E9, E10</td>
-                    </tr>
-                </table>
             </div>
-            <div>
+            <div class="seat__payment__box" id="paymentBox">
                 <!-- JS 로 동적으로 넣기 -->
-                <table>
-                    <tr>
-                        <td>일반</td>
-                        <td>20,000원 * 2</td>
-                    </tr>
-                    <tr>
-                        <td>총금액</td>
-                        <td>40,000원</td><!-- 빨간색 -->
-                    </tr>
-
-                </table>
             </div>
         </div>
         <div class="col text-right">
-            <button class="btn btn-secondary">결제선택</button>
+            <form action="/seat/reservation" method="post">
+<!--                <input type="hidden" name="showtimeId" value="">-->
+                <input type="hidden" name="showtimeId" value="2">
+                <input type="hidden" name="selectedSeats" id="selectedSeats">
+                <input type="hidden" name="totalPrice" id="totalPrice">
+                <button class="btn btn-secondary" type="submit">결제선택</button>
+            </form>
         </div>
     </div>
     </div>

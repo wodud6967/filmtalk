@@ -114,19 +114,6 @@ public class SeatRepositoryTest {
 
             seatArray[rowIndex][colIndex] = seat;
 
-            for(int i = 0; i < maxRows; i++){
-                for(int j = 0; j < maxCols; j++){
-                    if(seatArray[i][j] != null){
-                        System.out.println(seatArray[i][j].getRowNum() + seatArray[i][j].getColNum());
-                    }else{
-                        System.out.println("X");
-
-                    }
-
-                }
-                System.out.println();
-            }
-
 
 
 //            colIndex = Character.getNumericValue(colNum) - 1; // 0 based index로 바꿈

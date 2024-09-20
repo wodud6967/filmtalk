@@ -49,7 +49,7 @@ public class SeatResponse {
         private List<SeatInfo> seats; // 좌석 정보를 담은 리스트
         private List<ReservedSeatInfo> reservedSeats; // 예약된 좌석들 리스트
         
-        public SeatDTO(Seat[][] seatArray, List<Seat> reservedSeatPS) {
+        public SeatDTO(List<SeatResponse. SeatDTO. SeatInfo> seatInfos, Seat[][] seatArray, List<Seat> reservedSeatPS) {
             this.totalColumn = seatArray[0].length;
             this.totalRow = seatArray.length;
 
@@ -60,9 +60,9 @@ public class SeatResponse {
                 for (int j = 0; j < seatArray[i].length; j++) {
                     if (seatArray[i][j] != null) {
                         Seat seat = seatArray[i][j];
-                        seats.add(new SeatInfo(seat.getRowNum(), seat.getColNum()));
+                        seats.add(new SeatInfo(seat.getId(), seat.getRowNum(), seat.getColNum()));
                         if (reservedSeatPS != null && reservedSeatPS.contains(seat)) {
-                            reservedSeats.add(new ReservedSeatInfo(seat.getRowNum(), seat.getColNum()));
+                            reservedSeats.add(new ReservedSeatInfo(seat.getId(), seat.getRowNum(), seat.getColNum()));
                         }
 
                         //seats.add(new SeatInfo(seat.getRowNum(), seat.getColNum(), seat.isAvailable())); // 예: 좌석의 가용 여부를 포함
@@ -70,21 +70,17 @@ public class SeatResponse {
                 }
             }
 
-            if(reservedSeatPS != null) {
-                for(Seat seat : reservedSeatPS) {
-                    seat.getId();
-
-                }
-
-            }
         }
 
         @Data
         public static class SeatInfo {
+            private Long id;
             private Character row;
             private Character col;
 
-            public SeatInfo(Character row, Character col){
+
+            public SeatInfo(Long id, Character row, Character col){
+                this.id = id;
                 this.row = row;
                 this.col = col;
 
@@ -101,11 +97,13 @@ public class SeatResponse {
 
         @Data
         public static class ReservedSeatInfo {
+            private Long id;
             private Character row;
             private Character col;
             private Boolean isReserved;
 
-            public ReservedSeatInfo(Character row, Character col){
+            public ReservedSeatInfo(Long id, Character row, Character col){
+                this.id = id;
                 this.row = row;
                 this.col = col;
                 this.isReserved = true;
