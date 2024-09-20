@@ -31,8 +31,7 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
         "AND (:director IS NULL OR m.director LIKE %:director%) " +
         "AND (:nationNm IS NULL OR m.nationNm LIKE %:nationNm%) " +
         "AND (:company IS NULL OR m.company LIKE %:company%) " +
-        "AND (:ratingGrade IS NULL OR m.ratingGrade LIKE %:ratingGrade%) " +
-        "ORDER BY m.id DESC")
+        "AND (:ratingGrade IS NULL OR m.ratingGrade LIKE %:ratingGrade%)")
 List<Movie> mFindAll(@Param("movieNm") String movieNm,
                      @Param("director") String director,
                      @Param("nationNm") String nationNm,
