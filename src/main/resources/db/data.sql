@@ -139,17 +139,16 @@ insert into screen_tb (cinema_id, name)
 values (1, '서면3상영관');
 
 insert into screen_tb (cinema_id, name)
+values (1, '서면4상영관');
+
+
+insert into screen_tb (cinema_id, name)
 values (2, '화명1상영관');
 insert into screen_tb (cinema_id, name)
 values (2, '화명2상영관');
 
 
 
-
-
-
-insert into screen_tb (cinema_id, name)
-values (1, '서면4상영관');
 
 -- 사상롯데시네마 상영관 더미 데이터 삽입
 insert into screen_tb (cinema_id, name)
@@ -165,6 +164,10 @@ insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-12 16:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-12 18:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-13 14:00:00', 20);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-13 16:00:00', 20);
 
 --TODO 주헌 DB추가
 insert into showtime_tb (movie_id, screen_id, started_at, price)

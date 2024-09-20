@@ -14,7 +14,9 @@ import java.util.List;
 
 public interface ShowtimeRepository extends JpaRepository<Showtime,Long> {
 
-    //상영시간 추가
+    //상영관의 다음 상영시간 구하기
+    @Query("SELECT st FROM Showtime st WHERE st.screen.id = :screenId ORDER BY st.startedAt DESC")
+    List<Showtime> mFindOneByScreenIdOrderByStartedAtDesc(@Param("screenId") Long screenId);
 
     // 특정 상영관들의 ID 리스트로 상영시간 조회
     @Query("SELECT s FROM Showtime s WHERE s.screen.id IN :screenIds")
