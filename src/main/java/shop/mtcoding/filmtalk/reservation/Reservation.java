@@ -35,16 +35,15 @@ public class Reservation {
     @Column(nullable = false)
     private Timestamp createdAt;
 
-    //TODO 역 참조
-    @OneToMany(mappedBy = "reservation")
+    @OneToMany(mappedBy = "reservation", fetch = FetchType.LAZY)
     private List<Ticket> tickets;
 
 
-    //TODO 결제위한 티켓 추가
     @Builder
-    public Reservation(Long id, User user, Timestamp createdAt) {
+    public Reservation(Long id, User user, Timestamp createdAt, List<Ticket> tickets) {
         this.id = id;
         this.user = user;
         this.createdAt = createdAt;
+        this.tickets = tickets;
     }
 }

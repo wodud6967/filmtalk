@@ -24,12 +24,14 @@ public class Ticket {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "seat_id")
     private  Seat seat;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Showtime showtime; //영화는 상영시간안에 있다.
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reservation_id")
     private Reservation reservation; //결제를 찾을 수있음
 
     @Column(nullable = false)

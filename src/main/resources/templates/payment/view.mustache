@@ -114,7 +114,7 @@
                     pg : 'html5_inicis.INIpayTest',
                     pay_method : 'card',
                     merchant_uid: orderUid, // 예매 번호
-                    name : itemName, // 영화 제목
+                    name : '{{movieTitle}}', // 영화 제목
                     amount : paymentPrice, // 티켓 가격
                     buyer_email : buyerEmail, // 유저 이메일
                     buyer_name : buyerName, // 유저 이름
@@ -132,15 +132,16 @@
                             headers: {"Content-Type": "application/json"},
                             data: JSON.stringify({
                                 "impUid": rsp.imp_uid,      // 포트원 결제 고유번호
-                                "reservationId": rsp.merchant_uid   // 주문번호 (예매번호)
+                                "reservationId": rsp.merchant_uid,   // 주문번호 (예매번호) -> 서버로 reservationId 전달
+                                "price": paymentPrice       // 결제 금액
                             })
                         }).done(function (response) {
                             console.log(response);
                             alert('결제가 완료되었습니다.');
-                            window.location.href = "/payment/success";
-                        })
+                            window.location.href = "/payment/success?reservationId=" + rsp.merchant_uid;
+                        });
                     } else {
-                        alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
+                        // alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
                         alert('결제 실패. 좌석 페이지로 이동합니다.');
                         window.location.href = "/seat"; // TODO: 결제 실패 페이지를 만들지, 좌석 페이지로 redirect 할지
                     }
