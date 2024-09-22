@@ -15,6 +15,8 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 @SpringBootTest
 @Transactional
@@ -22,6 +24,7 @@ public class PaymentRepositoryTest {
 
     @Autowired
     private PaymentRepository paymentRepository;
+
     @Autowired
     private PaymentService paymentService;
     @Autowired
@@ -70,4 +73,16 @@ public class PaymentRepositoryTest {
         assertEquals("card", savedPayment.getType());
     }
 
+    @Test
+    public void testUpdatePayment() {
+        // Given : 결제 정보 DTO 준비
+        PaymentRequest.SaveDTO saveDTO = new PaymentRequest.SaveDTO();
+        saveDTO.setReservationId("1");
+        saveDTO.setImpUid("imp_28446715");
+
+        // When : 결제 정보 저장 로직 호출
+        paymentService.save(saveDTO);
+
+        // Then : 추가적으로 저장된 데이터를 조회해도 됨
+    }
 }
