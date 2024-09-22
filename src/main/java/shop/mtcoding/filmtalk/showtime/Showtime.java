@@ -27,7 +27,8 @@
         private Screen screen; //상영관
 
 
-        private Integer price;
+        private Double price;
+
 
 
 
@@ -41,5 +42,10 @@
             this.movie = movie;
             this.screen = screen;
             this.startedAt = startedAt;
+        }
+
+        @Builder
+        public Double getPrice() {
+            return price;
         }
     }
