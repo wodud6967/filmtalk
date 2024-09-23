@@ -64,16 +64,16 @@ public class AdminRepositoryTest {
                 .stream()
                 .map(Screen::getId)
                 .collect(Collectors.toList());
-
+        LocalDate date12 = LocalDate.of(2024, 9, 12);
         // 각 상영관에 대한 ScreenDTO 생성
         for (Screen screen : cinema.getScreens()) {
-            AdminResponse.ScreenDTO screenDTO = new AdminResponse.ScreenDTO(screen);
+            AdminResponse.ScreenDTO screenDTO = new AdminResponse.ScreenDTO(screen,date12 );
             cinemaWithScreensDTO.addScreen(screenDTO);  // 각 상영관 정보를 추가
         }
         System.out.println("22222222222222");
 
         // 2024년 9월 12일로 설정
-        LocalDate date12 = LocalDate.of(2024, 9, 12);
+
 
         // 상영관 ID 리스트와 9월 12일에 해당하는 상영시간을 조회
         List<Showtime> showtimes = showtimeRepository.findByScreenIdsAndShowDate(screenIds, date12);

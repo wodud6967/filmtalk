@@ -196,7 +196,7 @@ values (2, 1, '2024-09-27 16:00:00', 10);
 
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at , price)
-values (2, 1, '2024-09-12 17:00:00', 10);
+values (2, 1, '2024-09-12 20:00:00', 10);
 
 
 -- 2번 영화 (movie_id = 2), 사상롯데시네마 Screen 1에서 상영

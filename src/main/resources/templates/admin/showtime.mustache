@@ -292,10 +292,14 @@
                 <button class="btn btn-light">◀</button>
                 {{#dates}}
 <<<<<<< HEAD
+<<<<<<< HEAD
                     <div class="date-item {{#isToday}}active{{/isToday}}" data-date="{{fullDate}}" onclick="fetchShowtimes('{{fullDate}}', this)">
 =======
                     <div class="date-item {{#isToday}}active{{/isToday}}" data-date="{{fullDate}}" onclick="fetchShowtimes('{{formattedDate}}')">
 >>>>>>> 99fb708 (네이티브쿼리 작성)
+=======
+                    <div class="date-item {{#isToday}}active{{/isToday}}" data-date="{{fullDate}}" onclick="fetchShowtimes('{{fullDate}}', this)">
+>>>>>>> cb5e4db (상영관 등록하기 완료)
                         {{formattedDate}}<br>{{formattedDay}}
                     </div>
                 {{/dates}}
@@ -303,6 +307,7 @@
             </div>
             <!-- 새로운 컨테이너를 date-nav 아래에 추가 -->
             <div id="screenContainer">
+<<<<<<< HEAD
 <<<<<<< HEAD
                 {{#model.cinemaSchedule}}
                     {{#screens}}
@@ -330,6 +335,9 @@
 =======
 >>>>>>> 097d775 (상영관등록하기중)
             {{#model}}
+=======
+            {{#model.cinemaSchedule}}
+>>>>>>> cb5e4db (상영관 등록하기 완료)
                 {{#screens}}
                     <div class="screen-item" id="screen{{screenId}}" data-screen-id="{{screenId}}" data-date="12">
                         <div class="screen-title">{{screenName}}</div>
@@ -342,14 +350,20 @@
                                 </div>
                             {{/showtimes}}
                             <!-- 여기서 data-screen-id는 숫자로 설정 -->
-                            <button class="btn-add-time"onclick="handleAddTimeClick({{screenId}})" data-screen-id="{{screenId}}" data-toggle="modal" data-target="#addTimeModal">+</button>
+                            <button class="btn-add-time" data-screen-id="{{screenId}}" data-next-available-time="{{formattedNextAvailableTime}}" data-toggle="modal" data-target="#addTimeModal">+</button>
+
+
                         </div>
                     </div>
                 {{/screens}}
+<<<<<<< HEAD
             {{/model}}
 <<<<<<< HEAD
 >>>>>>> 28cb02c (상영시간더하기 진행중)
 =======
+=======
+            {{/model.cinemaSchedule}}
+>>>>>>> cb5e4db (상영관 등록하기 완료)
             </div>
 >>>>>>> 097d775 (상영관등록하기중)
 
@@ -426,7 +440,10 @@
 
                     <button type="submit" class="btn btn-primary">저장</button>
                 </form>
+<<<<<<< HEAD
             </div>
+=======
+>>>>>>> cb5e4db (상영관 등록하기 완료)
         </div>
     </div>
 <<<<<<< HEAD
@@ -448,12 +465,48 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 >>>>>>> 99fb708 (네이티브쿼리 작성)
 
+<<<<<<< HEAD
     <script>
         let selectedScreenId = null;
         $('#addTimeModal').on('show.bs.modal', function (event) {
             const button = $(event.relatedTarget); // 모달을 여는 버튼에서 데이터 가져오기
             const nextAvailableTime = button.data('next-available-time'); // 버튼의 data 속성에서 다음 상영 시간 가져옴
             selectedScreenId = button.data('screen-id'); // 상영관 ID 가져와서 저장
+=======
+<script>
+    let selectedScreenId = null;
+    $('#addTimeModal').on('show.bs.modal', function (event) {
+        const button = $(event.relatedTarget); // 모달을 여는 버튼에서 데이터 가져오기
+        const nextAvailableTime = button.data('next-available-time'); // 버튼의 data 속성에서 다음 상영 시간 가져옴
+        selectedScreenId = button.data('screen-id'); // 상영관 ID 가져와서 저장
+
+        console.log("Selected Screen ID:", selectedScreenId);
+        console.log(button);
+        console.log(nextAvailableTime);
+
+        // 모달 내부의 상영 시간 필드에 다음 상영 가능 시간을 설정
+        $('#time').val(nextAvailableTime); // text 필드에 직접 설정
+
+        // screenId 값을 숨겨진 필드에 설정
+        $('#screenId').val(selectedScreenId);
+
+        // 영화가 변경될 때마다 런타임을 자동으로 설정하는 코드
+        $('#movie').on('change', function() {
+            const selectedMovie = $(this).find('option:selected');
+            const runtime = selectedMovie.data('runtime');
+
+            // 선택한 영화의 런타임이 있으면 설정, 없으면 빈 값으로 초기화
+            if (runtime) {
+                $('#runtime').val(runtime);
+            } else {
+                $('#runtime').val('');
+            }
+        });
+    });
+
+    // Get all list items with submenus
+    const menuItems = document.querySelectorAll('aside nav ul li a');
+>>>>>>> cb5e4db (상영관 등록하기 완료)
 
             console.log("Selected Screen ID:", selectedScreenId);
             console.log(button);
@@ -508,6 +561,7 @@
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
         // 비동기 요청으로 상영시간표 데이터를 가져오는 함수
         async function fetchShowtimes(selectedDate, clickedElement) {
@@ -537,13 +591,34 @@
 
             if (!response.ok) {
                 throw new Error('Network response was not ok');
-            }
+=======
 
-            const data = await response.json();  // JSON 데이터를 파싱
-            console.log(data.body)
-            updateShowtimes(data.body);  // 받아온 데이터로 화면을 업데이트
+    // 비동기 요청으로 상영시간표 데이터를 가져오는 함수
+    async function fetchShowtimes(selectedDate, clickedElement) {
+
+
+        // 모든 날짜의 active 클래스를 제거하고, 클릭한 날짜에 추가
+        $('.date-item').removeClass('active');
+        $(clickedElement).addClass('active');
+        console.log(clickedElement);
+        const response = await fetch(`/admin/showtimes?date=${selectedDate}`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+>>>>>>> cb5e4db (상영관 등록하기 완료)
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();  // JSON 데이터를 파싱
+        console.log(data.body)
+        updateShowtimes(data.body);  // 받아온 데이터로 화면을 업데이트
 
     }
+
 
     // 상영관 및 상영 시간을 화면에 업데이트하는 함수
     function updateShowtimes(data) {
@@ -556,7 +631,7 @@
         container.empty();
 
         // 상영관과 상영 스케줄을 다시 렌더링
-        data.screens.forEach(screen => {
+        data.cinemaSchedule.screens.forEach(screen => {
             console.log("Screen:", screen);  // 각 screen 데이터 확인
             //console.log("Showtimes:", screen.showtimes);  // screen의 showtimes 배열 확인
             const showtimes = screen.showtimes || [];
@@ -571,8 +646,14 @@
                             <span class="movie-runtime">${showtime.runtime}분</span>
                         </div>
                     `).join('')}
-                    <!-- 상영 시간 추가 버튼 추가 -->
-                    <button class="btn-add-time" onclick="handleAddTimeClick(${screen.screenId})" data-screen-id="${screen.screenId}" data-toggle="modal" data-target="#addTimeModal">+</button>
+                <button class="btn-add-time"
+                    data-screen-id="${screen.screenId}"
+                    data-next-available-time="${screen.formattedNextAvailableTime}"
+                    data-toggle="modal"
+                    data-target="#addTimeModal">
+                    +
+                </button>
+
                 </div>
             </div>
         `;
@@ -597,10 +678,8 @@
             }
 =======
 </script>
-<script>
-    let selectedId= null;
-    let selectedScreenId = null;
 
+<<<<<<< HEAD
     async function handleAddTimeClick(screenId){
         selectedScreenId = `screen` + screenId;
         console.log("Selected Screen ID: " + selectedScreenId); // 디버깅용 로그
@@ -722,6 +801,8 @@
 
 
 
+=======
+>>>>>>> cb5e4db (상영관 등록하기 완료)
 
 
 
