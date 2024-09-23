@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import shop.mtcoding.filmtalk.cinema.Cinema;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,6 +22,10 @@ public class Region {
 
     private String city;
     private String name;
+
+    //TODO 추가함 9/19 주헌 영화관 list 뽑으려고
+    @OneToMany(mappedBy = "region")
+    private List<Cinema> cinemas;
 
     @Builder
     public Region(Long id, String city, String name) {

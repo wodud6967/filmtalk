@@ -7,7 +7,9 @@ import shop.mtcoding.filmtalk.cinema.Cinema;
 import shop.mtcoding.filmtalk.cinema.CinemaRepository;
 
 import shop.mtcoding.filmtalk.region.Region;
+import shop.mtcoding.filmtalk.region.RegionRepository;
 import shop.mtcoding.filmtalk.screen.Screen;
+import shop.mtcoding.filmtalk.screen.ScreenRepository;
 import shop.mtcoding.filmtalk.user.UserRepository;
 
 import java.sql.Timestamp;
@@ -24,6 +26,10 @@ public class ShowtimeRepositoryTest {
     private ShowtimeRepository showtimeRepository;
     @Autowired
     private CinemaRepository cinemaRepository;
+    @Autowired
+    private ScreenRepository screenRepository;
+    @Autowired
+    private RegionRepository regionRepository;
 
     @Test
     public void mFindAll_test() {
@@ -125,4 +131,44 @@ public class ShowtimeRepositoryTest {
         System.out.println("regions "+cinema.getRegion().getCity());
 
     }
+    @Test
+    public void mFindRegionById_test() {
+        //여기에서는 영화관 id들 다 모여짐
+        List<Cinema> cinemas = cinemaRepository.findAll();
+        System.out.println("==========================");
+        List<Long> cinemaIds = cinemas.stream().map(cinema -> cinema.getId()).toList();
+
+        List<Screen> screens = screenRepository.mFindScreenByCinemaIds(cinemaIds);
+        System.out.println("==========================");
+        List<Long> screenIds = screens.stream().map(screen -> screen.getId()).toList();
+    }
+
+    @Test
+    public void mFindByIdWithCinema_test() {
+        Long id = 1L;
+        Region region = regionRepository.mfindByIdWithCinemas(id).get();
+        System.out.println(region.getCinemas().get(0).getName());
+    }
+    @Test
+    public void mFindByIdWithScreen_test() {
+        Long id = 1L;
+        Cinema cinema = cinemaRepository.mFindByIdWithScreen(id);
+        List<Screen> screens = cinema.getScreens();
+        for (Screen screen : screens) {
+            System.out.println(screen.getId());
+        }
+    }
+
+    @Test
+    public void mFindByDateIdMovieId_test(){
+        Long id = 1L;
+        Long date = 23L;
+        List<Showtime> dates = showtimeRepository.mFindByDateIdMovieId(date,id);
+        for(Showtime showtime : dates){
+            System.out.println(showtime.getStartedAt().toString());
+        }
+    }
+
+
+
 }

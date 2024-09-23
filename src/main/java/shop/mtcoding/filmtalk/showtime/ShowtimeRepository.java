@@ -23,7 +23,20 @@ public interface ShowtimeRepository extends JpaRepository<Showtime,Long> {
     List<Showtime> mFindAll();
 
     @Query("select st from Showtime st left join fetch st.movie mt where st.id=:id")
+<<<<<<< HEAD
     Optional<Showtime> mFindById(@Param("id") long id);
 
 
+=======
+    Optional<Showtime> mFindById(@Param("id") int id);
+
+    @Query("select distinct st from Showtime st left join fetch st.movie mt where st.screen.id IN :ids ")
+    List<Showtime> mFindByWithMovieScreenIds(@Param("ids") List<Long> ids);
+
+    @Query("SELECT st FROM Showtime st WHERE st.movie.id IN :movieId")
+    List<Showtime> mFindByMovieId(@Param("movieId") Long id);
+
+    @Query("SELECT s FROM Showtime s WHERE FUNCTION('DAY', s.startedAt) = :dateId AND s.movie.id = :movieId")
+    List<Showtime> mFindByDateIdMovieId(@Param("dateId") Long dateId, @Param("movieId") Long movieId);
+>>>>>>> 9c810d6 (ajax화면성설ax 화면설정완료(좌석보기는 미완))
 }

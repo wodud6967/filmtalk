@@ -9,9 +9,10 @@ values ('love', '1234', 'love@nate.com','01048086967', now());
 insert into region_tb (city, name)
 values ('부산', '서면');
 
+--TODO 주헌  부산 화명에서 서울 화명으로 지역 변경함
 -- 사상 지역 데이터 삽입
 insert into region_tb (city, name)
-values ('부산', '화명');
+values ('서울', '화명');
 
 -- 서면롯데시네마 영화관 데이터 삽입
 insert into cinema_tb (img_name, img_uname, name, region_id)
@@ -164,6 +165,31 @@ insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-12 16:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-12 18:00:00', 10);
+
+--TODO 주헌 DB추가
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-23 14:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-24 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-25 18:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-26 14:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-27 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 2, '2024-09-23 14:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 3, '2024-09-24 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-25 18:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-26 14:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-27 16:00:00', 10);
+
+
+
 
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at , price)

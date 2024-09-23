@@ -12,12 +12,13 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/reservation.css">
     <style>
-        #main{
+        #main {
             width: 100%;
             background-color: aliceblue;
             margin-top: 20px;
         }
-        .inner{
+
+        .inner {
             width: 1200px;
             margin: 0 auto;
         }
@@ -47,12 +48,13 @@
                 <div class="section">
                     <div class="section__title">영화관</div>
                     <div class="content cinema__selection">
-                        <div class="cinema__area">
-                            <div class="cinema__item">부산</div>
-                            <div class="cinema__item">서울</div>
+                        <div class="cinema__area" id="region-box">
+                            {{#models}}
+                                <div class="cinema__item" onclick="cinemas(`{{id}}`)" id="region-{{id}}">{{city}}</div>
+                            {{/models}}
                         </div>
-                        <div class="cinema__name">
-                            <div class="cinema__detail__item">가산디지털</div>
+                        <div class="cinema__name" id="cinema-box">
+
                         </div>
                     </div>
                 </div>
@@ -60,72 +62,21 @@
                 <!-- 영화 선택 -->
                 <div class="section">
                     <div class="section__title">영화 선택</div>
-                    <div class="content">
-                        <div class="movie__item">
-                            <img src="img/num_15.png" alt="rating">
-                            <span>베테랑2</span>
-                        </div>
-                        <div class="movie__item">
-                            <img src="img/num_15.png" alt="rating">
-                            <span>에이리언: 로큰롤</span>
-                        </div>
-                        <div class="movie__item">
-                            <img src="img/num_15.png" alt="rating">
-                            <span>러브로지</span>
-                        </div>
-                        <div class="movie__item">
-                            <img src="img/num_15.png" alt="rating">
-                            <span>대부</span>
+                    <div class="content" id="movie-box">
 
-                        </div>
                     </div>
                 </div>
 
                 <!-- 날짜 선택과 상영시간 -->
                 <div class="section">
                     <div class="section__title">날짜</div>
-                    <div class="content date__container">
-                        <div class="date__item">4수</div>
-                        <div class="date__item">5목</div>
-                        <div class="date__item">6금</div>
-                        <div class="date__item">7토</div>
-                        <div class="date__item">8일</div>
-                        <div class="date__item">9월</div>
-                        <div class="date__item">10화</div>
-                        <div class="date__item">11수</div>
-                        <div class="date__item">12목</div>
+                    <div class="content date__container" id="date-box">
+
                     </div>
                     <div class="section__title">상영시간</div>
-                    <div class="content ">
-                        <div class="movie__info">
-                            <img src="img/num_15.png" alt="rating">
-                            <span> 대부</span>
-                            <div class="additional__info">2D 2관 일반관</div>
-                        </div>
-                        <div class="movie__reservation">
-                            <div class="time__item">
-                                <div>14:35</div>
-                                <div onclick="goSeat()" class="seats">85 / 90</div>
-                            </div>
-                            <div class="time__item">
-                                <div>17:00</div>
-                                <div onclick="goSeat()"  class="seats low">20 / 90</div>
-                            </div>
-                        </div>
-                        <div class="movie__info">
-                            <img src="img/num_15.png" alt="rating">
-                            <span> 대부</span>
-                            <div class="additional__info">2D 2관 일반관</div>
-                        </div>
-                        <div class="movie__reservation">
-                            <div class="time__item">
-                                <div>14:35</div>
-                                <div class="seats">85 / 90</div>
-                            </div>
-                            <div class="time__item">
-                                <div>17:00</div>
-                                <div class="seats low">20 / 90</div>
-                            </div>
+                    <div class="content">
+                        <div class="movie__reservation" id="showtime-box">
+
                         </div>
                     </div>
                 </div>
@@ -136,9 +87,121 @@
 
 </main>
 <script>
-    function goSeat(){
-        location.href ="/seat"
+    function goSeat() {
+        location.href = "/seat"
     }
+
+    // async function fetchAndDisplay(url, container, makeItem) {
+    //     let response = await fetch(url, { method: "get" });
+    //     let data = await response.json();
+    //     console.log("data ", data);
+    //     console.log("body ", data.body);
+    //
+    //     $(container).empty(); // 컨테이너를 비움
+    //
+    //     for (let item of data.body) {
+    //         let dom = makeItem(item);
+    //         $(container).append(dom);
+    //     }
+    // }
+    //
+    // async function cinemas(regionId) {
+    //     await fetchAndDisplay("http://localhost:8080/reservation/region/" + regionId, "#cinema-box", makeBox);
+    // }
+    //
+    // async function movies(cinemaId) {
+    //     await fetchAndDisplay("http://localhost:8080/reservation/cinema/" + cinemaId, "#movie-box", makeMovie);
+    // }
+
+    async function cinemas(regionId) {
+        // 1. get 요청하면 body 없다.
+        // 2. 한줄 한줄 실행하면서 테스트
+        // 3. get 요청으로 데이터를 보내려면 주소에 담아 보낸다. (이유는? where 절에 쓸 것을 보내기 때문에)
+        // 4. 콘솔에 로그찍을 때 ""+ 데이터 하면 문자열로 나온다 주의하자 무조건 콤마
+        let response = await fetch("http://localhost:8080/reservation/region/" + regionId, {
+            method: "get"
+        });
+        let data = await response.json();
+        console.log("data ", data);
+        console.log("body", data.body);
+        console.log("cinemaList", data.body.cinemaList);
+
+        let cinemaList = data.body.cinemaList;
+
+        for (cinema of cinemaList) {
+            $("#cinema-box").empty();
+            let dom = makeBox(cinema);
+            $("#cinema-box").append(dom);
+        }
+    }
+
+    function makeBox(cinema) {
+        return `<div onclick="movies(${cinema.id})"  class="cinema__detail__item">${cinema.name}</div>`;
+    }
+
+    async function movies(cinemaId) {
+        let response = await fetch("http://localhost:8080/reservation/cinema/" + cinemaId, {
+            method: "get"
+        });
+        let data = await response.json();
+        console.log("data ", data);
+        console.log("body ", data.body);
+
+        $("#movie-box").empty();
+        for (movie of data.body) {
+            let dom = makeMovie(movie);
+            $("#movie-box").append(dom);
+
+        }
+    }
+
+    function makeMovie(movie) {
+        console.log(movie.ratingGrade);
+        return ` <div class="movie__item" onclick="dates(${movie.id})">
+                        <img src="/img/${movie.ratingGrade}.png" >
+                        <span>${movie.movieNm}</span>`;
+    }
+
+    function dates(movieId) {
+        console.log("날짜 누를 때 ", movieId);
+
+        $("#date-box").empty();
+        for(let i = 0; i < 6; i++){
+            let date = new Date();
+            date.setDate(date.getDate()+i)
+            $("#date-box").append(makeDate(date.getDate(), movieId));
+        }
+    }
+    function makeDate(dates,movieId) {
+        console.log("날짜 만들 때 ",dates, movieId);
+        return `<div class="date__item" onclick="time(${dates}, ${movieId})">${dates}</div>`
+    }
+
+    async function time(date, id) {
+        let response = await fetch("http://localhost:8080/reservation/movie/" + date +"/"+id, {
+            method: "get"
+        });
+        let data = await response.json();
+        console.log("data ", data);
+        console.log("body ", data.body);
+        $("#showtime-box").empty();
+        if(data.body.length === 0){
+            $("#showtime-box").append("<div>상영 시간이 없습니다.</div>");
+        }
+        for (showtime of data.body) {
+            let dom = makeShowtime(showtime);
+            $("#showtime-box").append(dom);
+        }
+    }
+
+    function makeShowtime(showtime) {
+        return ` <div class="time__item">
+                                <div>${showtime.time}</div>
+
+                            </div>`;
+    }
+   // <div class="seats">85/90</div>
+
 </script>
 
 {{>layout/footer}}

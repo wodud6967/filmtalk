@@ -4,9 +4,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import shop.mtcoding.filmtalk.screen.Screen;
 
 public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
@@ -29,5 +31,6 @@ public interface CinemaRepository extends JpaRepository<Cinema, Long> {
 
     @Query("select c from Cinema c join fetch c.region r where c.id=:id")
     Cinema mFindCinemaRegionById(@Param("id") Long id);
+
 
 }

@@ -12,6 +12,7 @@ import shop.mtcoding.filmtalk.ticket.Ticket;
 import shop.mtcoding.filmtalk.user.User;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,6 +35,12 @@ public class Reservation {
     @Column(nullable = false)
     private Timestamp createdAt;
 
+    //TODO 역 참조
+    @OneToMany(mappedBy = "reservation")
+    private List<Ticket> tickets;
+
+
+    //TODO 결제위한 티켓 추가
     @Builder
     public Reservation(Long id, User user, Timestamp createdAt) {
         this.id = id;
