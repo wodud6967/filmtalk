@@ -27,7 +27,6 @@ public class CommentController {
         User sessionUser = (User) session.getAttribute("sessionUser");
         CommentResponse.DTO commentDTO = commentService.코멘트쓰기(saveDTO, sessionUser);
         return ResponseEntity.ok(Resp.ok(commentDTO));
-
     }
 
     @DeleteMapping("/api/comment/{id}")
