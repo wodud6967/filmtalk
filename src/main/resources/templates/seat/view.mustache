@@ -9,6 +9,7 @@
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/seat.css">
     <link rel="stylesheet" href="/css/header.css">
+
 </head>
 
 <body>
@@ -30,11 +31,11 @@
                         <div class="text-center">
                             <label>일반</label>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <label class="btn btn-outline-primary" id="count0" value="0" onclick="getNum(0)"></label><!-- 0 클릭 시 초기화 -->
-                                <label class="btn btn-outline-primary" id="count1" value="1" onclick="getNum(1)">1</label>
-                                <label class="btn btn-outline-primary" value="2">2</label>
-                                <label class="btn btn-outline-primary" value="3">3</label>
-                                <label class="btn btn-outline-primary" value="4">4</label>
+                                <button class="btn btn-outline-primary" id="count0" value="0" onclick="resetCount()">0</button><!-- 0 클릭 시 초기화 -->
+                                <button class="btn btn-outline-primary" id="count1" value="1" onclick="getCount(this.value)">1</button>
+                                <button class="btn btn-outline-primary" id="count2" value="2" onclick="getCount(this.value)">2</button>
+                                <button class="btn btn-outline-primary" id="count3" value="3" onclick="getCount(this.value)">3</button>
+                                <button class="btn btn-outline-primary" id="count4" value="4" onclick="getCount(this.value)">4</button>
                             </div>
                         </div>
                     </div>
@@ -57,17 +58,8 @@
         <!-- 좌석 배치 -->
         <div class="seat-selection text-center mb-4">
             <div class="bg-dark text-white py-2 mb-3">SCREEN</div>
-            <!--<div class="seats d-flex justify-content-center flex-wrap">
-                 좌석 A ~ L 행
-                <div class="d-flex align-items-center mb-2">
-                    <span class="mr-2">A</span>
-                    <button class="seat btn btn-outline-secondary mr-2"></button>
-                    <button class="seat btn btn-outline-secondary mr-2"></button>
-                    <button class="seat btn btn-outline-secondary mr-2"></button>
-                    <button class="seat btn btn-outline-secondary mr-2"></button>
-                </div> -->
-            <!-- 좌석 행 반복 추가 가능 -->
             <div id="seat-container"></div>
+            <!-- 좌석 반복 추가 -->
         </div>
     </div>
 
@@ -104,32 +96,21 @@
                     </tr>
                 </table>
             </div>
-            <div class="seat__num__box">
+            <div class="seat__num__box" id="seatNumBox">
                 <!-- JS 로 동적으로 넣기 -->
-                <table>
-                    <tr>
-                        <td>좌석번호</td>
-                        <td>E9, E10</td>
-                    </tr>
-                </table>
             </div>
-            <div>
+            <div class="seat__payment__box" id="paymentBox">
                 <!-- JS 로 동적으로 넣기 -->
-                <table>
-                    <tr>
-                        <td>일반</td>
-                        <td>20,000원 * 2</td>
-                    </tr>
-                    <tr>
-                        <td>총금액</td>
-                        <td>40,000원</td><!-- 빨간색 -->
-                    </tr>
-
-                </table>
             </div>
         </div>
         <div class="col text-right">
-            <button class="btn btn-secondary">결제선택</button>
+            <form action="/seat/reservation" method="post">
+<!--                <input type="hidden" name="showtimeId" value="">-->
+                <input type="hidden" name="showtimeId" value="2">
+                <input type="hidden" name="selectedSeats" id="selectedSeats">
+                <input type="hidden" name="totalPrice" id="totalPrice">
+                <button class="btn btn-secondary" type="submit">결제선택</button>
+            </form>
         </div>
     </div>
     </div>
@@ -137,8 +118,7 @@
     <!-- 부트스트랩 JS 및 jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="js/seat.js"></script>
+    <script src="js/seat2.js"></script>
 </main>
 
 {{>layout/footer}}
