@@ -303,6 +303,7 @@
             </div>
             <!-- 새로운 컨테이너를 date-nav 아래에 추가 -->
             <div id="screenContainer">
+<<<<<<< HEAD
                 {{#model.cinemaSchedule}}
                     {{#screens}}
                         <div class="screen-item" id="screen{{screenId}}" data-screen-id="{{screenId}}" data-date="12">
@@ -326,6 +327,8 @@
                 {{/model.cinemaSchedule}}
             </div>
 =======
+=======
+>>>>>>> 097d775 (상영관등록하기중)
             {{#model}}
                 {{#screens}}
                     <div class="screen-item" id="screen{{screenId}}" data-screen-id="{{screenId}}" data-date="12">
@@ -344,7 +347,11 @@
                     </div>
                 {{/screens}}
             {{/model}}
+<<<<<<< HEAD
 >>>>>>> 28cb02c (상영시간더하기 진행중)
+=======
+            </div>
+>>>>>>> 097d775 (상영관등록하기중)
 
 
 
@@ -533,15 +540,15 @@
             }
 
             const data = await response.json();  // JSON 데이터를 파싱
-            console.log(data)
-            updateShowtimes(data);  // 받아온 데이터로 화면을 업데이트
+            console.log(data.body)
+            updateShowtimes(data.body);  // 받아온 데이터로 화면을 업데이트
 
     }
 
     // 상영관 및 상영 시간을 화면에 업데이트하는 함수
     function updateShowtimes(data) {
         console.log("------------");
-        const container = $('.contain__box');
+        const container = $('#screenContainer');
 
         console.log(container);
 
@@ -564,6 +571,8 @@
                             <span class="movie-runtime">${showtime.runtime}분</span>
                         </div>
                     `).join('')}
+                    <!-- 상영 시간 추가 버튼 추가 -->
+                    <button class="btn-add-time" onclick="handleAddTimeClick(${screen.screenId})" data-screen-id="${screen.screenId}" data-toggle="modal" data-target="#addTimeModal">+</button>
                 </div>
             </div>
         `;
