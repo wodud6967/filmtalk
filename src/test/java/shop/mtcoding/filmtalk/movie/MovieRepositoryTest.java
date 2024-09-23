@@ -31,7 +31,24 @@ public class MovieRepositoryTest {
     PosterRepository posterRepository;
 
     @Test
-    public void makeMovieWithAll(){
+    public void search_test(){
+        String movieNm = "nter";
+        List<Movie> movieList = movieRepository.mFindAll(movieNm, null, null, null, null);
+        Assertions.assertTrue(movieList.size() == 1);
+    }
+
+    @Test
+    public void deleteById_test() {
+        Integer Id = 1;
+        movieRepository.deleteById(Long.valueOf(Id));
+
+        List<Movie> all = movieRepository.findAll();
+        System.out.println(all.size());
+
+    }
+
+    @Test
+    public void makeMovieWithAll() {
         int id = 1;
         Movie movie = movieRepository.mFindOneWithCommentsById(id).orElseThrow(() -> new Exception404("없다이놈아"));
         List<Still> stills = stillRepository.mFindAllByMovie(movie);
@@ -39,12 +56,12 @@ public class MovieRepositoryTest {
         System.out.println("=====================no more hiber ---------------");
         movie.setStillUrls(stills);
         movie.setPosterUrls(posters);
-        Assertions.assertTrue(movie.getStillUrls().size() ==9 && movie.getPosterUrls().size() ==2);
+        Assertions.assertTrue(movie.getStillUrls().size() == 9 && movie.getPosterUrls().size() == 2);
 
     }
 
     @Test
-    public void findStillsByMovie(){
+    public void findStillsByMovie() {
         int id = 1;
         Movie movie = movieRepository.mFindOneWithCommentsById(id).orElseThrow(() -> new Exception404("없다이놈아"));
         List<Still> allByMovie = stillRepository.mFindAllByMovie(movie);
@@ -52,12 +69,13 @@ public class MovieRepositoryTest {
 
 
     }
+
     @Test
-    public void findPostersByMovie(){
+    public void findPostersByMovie() {
         int id = 1;
         Movie movie = movieRepository.mFindOneWithCommentsById(id).orElseThrow(() -> new Exception404("없다이놈아"));
         List<Poster> allByMovie = posterRepository.mFindAllByMovie(movie);
-        Assertions.assertTrue(allByMovie.size()==2);
+        Assertions.assertTrue(allByMovie.size() == 2);
 
 
     }

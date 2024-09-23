@@ -24,11 +24,16 @@ public class MovieService {
     private final PosterRepository posterRepository;
 
 
-    public List<MovieResponse.ListDTO> 영화목록보기() {
+    public List<MovieResponse.ListDTO> 영화메인목록보기() {
         List<Movie> movies = movieRepository.mFindAllWithPosterUrls();
         List<MovieResponse.ListDTO> listDTO = new ArrayList<>();
+        int count = 0;
         for (Movie movie : movies) {
+            if (count >= 5) {
+                break; // 5개 항목을 초과하면 루프 종료
+            }
             listDTO.add(new MovieResponse.ListDTO(movie));
+            count++;
         }
         return listDTO;
     }
@@ -40,8 +45,16 @@ public class MovieService {
         List<Poster> posters = posterRepository.mFindAllByMovie(movie);
         movie.setStillUrls(stills);
         movie.setPosterUrls(posters);
-        System.out.println("==============================검색은 완료되어야 한다============");
 
         return new MovieResponse.DetailDTO(movie,sessionUser);
+    }
+
+    public List<MovieResponse.ListDTO> 영화더보기() {
+        List<Movie> movies = movieRepository.mFindAllWithPosterUrls();
+        List<MovieResponse.ListDTO> listDTO = new ArrayList<>();
+        for (Movie movie : movies) {
+            listDTO.add(new MovieResponse.ListDTO(movie));
+        }
+        return listDTO;
     }
 }

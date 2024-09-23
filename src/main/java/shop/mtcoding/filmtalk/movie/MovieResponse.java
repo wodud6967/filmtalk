@@ -2,6 +2,7 @@ package shop.mtcoding.filmtalk.movie;
 
 import lombok.Data;
 import shop.mtcoding.filmtalk.comment.Comment;
+import shop.mtcoding.filmtalk.core.util.TimeFormatter;
 import shop.mtcoding.filmtalk.still.Still;
 import shop.mtcoding.filmtalk.user.User;
 
@@ -88,7 +89,7 @@ public class MovieResponse {
                 this.content = comment.getContent();
                 this.username = comment.getUser().getUsername();
                 this.isOwner =false;
-                this.createdAt=comment.getTimestamp();
+                this.createdAt = TimeFormatter.commentTimeFormat(comment.getCreatedAt());
 
                 if (sessionUser != null) {
                     if (comment.getUser().getId() == sessionUser.getId()) {

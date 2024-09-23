@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>보유중인 영화 상세보기</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <style>
+        #main {
+            width: 100%;
+            background-color: aliceblue;
+            margin-top: 20px;
+        }
+
+        .inner {
+            width: 1000px;
+            margin: 0 auto;
+        }
+
+        .movie-detail__container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .movie-detail__poster {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .movie-detail__header {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .movie-detail__poster-container {
+            flex: 1;
+        }
+
+        .movie-detail__details-container {
+            flex: 2;
+            margin-top: 50px;
+        }
+
+        .movie-detail__details-container h1 {
+            margin-top: 20px;
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .movie-detail__details-container .subdetails {
+            margin-bottom: 15px;
+            color: #555;
+        }
+
+        .movie-detail__details-container .subdetails div {
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .movie-detail__details-container .actions {
+            margin-top: 20px;
+        }
+
+        .movie-detail__details-container .actions button {
+            margin-right: 10px;
+        }
+
+        .movie-detail__stillcut-section {
+            margin-top: 30px;
+        }
+
+        .movie-detail__stillcut-section h5 {
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .movie-detail__stillcut-section .stillcut-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr 1fr;
+            gap: 10px;
+        }
+
+        .movie-detail__stillcut-section .stillcut-grid img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+
+<body>
+
+<main id="main">
+    <section id="sec1" class="inner">
+        <div class="movie-detail__container">
+            <div class="movie-detail__header">
+                <div class="movie-detail__poster-container">
+                    <!-- 포스터 이미지와 URL 표시 -->
+                    <img id="posterImage" src="{{model.posterUrl}}" alt="Movie Poster" class="movie-detail__poster">
+                    <div class="mt-2">
+                        <label for="posterUrlInput">포스터 URL: </label>
+                        <input type="text" class="form-control" id="posterUrlInput" name="posterUrl"
+                               value="{{model.posterUrl}}">
+                    </div>
+                </div>
+                <div class="movie-detail__details-container">
+                    <h1><label for="prdtYear">영화 제목</label><input type="text" class="form-control" id="movieNm"
+                                                                  name="movieNm" value="{{model.movieNm}}"
+                                                                  placeholder="영화 제목"></h1>
+                    <div class="subdetails">
+                        <div><label for="prdtYear">개봉일</label><input type="text" class="form-control" id="openDt"
+                                                                     name="openDt" value="{{model.openDt}}"
+                                                                     placeholder="개봉일"></div>
+                        <div><label for="prdtYear">러닝타임</label><input type="text" class="form-control" id="runtime"
+                                                                      name="runtime" value="{{model.runtime}}"
+                                                                      placeholder="러닝타임"></div>
+                        <div><label for="prdtYear">관람등급</label><input type="text" class="form-control"
+                                                                      id="ratingGrade" name="ratingGrade"
+                                                                      value="{{model.ratingGrade}}"
+                                                                      placeholder="관람등급"></div>
+                        <div class="form-group">
+                            <label for="prdtYear">제작 연도</label>
+                            <input type="text" class="form-control" id="prdtYear" name="prdtYear"
+                                   value="{{model.prdtYear}}" placeholder="제작 연도">
+                        </div>
+                    </div>
+                    <div class="actions">
+                        <div class="mt-2">
+                            <label for="vodUrlInput">예고편 URL: </label>
+                            <input type="text" class="form-control" id="vodUrlInput" name="vodUrl"
+                                   value="{{model.vodUrl}}">
+                        </div>
+                        <button id="showModalBtn" type="button" class="btn btn-primary mt-2">예고편 재생</button>
+                    </div>
+                    <div class="mt-3">
+                        <h5>영화 줄거리</h5>
+                        <textarea class="form-control" id="plot" name="plot" rows="4"
+                                  placeholder="영화 줄거리">{{model.plot}}</textarea>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mt-2">
+                        <label for="nationNm">제작 국가명</label>
+                        <input type="text" class="form-control" id="nationNm" name="nationNm"
+                               value="{{model.nationNm}}" placeholder="제작 국가명">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mt-2">
+                        <label for="genreNm">장르명</label>
+                        <input type="text" class="form-control" id="genreNm" name="genreNm"
+                               value="{{model.genreNm}}" placeholder="장르명">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mt-2">
+                        <label for="director">영화감독</label>
+                        <input type="text" class="form-control" id="director" name="director"
+                               value="{{model.director}}" placeholder="영화감독">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mt-2">
+                        <label for="company">제작사</label>
+                        <input type="text" class="form-control" id="company" name="company"
+                               value="{{model.company}}" placeholder="제작사">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mt-2">
+                        <label for="actorNm">배우명</label>
+                        <input type="text" class="form-control" id="actorNm" name="actorNm"
+                               value="{{model.actorNm}}" placeholder="배우명">
+                    </div>
+                </div>
+            </div>
+            <!-- 스틸컷 이미지와 URL 표시 -->
+            <div class="movie-detail__stillcut-section">
+                <h5>스틸컷</h5>
+                <div class="stillcut-grid">
+                    {{#model.hasStills}}
+                        {{#model.stillUrls}}
+                            <div class="stillcut-item">
+                                <img class="stillcut-image" src="{{.}}" alt="스틸컷 이미지">
+                                <input type="text" class="form-control mt-2 stillcut-url-input" value="{{.}}"
+                                       placeholder="스틸컷 URL">
+                                <button type="button" class="btn btn-danger btn-sm mt-2 delete-stillcut-btn">삭제</button>
+                            </div>
+                        {{/model.stillUrls}}
+                    {{/model.hasStills}}
+                    <!-- 마지막 빈 칸 -->
+                    <div class="stillcut-item">
+                        <input type="text" class="form-control mt-2 stillcut-url-input new-url-input"
+                               placeholder="새 스틸컷 URL">
+                        <button type="button" class="btn btn-primary btn-sm mt-2 add-stillcut-btn">추가</button>
+                    </div>
+                </div>
+            </div>
+            <div class="mt-4 text-center">
+                <button type="button" onclick="updateMovie('{{model.id}}')" class="btn btn-success btn-lg">저장하기</button>
+                <button type="button" onclick="deleteMovie('{{model.id}}')" class="btn btn-danger btn-lg" style="display: none">삭제하기</button>
+                <a href="/admin/movie" class="btn btn-secondary btn-lg">돌아가기</a>
+            </div>
+        </div>
+    </section>
+</main>
+
+<script>
+    async function deleteMovie(id) {
+        let response = await fetch(`/admin/movie/owned/${id}`, {
+            method: "delete"
+        });
+        let responseBody = await response.json(); // 파싱
+        if (response.ok) {
+            window.location.href = '/admin/movie/owned';
+        }else {
+            alert(responseBody.msg);
+        }
+    };
+
+
+    async function updateMovie(id) {
+        let formData = {
+            movieNm: $('#movieNm').val().trim(),
+            prdtYear: $('#prdtYear').val().trim(),
+            openDt: $('#openDt').val().trim(),
+            nationNm: $('#nationNm').val().trim(),
+            genreNm: $('#genreNm').val().trim(),
+            director: $('#director').val().trim(),
+            company: $('#company').val().trim(),
+            runtime: $('#runtime').val().trim(),
+            ratingGrade: $('#ratingGrade').val().trim(),
+            vodUrl: $('#vodUrlInput').val().trim(),
+            plot: $('#plot').val().trim(),
+            actorNm: $('#actorNm').val().trim(),
+            posterUrls: [$('#posterUrlInput').val().trim()],
+            stillUrls: []
+        };
+
+        $('.stillcut-url-input').each(function () {
+            let url = $(this).val().trim();
+            if (url) {
+                formData.stillUrls.push(url);
+            }
+        });
+
+        let response = await fetch(`/admin/movie/owned/${id}`, {
+            method: "put",
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(formData)
+
+
+        });
+        let responseBody = await response.json();
+        if (response.ok) {
+            window.location.href = '/admin/movie/owned';
+        } else {
+            alert(responseBody.msg);
+        }
+    };
+
+
+    $(document).on('click', '.delete-stillcut-btn', function () {
+        $(this).closest('.stillcut-item').remove();
+    });
+
+    // 스틸컷 추가 버튼 클릭 시 이벤트 핸들러
+    $(document).on('click', '.add-stillcut-btn', function () {
+        const newUrl = $(this).siblings('.new-url-input').val().trim();
+        if (newUrl) {
+            const newItem = `
+                    <div class="stillcut-item">
+                        <img class="stillcut-image" src="${newUrl}" alt="스틸컷 이미지">
+                        <input type="text" class="form-control mt-2 stillcut-url-input" value="${newUrl}" placeholder="스틸컷 URL">
+                        <button type="button" class="btn btn-danger btn-sm mt-2 delete-stillcut-btn">삭제</button>
+                    </div>
+                `;
+            $(this).closest('.stillcut-item').before(newItem);
+            $(this).siblings('.new-url-input').val(''); // 입력 필드 초기화
+        }
+    });
+
+    // 포스터 URL 입력 필드가 변경될 때마다 이미지도 변경
+    $('#posterUrlInput').on('input', function () {
+        const newUrl = $(this).val();
+        $('#posterImage').attr('src', newUrl);
+    });
+
+    // 스틸컷 URL 입력 필드가 변경될 때마다 해당 이미지도 변경
+    $('.stillcut-url-input').on('input', function () {
+        const newUrl = $(this).val();
+        $(this).prev('.stillcut-image').attr('src', newUrl);
+    });
+
+    $('#showModalBtn').on('click', function () {
+        // 동적으로 모달을 생성
+        $('body').append(`
+          <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 1000px;">
+                <div class="modal-body">
+                  <iframe id="videoPlayer" width="900" height="600" src="${$('#vodUrlInput').val()}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                </div>
+            </div>
+          </div>
+        `);
+
+        // 모달을 표시
+        $('#videoModal').modal('show');
+
+        // 모달이 닫힐 때 삭제
+        $('#videoModal').on('hidden.bs.modal', function () {
+            $(this).remove();
+        });
+    });
+</script>

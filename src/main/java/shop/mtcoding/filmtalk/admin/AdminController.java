@@ -1,10 +1,15 @@
 package shop.mtcoding.filmtalk.admin;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.validation.Errors;
+import org.springframework.web.bind.annotation.*;
+import shop.mtcoding.filmtalk.core.error.validAnno.ValidateApi;
+import shop.mtcoding.filmtalk.core.util.Resp;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,38 +22,88 @@ public class AdminController {
     private final AdminService adminService;
 
     @PostMapping("/admin/dashboard")
-    public String dashBoard(){
+    public String dashBoard() {
         return "admin/dashboard";
     }
 
     @GetMapping("/admin/dashboard")
-    public String NotAuthenticatedDashBoard(){
+    public String NotAuthenticatedDashBoard() {
 
         return "admin/dashboard";
     }
 
     @GetMapping("/admin")
-    public String login(){
+    public String login() {
         return "admin/login-form";
     }
 
     @GetMapping("/admin/member")
-    public String member(){
+    public String member() {
         return "admin/member";
     }
+
     @GetMapping("/admin/cinema")
-    public String cinema(){
+    public String cinema() {
         return "admin/cinema-add";
     }
+
     @GetMapping("/admin/movie")
-    public String movie(){
+    public String movie(HttpServletRequest request) {
+        List<AdminResponse.MovieDTO> RawMovies = adminService.API영화리스트보여주기();
+        request.setAttribute("models", RawMovies);
         return "admin/movie";
     }
-    @GetMapping("/admin/showtime")
-    public String showtime(){
-        return "admin/showtime";
+
+    @ValidateApi
+    @PostMapping("admin/movie/save")
+    public ResponseEntity<?> saveMovie(@Valid @RequestBody AdminRequest.SaveMovieDTO saveMovieDTO, Errors errors) {
+        adminService.영화등록하기(saveMovieDTO);
+        return ResponseEntity.ok(Resp.ok(null));
     }
 
+    @GetMapping("/admin/movie/{movieNm}")
+    public String movie(@PathVariable String movieNm, HttpServletRequest request) {
+        AdminResponse.MovieDTO Movie = adminService.API영화상세보기(movieNm);
+        request.setAttribute("model", Movie);
+        return "admin/movie-detail";
+
+    }
+    @GetMapping("/admin/movie/owned")
+    public String ownedMovie(@RequestParam(required = false) String movieNm,
+                             @RequestParam(required = false) String director,
+                             @RequestParam(required = false) String nationNm,
+                             @RequestParam(required = false) String company,
+                             @RequestParam(required = false) String ratingGrade,
+                             HttpServletRequest request) {
+        List<AdminResponse.OwnedMovieDTO> OwnedMovie = adminService.보유중인영화리스트보여주기(movieNm, director, nationNm, company, ratingGrade);
+        request.setAttribute("models", OwnedMovie);
+        return "admin/movie-owned";
+    }
+
+    @GetMapping("/admin/movie/owned/{id}")
+    public String ownedMovie(@PathVariable int id, HttpServletRequest request) {
+        AdminResponse.OwnedMovieDetailDTO movie = adminService.보유중인영화상세보기(id);
+        request.setAttribute("model", movie);
+        return "admin/movie-owned-detail";
+    }
+    @PutMapping("/admin/movie/owned/{id}")
+    public ResponseEntity<?> updateMovie(@PathVariable Long id, @Valid @RequestBody AdminRequest.SaveMovieDTO saveMovieDTO, Errors errors) {
+        adminService.보유중인영화수정하기(id, saveMovieDTO);
+        return ResponseEntity.ok(Resp.ok(null));
+
+    }
+
+    @DeleteMapping("/admin/movie/owned/{id}")
+    public ResponseEntity<?> deleteMovie(@PathVariable Long id) {
+        adminService.보유중인영화삭제하기(id);
+        return ResponseEntity.ok(Resp.ok(null));
+    }
+
+
+    @GetMapping("/admin/showtime")
+    public String showtime() {
+        return "admin/showtime";
+    }
 
 
     // TODO: qna 페이지 DTO 까지 건들이려니까 복잡해서 임시로 컨트롤러에서 포문으로 리스트 출력

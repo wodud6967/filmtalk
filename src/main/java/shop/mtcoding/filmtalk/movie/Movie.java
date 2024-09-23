@@ -46,11 +46,11 @@ public class Movie {
     private String plot;  //줄거리
     @Column(nullable = false)
     private String actorNm;  //배우명
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Poster> posterUrls;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Still> stillUrls;
-    @OneToMany(mappedBy = "movie")
+    @OneToMany(mappedBy = "movie", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Comment> comments;
 
     private Long apiId; //추후 api등록
