@@ -182,7 +182,7 @@
                         <div>관람등급: {{model.ratingGrade}}</div>
                     </div>
                     <div class="actions">
-                        <button id="showModalBtn" type="button"  class="btn btn-primary">예고편 재생</button>
+                        <button id="showModalBtn" type="button" class="btn btn-primary">예고편 재생</button>
                         <button class="btn btn-secondary">공유</button>
                         <button class="btn btn-danger">예매하기</button>
                     </div>
@@ -246,13 +246,29 @@
                 <!-- 리뷰 탭 -->
                 <div class="tab-pane fade" id="review-tab-pane" role="tabpanel" aria-labelledby="review-tab"
                      tabindex="0">
-                    <div class="movie-detail__review-section">
-                        <h5>리뷰</h5>
+                    <div class="card-body">
+                        <form>
+                            <input type="hidden" value="{{model.id}}" id="movieId">
+                            <textarea class="form-control" rows="2" id="comment"></textarea>
+                            <div class="d-flex justify-content-end">
+                                <button onclick="saveReply()" type="button" class="btn btn-outline-primary mt-1">코멘트등록
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                    <div id="comment-box" class="movie-detail__review-section">
                         {{#model.comments}}
-                            <div class="movie-detail__review">
+                            <div id="comment-{{id}}" class="movie-detail__review">
                                 <div class="review-details">
-                                    <span>{{username}}</span>
-                                    <span>{{createdAt}}</span>
+                                    <div>
+                                        <span>{{username}}</span>
+                                        <span>{{createdAt}}</span>
+                                    </div>
+                                    {{#isOwner}}
+                                        <div>
+                                            <button onclick="deleteReply('{{id}}')" type="button" class="btn">🗑</button>
+                                        </div>
+                                    {{/isOwner}}
                                 </div>
                                 <div class="review-content">
                                     {{content}}
@@ -268,7 +284,65 @@
 </main>
 
 <script>
-    $('#showModalBtn').on('click', function() {
+    function commentItem(comment) {
+        return `<div id="comment-${comment.id}" class="movie-detail__review">
+                                <div class="review-details">
+                                    <div>
+                                        <span>${comment.username}</span>
+                                        <span>${comment.createdAt}</span>
+                                    </div>
+                                    <div>
+                                        <button onclick="deleteReply('${comment.id}')" type="button" class="btn">🗑</button>
+                                    </div>
+                                </div>
+                                <div class="review-content">
+                                    ${comment.comment}
+                                </div>
+                            </div>`;
+    }
+
+    async function saveReply() {
+        // 1. Reply 객체 만들기 (id로 찾아서)
+        let comment = {
+            comment: $("#comment").val(),
+            movieId: $("#movieId").val()
+        };
+
+        // 2. fetch 요청하기.
+        let response = await fetch(`/api/comment`, {
+            method: "post",
+            body: JSON.stringify(comment),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        });
+        let responseBody = await response.json(); // DTO !!
+        if (response.ok) {
+            // 3. CSR 하기
+            $("#comment-box").prepend(commentItem(responseBody.body));
+            $("textarea").val("");
+        } else {
+            alert(responseBody.msg);
+        }
+
+    }
+
+    async function deleteReply(id) {
+        // 1. header + body
+        let response = await fetch(`/api/comment/${id}`, {
+            method: "delete"
+        });
+        // 2. body (parsing)
+        let responseBody = await response.json(); // 파싱
+        if (response.ok) {
+            $(`#comment-${id}`).remove();
+            //location.reload(); // F5
+        } else {
+            alert(responseBody.msg);
+        }
+    }
+
+    $('#showModalBtn').on('click', function () {
         // 동적으로 모달을 생성
         $('body').append(`
           <div class="modal fade" id="videoModal" tabindex="-1" role="dialog" aria-labelledby="videoModalLabel" aria-hidden="true">

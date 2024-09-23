@@ -6,7 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.ResponseBody;
 import shop.mtcoding.filmtalk.user.User;
 
 import java.util.List;
@@ -40,12 +39,5 @@ public class MovieController {
         request.setAttribute("model", movie);
 
         return "movie/detail";
-    }
-    @GetMapping("/test/movie/{id}")
-    public @ResponseBody MovieResponse.DetailDTO test(@PathVariable int id, HttpServletRequest request) {
-        User sessionUser = (User) session.getAttribute("sessionUser");
-        MovieResponse.DetailDTO movie = movieService.영화상세보기(id, sessionUser);
-
-        return movie;
     }
 }

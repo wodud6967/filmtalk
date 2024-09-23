@@ -252,36 +252,36 @@ insert into qna_tb (type, title, content, created_at, state, answered_at, admin_
 values ('기타', '영화 추천 부탁드립니다', '어떤 영화를 추천하시겠어요?', '2024-09-12 15:20:00', true, '2024-09-12 17:00:00', 1, 3);
 
 -- Movie 1에 대한 댓글
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (1, '정말 감동적인 영화였어요!', CURRENT_TIMESTAMP, 1, 1);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('정말 감동적인 영화였어요!', CURRENT_TIMESTAMP, 1, 1);
 
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (2, '영상미가 아주 훌륭합니다.', CURRENT_TIMESTAMP, 1, 2);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('영상미가 아주 훌륭합니다.', CURRENT_TIMESTAMP, 1, 2);
 
 -- Movie 2에 대한 댓글
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (3, '스토리가 조금 지루했어요.', CURRENT_TIMESTAMP, 2, 3);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('스토리가 조금 지루했어요.', CURRENT_TIMESTAMP, 2, 3);
 
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (4, '재미있게 봤습니다.', CURRENT_TIMESTAMP, 2, 1);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('재미있게 봤습니다.', CURRENT_TIMESTAMP, 2, 1);
 
 -- Movie 3에 대한 댓글
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (5, '캐릭터가 매력적이에요.', CURRENT_TIMESTAMP, 3, 2);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('캐릭터가 매력적이에요.', CURRENT_TIMESTAMP, 3, 2);
 
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (6, '사운드트랙이 인상 깊었어요.', CURRENT_TIMESTAMP, 3, 3);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('사운드트랙이 인상 깊었어요.', CURRENT_TIMESTAMP, 3, 3);
 
 -- Movie 4에 대한 댓글
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (7, '연출이 훌륭했습니다.', CURRENT_TIMESTAMP, 4, 1);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('연출이 훌륭했습니다.', CURRENT_TIMESTAMP, 4, 1);
 
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (8, '기대했던 것보다 더 좋았어요.', CURRENT_TIMESTAMP, 4, 2);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('기대했던 것보다 더 좋았어요.', CURRENT_TIMESTAMP, 4, 2);
 
 -- Movie 5에 대한 댓글
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (9, '스토리가 복잡했어요.', CURRENT_TIMESTAMP, 5, 3);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ( '스토리가 복잡했어요.', CURRENT_TIMESTAMP, 5, 3);
 
-INSERT INTO comment_tb (id, content, timestamp, movie_id, user_id)
-VALUES (10, '다시 보고 싶어요!', CURRENT_TIMESTAMP, 5, 1);
+INSERT INTO comment_tb (content, created_at, movie_id, user_id)
+VALUES ('다시 보고 싶어요!', CURRENT_TIMESTAMP, 5, 1);
