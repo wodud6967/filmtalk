@@ -21,5 +21,10 @@ public interface ScreenRepository extends JpaRepository<Screen, Long> {
     Optional<Screen> mFindOneByIdAndCinemaId(@Param("id") Long id, @Param("cinemaId") Long cinemaId);
     @Query("select s from Screen s where s.id = :id")
     Optional<Screen> mFindAllById(@Param("id") Long id);
+    //TODO 주헌
+    @Query("select Distinct c from  Cinema c  join fetch c.screens s where c.id=:id")
+    Optional<Screen> mFindByIdWithScreens(@Param("id") Long id);
+    @Query("select s from Screen s where s.cinema.id in :cinemaIds")
+    List<Screen> mFindScreenByCinemaId(@Param("cinemaIds") Long cinemaIds);
+}
 
- }

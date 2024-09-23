@@ -17,11 +17,7 @@ public class ReservationController {
     private final HttpSession session;
     private final ReservationService reservationService;
 
-    @GetMapping("/reservation")
-    public String view(){
 
-        return "reservation/view";
-    }
 
     //TODO 쿼리 테스트
     @GetMapping("/reservation/test")
