@@ -14,7 +14,8 @@ import shop.mtcoding.filmtalk.core.error.ex.ExceptionApi400;
 @Aspect //AOP 등록
 public class GlobalValidationHandler {
 
-    @Before("execution(* shop.mtcoding.filmtalk.admin.AdminController.saveMovie(..))")
+    //validate 시 api를 위한 Exception
+    @Before("@annotation(shop.mtcoding.filmtalk.core.error.validAnno.ValidateApi)")
     public void apiValidation(JoinPoint jp) {
         Object[] args = jp.getArgs();
         for (Object arg : args) {

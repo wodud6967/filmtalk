@@ -4,7 +4,6 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import shop.mtcoding.filmtalk.core.error.ex.Exception404;
 import shop.mtcoding.filmtalk.core.error.ex.ExceptionApi404;
 import shop.mtcoding.filmtalk.movie.Movie;
 import shop.mtcoding.filmtalk.movie.MovieRepository;

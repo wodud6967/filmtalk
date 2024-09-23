@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+import shop.mtcoding.filmtalk.core.error.validAnno.ValidateApi;
 import shop.mtcoding.filmtalk.core.util.Resp;
 
 import java.util.ArrayList;
@@ -53,6 +54,7 @@ public class AdminController {
         return "admin/movie";
     }
 
+    @ValidateApi
     @PostMapping("admin/movie/save")
     public ResponseEntity<?> saveMovie(@Valid @RequestBody AdminRequest.SaveMovieDTO saveMovieDTO, Errors errors) {
         adminService.영화등록하기(saveMovieDTO);
