@@ -29,7 +29,7 @@ public class SeatRepositoryTest {
 
     @Test
     public void 쇼타임ID로영화상영관영화관조회(){
-        int id = 1;
+        Long id = 1L;
         Optional<Showtime> showtime = showtimeRepository.mFindById(id);
         Timestamp startedAt = showtime.get().getStartedAt();
         LocalDate date = startedAt.toLocalDateTime().toLocalDate();

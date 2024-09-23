@@ -23,7 +23,7 @@ public interface ShowtimeRepository extends JpaRepository<Showtime,Long> {
     List<Showtime> mFindAll();
 
     @Query("select st from Showtime st left join fetch st.movie mt where st.id=:id")
-    Optional<Showtime> mFindById(@Param("id") int id);
+    Optional<Showtime> mFindById(@Param("id") Long id);
 
     @Query("select distinct st from Showtime st left join fetch st.movie mt where st.screen.id IN :ids ")
     List<Showtime> mFindByWithMovieScreenIds(@Param("ids") List<Long> ids);

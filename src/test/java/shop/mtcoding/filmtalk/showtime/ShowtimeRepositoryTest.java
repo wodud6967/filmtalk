@@ -48,7 +48,7 @@ public class ShowtimeRepositoryTest {
 
     @Test
     public void mFindById_test() {
-        int id = 1;
+        Long id = 1L;
         Optional<Showtime> showtime = showtimeRepository.mFindById(id);
         Timestamp startedAt = showtime.get().getStartedAt();
         LocalDate date = startedAt.toLocalDateTime().toLocalDate();
