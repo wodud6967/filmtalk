@@ -109,12 +109,37 @@
             </div>
             <div class="seat__num__box" id="seatNumBox">
                 <!-- JS 로 동적으로 넣기 -->
+                <table>
+                    <tr>
+                        <td>좌석번호</td>
+                        <td id="seatNumbers">E9, E10</td>
+                    </tr>
+                </table>
             </div>
             <div class="seat__payment__box" id="paymentBox">
                 <!-- JS 로 동적으로 넣기 -->
+                <table>
+                    <tr>
+                        <td>일반</td>
+                        <td id="ticketPrice">20,000원 * 2</td> <!-- 신민재 추가 -->
+                    </tr>
+                    <tr>
+                        <td>총금액</td>
+                        <td id="totalPrice">40,000원</td><!-- 신민재 추가 -->
+                    </tr>
+
+                </table>
             </div>
         </div>
+
+        <!-- 신민재 form 추가 -->
         <div class="col text-right">
+            <form action="/pay/view" method="POST" id="paymentForm">
+                <input type="hidden" name="reservationId" id="reservationId" value="1"> <!-- 실제 reservationId로 설정 -->
+                <input type="hidden" name="sTotalPrice" id="sTotalPrice" value="">
+
+                <button type="submit" class="btn btn-secondary" onclick="submitForm()">결제선택</button>
+            </form>
             <form action="/seat/reservation" method="post">
                 <!--                <input type="hidden" name="showtimeId" value="">-->
                 <input type="hidden" name="showtimeId" value="{{showtimeId}}">
@@ -128,6 +153,27 @@
     <!-- 부트스트랩 JS 및 jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/seat.js"></script>
+
+    <script> // 좌석 및 금액 설정 TODO: 신민재: 결제 테스트를 위해 추가
+        function submitForm() {
+            const selectedSeats = ['E9', 'E10']; // 선택된 좌석 (동적으로 설정 가능)
+            const ticketPrice = 20000; // 티켓 가격
+            const totalPrice = selectedSeats.length * ticketPrice; // 총 금액 계산
+
+            // 좌석 및 가격 정보를 form에 설정
+            document.getElementById('reservationId').value = 1; // 실제 reservationId로 설정
+            document.getElementById('sTotalPrice').value = totalPrice;
+
+            // form을 전송할 때 추가로 console.log()로 값 확인
+            console.log("reservationId: " + document.getElementById('reservationId').value);
+            console.log("sTotalPrice: " + document.getElementById('sTotalPrice').value);
+
+            document.getElementById('paymentForm').submit(); // form 제출
+        }
+    </script>
+
     <script src="js/seat2.js"></script>
 </main>
 

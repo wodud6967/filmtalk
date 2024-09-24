@@ -27,26 +27,28 @@
             <div class="section__content">
                 <div class="movie__info">
                     <div class="poster__box">
-                        <img src="{{posterImg}}" alt="영화 포스터" class="img-fluid">
+                        <img src="{{paymentData.posterImg}}" alt="영화 포스터" class="img-fluid">
                     </div>
-                    <h3 class="movie__title">{{movieTitle}}</h3>
+                    <h3 class="movie__title">{{paymentData.movieTitle}}</h3>
                     <ul class="movie__details">
                         <li>
                             <strong>일시</strong>
-                            <div>{{showTime}}</div>
+                            <div>{{paymentData.showTime}}</div>
                         </li>
                         <li>
                             <strong>영화관</strong>
-                            <div>{{cinema}}관</div>
+                            <div>{{paymentData.cinema}}관</div>
                         </li>
                         <li>
                             <strong>인원</strong>
-                            <div>{{people}}</div>
+                            <div>{{paymentData.people}}</div>
                         </li>
                         <hr>
                         <li>
+                            {{#seats}}
                             <strong>좌석</strong>
-                            <div>{{seat}}</div>
+                            <div>{{seatNumber}}</div>
+                                {{/seats}}
                         </li>
                     </ul>
                 </div>
@@ -81,7 +83,7 @@
             <div class="section__content">
                 <div class="payment__summary">
                     <ul>
-                        <li>상품금액 <span>{{price}}원</span></li>
+                        <li>상품금액 <span>{{totalPrice}}원</span></li>
                         <li>할인금액 <span>{{discount}}원</span></li>
                         <li>결제금액 <span>{{payPrice}}원</span></li>
                     </ul>

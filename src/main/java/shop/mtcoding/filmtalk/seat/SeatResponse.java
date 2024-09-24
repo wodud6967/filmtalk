@@ -3,6 +3,8 @@ package shop.mtcoding.filmtalk.seat;
 
 import lombok.Data;
 import shop.mtcoding.filmtalk.core.error.ex.Exception404;
+import shop.mtcoding.filmtalk.core.error.ex.Exception404;
+import shop.mtcoding.filmtalk.core.error.ex.ExceptionApi404;
 import shop.mtcoding.filmtalk.screen.Screen;
 import shop.mtcoding.filmtalk.showtime.Showtime;
 import shop.mtcoding.filmtalk.user.User;

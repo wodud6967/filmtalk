@@ -25,6 +25,7 @@ import shop.mtcoding.filmtalk.ticket.TicketRepository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -85,66 +86,101 @@ public class PaymentService {
         }
     }
 
+    // =========================================================================
 
     // payment/view 페이지 데이터 처리 로직
     public PaymentResponse.PaymentViewDTO getPaymentViewData(Long reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ExceptionApi404("예약 정보를 찾을 수 없습니다."));
 
-        // 중복 티켓 제거
-        List<Ticket> tickets = reservation.getTickets().stream()
-                .distinct()
-                .collect(Collectors.toList());
+        // 예약에 해당하는 티켓 목록 가져오기
+        List<Ticket> tickets = reservation.getTickets();
 
         if (tickets.isEmpty()) {
             throw new ExceptionApi404("예매된 티켓이 없습니다.");
         }
 
-
-        Showtime showtime = tickets.get(0).getShowtime(); // 첫번째 티켓의 상영 시간 사용
+        // 첫 번째 티켓을 사용해 상영시간, 영화, 상영관 등의 정보를 가져오기
+        Showtime showtime = tickets.getFirst().getShowtime();
         Movie movie = showtime.getMovie();
-
-        if (movie == null || movie.getId() == null) {
-            throw new IllegalArgumentException("영화 정보가 없습니다.");
-        }
-
-        String posterUrl = posterRepository.findPosterUrlByMovieId(movie.getId());
-        if (posterUrl == null) {
-            throw new IllegalArgumentException("영화 포스터 URL을 찾을 수 없습니다.");
-        }
-
-
         Screen screen = showtime.getScreen();
         Cinema cinema = screen.getCinema();
 
-        // 중복 좌석 제거
-        List<String> seats = tickets.stream()  // 여러 티켓의 좌석 번호를 리스트로 처리
-                .map(ticket -> ticket.getSeat().getSeatNumber())
-                .distinct()
+        // 영화 포스터 URL 가져오기 (poster_tb 테이블 참조)
+        String posterUrl = posterRepository.findPosterUrlByMovieId(movie.getId());
+
+        // 좌석 정보 처리 (티켓을 통해 좌석 번호 가져옴)
+        List<PaymentResponse.PaymentViewDTO.SeatDTO> seatDTOs = tickets.stream()
+                .map(ticket -> new PaymentResponse.PaymentViewDTO.SeatDTO(
+                        ticket.getSeat().getId(),
+                        ticket.getSeat().getSeatNumber() // 좌석 번호 처리
+                ))
                 .collect(Collectors.toList());
 
+        int people = tickets.size();  // 티켓 개수 = 인원 수
+        Double totalPrice = people * showtime.getPrice(); // 티켓 수 * 가격
 
-        int people = tickets.size();  // 티켓 개수를 인원수로 사용
-        Double totalPrice = (double) people * showtime.getPrice();  // 티켓 수 * 가격
-
-        // DTO 반환
         return new PaymentResponse.PaymentViewDTO(
                 reservationId,
                 reservation.getUser().getUsername(),
                 posterUrl,
                 movie.getMovieNm(),
                 showtime.getStartedAt(),
-                screen.getName(),
                 cinema.getName(),
+                screen.getName(),
                 people,
-                seats,
+                seatDTOs,
                 totalPrice,
                 totalPrice
         );
+
     }
 
-    public Payment getPaymentSuccessById(Long reservationId) {
-        return paymentRepository.findByReservationId(reservationId);  // Long 타입 조회
-    }
+
+    // TODO: 실제 db 조회 후 넘기는 로직
+//    public PaymentResponse.PaymentViewDTO getPaymentViewData(Long reservationId) {
+//        // Reservation을 조회하여 예외 처리
+//        Reservation reservation = reservationRepository.findById(reservationId)
+//                .orElseThrow(() -> new ExceptionApi404("예약 정보를 찾을 수 없습니다."));
+//
+//        // 연결된 Ticket 정보 조회 (Reservation과 연결된 티켓 목록)
+//        List<Ticket> tickets = reservation.getTickets();
+//
+//        // 첫 번째 티켓의 상영 시간 정보
+//        Showtime showtime = tickets.get(0).getShowtime();
+//        Movie movie = showtime.getMovie();
+//
+//        // 영화관 및 상영관 정보
+//        Screen screen = showtime.getScreen();
+//        Cinema cinema = screen.getCinema();
+//
+//        // 좌석 정보
+//        List<String> seats = tickets.stream()
+//                .map(ticket -> ticket.getSeat().getSeatNumber())
+//                .collect(Collectors.toList());
+//
+//        // 인원 수는 티켓 개수로 결정
+//        int people = tickets.size();
+//
+//        // 총 결제 금액은 인원 수와 영화의 티켓 가격으로 계산
+//        Double totalPrice = (double) people * showtime.getPrice();
+//
+//        // 실제 데이터를 반환
+//        return new PaymentResponse.PaymentViewDTO(
+//                reservationId,
+//                reservation.getUser().getUsername(),
+//                movie.getPosterUrls(),  // 영화 포스터 이미지 URL
+//                movie.getMovieNm(),    // 영화 제목
+//                showtime.getStartedAt(),  // 상영 시간
+//                cinema.getName(),  // 영화관 이름
+//                screen.getName(),  // 상영관 이름
+//                people,  // 인원 수
+//                seats,  // 좌석 목록
+//                totalPrice,  // 총 결제 금액
+//                totalPrice   // 결제 금액
+//        );
+//    }
+
+
 
 }

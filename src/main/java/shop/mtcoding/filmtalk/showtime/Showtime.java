@@ -27,7 +27,7 @@
         private Screen screen; //상영관
 
 
-        private Double price;
+        private Integer price;
 
 
         @Column(nullable = false)
@@ -42,7 +42,7 @@
         }
 
         @Builder
-        public Double getPrice() {
+        public Integer getPrice() {
             return price;
         }
     }

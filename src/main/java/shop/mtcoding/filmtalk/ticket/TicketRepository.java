@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
 
-    @Query("select t.seat.seatNumber from Ticket t where t.reservation.id = :reservationId")
-    List<String> findSeatNumbersByReservationId(@Param("reservationId") Long reservationId);
-
-    // 중복 데이터 처리
-    @Query("select distinct t from Ticket t left join fetch t.seat s where t.reservation.id = :reservationId")
+    // reservationId 로 티켓 리스트 조회
+    @Query("select t from Ticket t join fetch t.seat s where t.reservation.id = :reservationId")
     List<Ticket> findByReservationId(@Param("reservationId") Long reservationId);
+
+//    @Query("select distinct t from Ticket t join fetch t.seat s where t.reservation.id = :reservationId")
+//    List<Ticket> findByReservationId(@Param("reservationId") Long reservationId);
 
 }
