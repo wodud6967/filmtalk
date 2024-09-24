@@ -1,4 +1,3 @@
-
 async function getSeats() {
     try {
         const hiddenData = document.getElementById('hidden-data');
@@ -25,7 +24,6 @@ async function getSeats() {
 
 
 getSeats();
-
 
 let selectedSeats = []; // 선택된 좌석을 저장할 배열
 let selectedSeatsIds = []; // 선택된 좌석의 pk를 저장할 배열
@@ -183,7 +181,8 @@ function renderSeats(body) {
     });
 }
 
-
+//함수 실행시키기
+getSeats();
 
 
 let selectedCount = 0; // 현재 선택된 좌석 수
