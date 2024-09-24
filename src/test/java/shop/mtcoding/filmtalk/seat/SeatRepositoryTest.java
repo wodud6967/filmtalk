@@ -162,7 +162,4 @@ public class SeatRepositoryTest {
         System.out.println(i);
     }
 
-
-
-
 }
