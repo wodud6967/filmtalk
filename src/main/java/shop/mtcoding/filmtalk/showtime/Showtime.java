@@ -43,9 +43,4 @@
             this.screen = screen;
             this.startedAt = startedAt;
         }
-
-        @Builder
-        public Integer getPrice() {
-            return price;
-        }
     }
