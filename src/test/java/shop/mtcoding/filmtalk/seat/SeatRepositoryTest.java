@@ -157,27 +157,9 @@ public class SeatRepositoryTest {
         //given
         Long showtimeId = 1L;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-=======
->>>>>>> 13a7477 (írebase 충돌해결ì)
-=======
-
->>>>>>> 0e4e005 (충돌해결5)
         Integer i = seatRepository.mFindCountOfTotalSeat(showtimeId);
 
         System.out.println(i);
     }
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-
-
-
-
->>>>>>> 13a7477 (írebase 충돌해결ì)
-=======
->>>>>>> 0e4e005 (충돌해결5)
 }
