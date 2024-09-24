@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import shop.mtcoding.filmtalk.cinema.Cinema;
+
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.List;
@@ -33,5 +35,12 @@ public interface ShowtimeRepository extends JpaRepository<Showtime,Long> {
 
     @Query("SELECT s FROM Showtime s WHERE FUNCTION('DAY', s.startedAt) = :dateId AND s.movie.id = :movieId")
     List<Showtime> mFindByDateIdMovieId(@Param("dateId") Long dateId, @Param("movieId") Long movieId);
+
+
+    @Query("SELECT st FROM Showtime st WHERE st.screen.id IN :screenIds AND CAST(st.startedAt AS date) = :showDate")
+    List<Showtime> findByScreenIdsAndShowDate(
+            @Param("screenIds") List<Long> screenIds,
+            @Param("showDate") LocalDate showDate
+    );
 
 }

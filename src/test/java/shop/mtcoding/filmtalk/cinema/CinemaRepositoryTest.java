@@ -10,6 +10,7 @@ import shop.mtcoding.filmtalk.showtime.Showtime;
 import shop.mtcoding.filmtalk.showtime.ShowtimeRepository;
 import shop.mtcoding.filmtalk.user.UserRepository;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @DataJpaTest
@@ -22,8 +23,12 @@ public class CinemaRepositoryTest {
     private ShowtimeRepository showtimeRepository;
 
 
+
     @Test
     public void mFindById_test() {
+
+
+
         List<Cinema> cinemas = cinemaRepository.findAll();
         System.out.println("==========================");
         List<Long> cinemaIds = cinemas.stream().map(cinema -> cinema.getId()).toList();

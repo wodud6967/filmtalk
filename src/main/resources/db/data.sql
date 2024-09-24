@@ -25,7 +25,7 @@ values ('sasang_lotte_img.jpg', 'unique_sasang_lotte_img.jpg', '화명cgv', 2);
 
 -- 첫 번째 레코드
 insert into admin_tb (username, password, email, phone, name, role, approved, profile_url, created_at, cinema_id)
-values ('ssar', '1234', 'ssar@nate.com', '01048086967', '강재영', 'ROLE_ADMIN', true, 'http://example.com/profile1.jpg', now(), 1);
+values ('admin', '1234', 'ssar@nate.com', '01048086967', '강재영', 'ROLE_ADMIN', true, 'http://example.com/profile1.jpg', now(), 1);
 
 -- 두 번째 레코드
 insert into admin_tb (username, password, email, phone, name, role, approved, profile_url, created_at, cinema_id)
@@ -139,17 +139,16 @@ insert into screen_tb (cinema_id, name)
 values (1, '서면3상영관');
 
 insert into screen_tb (cinema_id, name)
+values (1, '서면4상영관');
+
+
+insert into screen_tb (cinema_id, name)
 values (2, '화명1상영관');
 insert into screen_tb (cinema_id, name)
 values (2, '화명2상영관');
 
 
 
-
-
-
-insert into screen_tb (cinema_id, name)
-values (1, '서면롯데시네마 Screen 3');
 
 -- 사상롯데시네마 상영관 더미 데이터 삽입
 insert into screen_tb (cinema_id, name)
@@ -165,6 +164,10 @@ insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-12 16:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-12 18:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-13 14:00:00', 20);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-13 16:00:00', 20);
 
 --TODO 주헌 DB추가
 insert into showtime_tb (movie_id, screen_id, started_at, price)
@@ -193,7 +196,7 @@ values (2, 1, '2024-09-27 16:00:00', 10);
 
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at , price)
-values (2, 1, '2024-09-12 17:00:00', 10);
+values (2, 1, '2024-09-12 20:00:00', 10);
 
 
 -- 2번 영화 (movie_id = 2), 사상롯데시네마 Screen 1에서 상영

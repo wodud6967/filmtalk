@@ -1,6 +1,7 @@
 package shop.mtcoding.filmtalk.admin;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,42 +12,44 @@ import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.filmtalk.core.error.validAnno.ValidateApi;
 import shop.mtcoding.filmtalk.core.util.Resp;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 @RequiredArgsConstructor
 @Controller
 public class AdminController {
+    private final HttpSession session;
     private final AdminService adminService;
 
-    @PostMapping("/admin/dashboard")
-    public String dashBoard() {
+
+
+
+    @PostMapping("/admin/login")
+    public String adminLogin(AdminShotimeRequest.LoginDTO loginDTO){
+
+        Admin sessionAdmin = adminService.로그인(loginDTO);
+        session.setAttribute("sessionAdmin", sessionAdmin);
         return "admin/dashboard";
     }
 
     @GetMapping("/admin/dashboard")
-    public String NotAuthenticatedDashBoard() {
+    public String NotAuthenticatedDashBoard(){
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        // adminService.상영관등록();
 
         return "admin/dashboard";
     }
 
     @GetMapping("/admin")
-    public String login() {
+    public String login(){
         return "admin/login-form";
     }
 
     @GetMapping("/admin/member")
-    public String member() {
+    public String member(){
         return "admin/member";
     }
-
-    @GetMapping("/admin/cinema")
-    public String cinema() {
-        return "admin/cinema-add";
-    }
-
     @GetMapping("/admin/movie")
     public String movie(HttpServletRequest request) {
         List<AdminResponse.MovieDTO> RawMovies = adminService.API영화리스트보여주기();
@@ -99,10 +102,85 @@ public class AdminController {
         return ResponseEntity.ok(Resp.ok(null));
     }
 
+    ///admin/screen/${screenId}/shotimeForm?date=${selectedDate}
+    @GetMapping("/admin/screen/{screenId}/shotimeForm")
+    public ResponseEntity<?> saveShowtimeForm(
+            @PathVariable Long screenId,
+            @RequestParam("date") String selectedDate) {
 
-    @GetMapping("/admin/showtime")
-    public String showtime() {
+        // selectedDate를 LocalDate로 변환
+        LocalDate date = LocalDate.parse(selectedDate, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        // 필요한 로직 추가
+
+        return ResponseEntity.ok("Showtime form data received successfully!");
+    }
+
+
+    @PostMapping("/admin/showtime")
+    public String saveShowtime(@ModelAttribute AdminShotimeRequest.ShowtimeSaveRequest req) {
+
+
+        // 상영관 등록 처리
+        int day = adminService.상영관등록하기(req);
+
+        // 리다이렉트로 /admin/showtime 페이지로 이동
+        return "redirect:/admin/showtime/"+ day;
+    }
+
+
+    @GetMapping("/admin/showtimes") //비동기날짜
+    public ResponseEntity<?> getShowtimes(@RequestParam("date") String date) {
+
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        LocalDate selectedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+
+        // 해당 날짜에 대한 상영 스케줄을 가져옴
+        AdminShowtimeResponse.CinemaScheduleWithMoviesDTO cinemaSchedule = adminService.상영관별상영스케줄(sessionAdmin, selectedDate);
+
+        return ResponseEntity.ok(Resp.ok(cinemaSchedule));
+    }
+
+    @GetMapping("/admin/showtime/{day}")
+    public String showtime(@PathVariable("day") int day, HttpServletRequest request, Model model) {
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+
+        // 12일부터 시작하는 날짜 리스트 생성
+        LocalDate startDate = LocalDate.of(2024, 9, 12);
+        LocalDate selectedDate = LocalDate.of(2024, 9, day); // URL에서 선택된 날짜 사용
+        LocalDate today = startDate; // 12일을 "오늘"로 취급
+
+        List<Map<String, Object>> dateList = new ArrayList<>();
+        for (int i = 0; i < 7; i++) {
+            LocalDate currentDate = startDate.plusDays(i);  // 12일부터 7일간 생성
+
+            Map<String, Object> dateMap = new HashMap<>();
+            dateMap.put("formattedDate", currentDate.format(DateTimeFormatter.ofPattern("dd")));  // "dd" 형식
+            dateMap.put("formattedDay", currentDate.format(DateTimeFormatter.ofPattern("E", Locale.KOREAN)));  // 요일
+            dateMap.put("isToday", currentDate.equals(selectedDate));  // URL에서 선택된 날짜를 기준으로 오늘 처리
+            dateMap.put("fullDate", currentDate.format(DateTimeFormatter.ofPattern("yyyy-MM-dd")));  // yyyy-MM-dd 형식
+
+            dateList.add(dateMap);
+        }
+
+        AdminShowtimeResponse.CinemaScheduleWithMoviesDTO cinemaSchedule = adminService.상영관별상영스케줄(sessionAdmin, startDate);
+
+        model.addAttribute("dates", dateList);  // 생성된 날짜 리스트를 모델에 추가
+        request.setAttribute("model", cinemaSchedule);
+
         return "admin/showtime";
+    }
+    //TODO json변환테스트용
+    @GetMapping("/admin/test/showtime")
+    public ResponseEntity<?> showtimetest() {
+        Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
+        int cinemaId = 1;
+        LocalDate startDate = LocalDate.of(2024, 9, 12);
+        // DTO 생성
+        AdminShowtimeResponse.CinemaScheduleWithMoviesDTO cinemaSchedule = adminService.상영관별상영스케줄(sessionAdmin, startDate);
+
+        // JSON 형식으로 DTO 반환
+        return ResponseEntity.ok(cinemaSchedule);
     }
 
 

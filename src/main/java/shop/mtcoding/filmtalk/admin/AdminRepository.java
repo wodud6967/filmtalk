@@ -12,5 +12,5 @@ import java.util.Optional;
 public interface AdminRepository extends JpaRepository<Admin, Long> {
 
     @Query("select a from Admin a where a.username=:username and a.password=:password")
-    Optional<Admin> mFindByAdminUsernameAndPassword(@Param("username") String username, @Param("password") String password);
+    Optional<Admin> mFindByOneUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 }
