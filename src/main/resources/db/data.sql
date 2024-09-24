@@ -170,6 +170,8 @@ values (1, 1, '2024-09-13 14:00:00', 20);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-13 16:00:00', 20);
 
+
+
 --TODO 주헌 DB추가
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-23 14:00:00', 10);
@@ -191,8 +193,6 @@ insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-26 14:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-27 16:00:00', 10);
-
-
 
 
 --TODO 주헌 DB추가
@@ -219,7 +219,54 @@ values (2, 1, '2024-09-27 16:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-25 15:00:00', 10);
 
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+values
+    (8, 'A1', 'A', '1'), (8, 'A2', 'A', '2'), (8, 'A3', 'A', '3'), (8, 'A4', 'A', '4'), (8, 'A5', 'A', '5'),
+    (8, 'A6', 'A', '6'), (8, 'A7', 'A', '7'), (8, 'A8', 'A', '8'), (8, 'A9', 'A', '9'),
+    (8, 'B1', 'B', '1'), (8, 'B2', 'B', '2'), (8, 'B3', 'B', '3'), (8, 'B4', 'B', '4'), (8, 'B5', 'B', '5'),
+    (8, 'B6', 'B', '6'), (8, 'B7', 'B', '7'), (8, 'B8', 'B', '8'), (8, 'B9', 'B', '9'),
+    (8, 'C1', 'C', '1'), (8, 'C2', 'C', '2'), (8, 'C3', 'C', '3'), (8, 'C4', 'C', '4'), (8, 'C5', 'C', '5'),
+    (8, 'C6', 'C', '6'), (8, 'C7', 'C', '7'), (8, 'C8', 'C', '8'), (8, 'C9', 'C', '9'),
+    (8, 'D1', 'D', '1'), (8, 'D2', 'D', '2'), (8, 'D3', 'D', '3'), (8, 'D4', 'D', '4'), (8, 'D5', 'D', '5'),
+    (8, 'D6', 'D', '6'), (8, 'D7', 'D', '7'), (8, 'D8', 'D', '8'), (8, 'D9', 'D', '9'),
+    (8, 'E1', 'E', '1'), (8, 'E2', 'E', '2'), (8, 'E3', 'E', '3'), (8, 'E4', 'E', '4'), (8, 'E5', 'E', '5'),
+    (8, 'E6', 'E', '6'), (8, 'E7', 'E', '7'), (8, 'E8', 'E', '8'), (8, 'E9', 'E', '9'),
+    (8, 'F1', 'F', '1'), (8, 'F2', 'F', '2'), (8, 'F3', 'F', '3'), (8, 'F4', 'F', '4'), (8, 'F5', 'F', '5'),
+    (8, 'F6', 'F', '6'), (8, 'F7', 'F', '7'), (8, 'F8', 'F', '8'), (8, 'F9', 'F', '9'),
+    (8, 'G1', 'G', '1'), (8, 'G2', 'G', '2'), (8, 'G3', 'G', '3'), (8, 'G4', 'G', '4'), (8, 'G5', 'G', '5'),
+    (8, 'G6', 'G', '6'), (8, 'G7', 'G', '7'), (8, 'G8', 'G', '8'), (8, 'G9', 'G', '9'),
+    (8, 'H1', 'H', '1'), (8, 'H2', 'H', '2'), (8, 'H3', 'H', '3'), (8, 'H4', 'H', '4'), (8, 'H5', 'H', '5'),
+    (8, 'H6', 'H', '6'), (8, 'H7', 'H', '7'), (8, 'H8', 'H', '8'), (8, 'H9', 'H', '9'),
+    (8, 'I1', 'I', '1'), (8, 'I2', 'I', '2'), (8, 'I3', 'I', '3'), (8, 'I4', 'I', '4'), (8, 'I5', 'I', '5'),
+    (8, 'I6', 'I', '6'), (8, 'I7', 'I', '7'), (8, 'I8', 'I', '8'), (8, 'I9', 'I', '9'),
+    (8, 'J1', 'J', '1'), (8, 'J2', 'J', '2'), (8, 'J3', 'J', '3'), (8, 'J4', 'J', '4'), (8, 'J5', 'J', '5'),
+    (8, 'J6', 'J', '6'), (8, 'J7', 'J', '7'), (8, 'J8', 'J', '8'), (8, 'J9', 'J', '9');
 
+-- 나머지 showtime_id에 대한 동일한 패턴의 데이터
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 9, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 10, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 13, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 14, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 15, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 18, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 19, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 20, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 23, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 24, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 25, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 26, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
 
 
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
@@ -255,6 +302,14 @@ values (3, 'A1', 'A', '1'), (3, 'A2', 'A', '2'), (3, 'A3', 'A', '3'), (3, 'A4', 
 
 insert into seat_tb (showtime_id, seat_number, row_num, col_num)
 values (3, 'B1', 'B', '1'), (3, 'B2', 'B', '2'), (3, 'B3', 'B', '3'), (3, 'B4', 'B', '4'), (3, 'B5', 'B', '5');
+
+
+
+
+
+
+
+
 
 -- ssar 사용자의 좌석 예약
 insert into reservation_tb ( user_id, created_at)

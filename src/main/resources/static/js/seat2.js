@@ -1,31 +1,39 @@
 async function getSeats() {
-    // session 의 showtimeId
-    const hiddenData = document.getElementById('hidden-data');
-    let showtimeId = hiddenData.getAttribute('data-showtimeid');
+    try {
+        const hiddenData = document.getElementById('hidden-data');
+        let showtimeId = hiddenData.getAttribute('data-showtimeid');
 
-    // fetch 요청하기
-    let response = await fetch(`/seat/` + showtimeId, {
-        method: "get",
-
-    });
-    let responseBody = await response.json();
-    if (response.ok) {
-        renderSeats(responseBody);
-    } else {
-        alert("좌석 정보를 불러 올 수 없습니다.");
+        // fetch 요청하기
+        let response = await fetch(`/api/seat/` + showtimeId, {
+            method: "get",
+        });
+        let responseBody = await response.json();
+        console.log(responseBody);
+        // 응답 상태 코드 확인
+        if (responseBody.status === 200) {
+            renderSeats(responseBody.body); // 좌석을 렌더링하는 함수
+        } else {
+            console.log("응답 상태가 정상적이지 않습니다:", response.status);
+            alert("좌석 정보를 불러 올 수 없습니다.");
+        }
+    } catch (error) {
+        console.error("요청 중 오류 발생:", error); // 에러 발생 시 출력
+        alert("좌석 정보를 불러오는 중 오류가 발생했습니다.");
     }
-
 }
+
+getSeats();
+
 
 let selectedSeats = []; // 선택된 좌석을 저장할 배열
 let selectedSeatsIds = []; // 선택된 좌석의 pk를 저장할 배열
 
 
 // 좌석 렌더링
-function renderSeats(responseBody) {
-    const totalColumn = responseBody.totalColumn; // 총 열 갯수
-    const seats = responseBody.seats; // 좌석 정보 담은 리스트
-    const reservedSeats = responseBody.reservedSeats; // 예약된 좌석 정보 담은 리스트
+function renderSeats(body) {
+    const totalColumn = body.totalColumn; // 총 열 갯수
+    const seats = body.seats; // 좌석 정보 담은 리스트
+    const reservedSeats = body.reservedSeats || []; // 예약된 좌석 정보 담은 리스트
 
     // 좌석이 들어갈 HTML 요소를 선택
     const seatContainer = document.getElementById("seat-container");
@@ -95,12 +103,14 @@ function renderSeats(responseBody) {
                         selectedSeatsIds.push(seatButton.id); // 선택된 좌석의 id 를 배열에 추가
                         console.log(selectedSeats);
                         console.log(selectedSeatsIds);
-                        /*
+/*
+
                                                 // selected 클래스를 포함하고 있을 때 해당 seatButton의 textContent를 출력
                                                 if(seatButton.classList.contains('selected')){
                                                     console.log(seatButton.textContent);
                                                 }
-                        */
+
+*/
 
                         if (selectedCount === maxSelectableSeats) {
                             // // 더 이상 좌석을 선택할 수 없을 때 나머지 좌석을 비활성화
@@ -170,9 +180,6 @@ function renderSeats(responseBody) {
         rowElement.appendChild(seatButton); // 버튼을 현재 줄에 추가
     });
 }
-
-//함수 실행시키기
-getSeats();
 
 
 let selectedCount = 0; // 현재 선택된 좌석 수
