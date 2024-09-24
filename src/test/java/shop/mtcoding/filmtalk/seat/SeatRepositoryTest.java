@@ -30,7 +30,6 @@ public class SeatRepositoryTest {
     @Test
     public void 쇼타임ID로영화상영관영화관조회(){
 
-
         Long id = 1L;
 
 
@@ -164,5 +163,8 @@ public class SeatRepositoryTest {
 
         System.out.println(i);
     }
+
+
+
 
 }
