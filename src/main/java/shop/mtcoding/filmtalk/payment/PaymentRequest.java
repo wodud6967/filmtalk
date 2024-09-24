@@ -12,6 +12,8 @@ public class PaymentRequest {
     public static class SaveDTO {
         private Long reservationId;  // 예매 ID  = merchant_uid
         private String impUid;    // 결제 대행 서비스 고유 ID
+        private double price;
+        private Integer state;
     }
 
 }

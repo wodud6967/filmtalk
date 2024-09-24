@@ -27,6 +27,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,6 +48,13 @@ public class PaymentService {
 
 
     // 아임포트 결제부분
+    // 결제 요청 전 고유한 merchant_uid 생성 메소드
+    public String generateMerchantUid(Long reservationId) {
+        // reservationId와 고유한 UUID를 조합해서 고유한 merchant_uid 생성
+        return "reservation_" + reservationId + "_" + UUID.randomUUID().toString();
+    }
+
+    // 결제 요청 처리 로직
     @Transactional
     public void save(PaymentRequest.SaveDTO saveDTO) {
 
@@ -69,9 +77,8 @@ public class PaymentService {
             Reservation reservationPS = reservationRepository.findById(saveDTO.getReservationId())
                     .orElseThrow(() -> new ExceptionApi404("예매 내역을 찾을 수 없습니다."));
             Payment payment = Payment.builder()
-                    .price(100.0)
-                    .point(0)
-                    .state(2) // 결제 완료
+                    .price(saveDTO.getPrice())
+                    .state(2)
                     .cnclDate(null)
                     .payDate(Timestamp.valueOf(LocalDateTime.now()))
                     .impUid(saveDTO.getImpUid())
@@ -79,6 +86,7 @@ public class PaymentService {
                     .mycoupon(null)
                     .reservation(reservationPS)
                     .build();
+
             paymentRepository.save(payment);
 
         } catch (Exception e) {
@@ -105,9 +113,11 @@ public class PaymentService {
         Movie movie = showtime.getMovie();
         Screen screen = showtime.getScreen();
         Cinema cinema = screen.getCinema();
+        String email = reservation.getUser().getEmail();
+        String phone = reservation.getUser().getPhone();
 
-        // 영화 포스터 URL 가져오기 (poster_tb 테이블 참조)
-        String posterUrl = posterRepository.findPosterUrlByMovieId(movie.getId());
+        // 영화 포스터 URL 가져오기 (poster_tb 테이블 참조) (결과 한건)
+        List<String> posterUrl = posterRepository.findPosterUrlByMovieId(movie.getId());
 
         // 좌석 정보 처리 (티켓을 통해 좌석 번호 가져옴)
         List<PaymentResponse.PaymentViewDTO.SeatDTO> seatDTOs = tickets.stream()
@@ -123,7 +133,9 @@ public class PaymentService {
         return new PaymentResponse.PaymentViewDTO(
                 reservationId,
                 reservation.getUser().getUsername(),
-                posterUrl,
+                email,
+                phone,
+                posterUrl.get(0),
                 movie.getMovieNm(),
                 showtime.getStartedAt(),
                 cinema.getName(),
@@ -135,6 +147,7 @@ public class PaymentService {
         );
 
     }
+
 
 
     // TODO: 실제 db 조회 후 넘기는 로직

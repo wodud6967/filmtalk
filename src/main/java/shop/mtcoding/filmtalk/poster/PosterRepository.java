@@ -17,5 +17,5 @@ public interface PosterRepository extends JpaRepository<Poster, Long> {
     // movieId로 posterUrl 조회를 위해 쿼리 추가
     // PaymentService에서 posterRepository.findPosterUrlByMovieId(movie.getId()), -> 이 부분 에러
     @Query("select p.url from Poster p where p.movie.id = :movieId")
-    String findPosterUrlByMovieId(@Param("movieId") Long movieId);
+    List<String> findPosterUrlByMovieId(@Param("movieId") Long movieId);
 }

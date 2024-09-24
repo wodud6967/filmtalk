@@ -27,17 +27,17 @@
             <div class="section__content">
                 <div class="movie__info">
                     <div class="poster__box">
-                        <img src="{{paymentData.posterImg}}" alt="영화 포스터" class="img-fluid">
+                        <img src="{{paymentData.moviePosterUrl}}" alt="영화 포스터" class="img-fluid">
                     </div>
                     <h3 class="movie__title">{{paymentData.movieTitle}}</h3>
                     <ul class="movie__details">
                         <li>
                             <strong>일시</strong>
-                            <div>{{paymentData.showTime}}</div>
+                            <div>{{paymentData.showtime}}</div>
                         </li>
                         <li>
                             <strong>영화관</strong>
-                            <div>{{paymentData.cinema}}관</div>
+                            <div>{{paymentData.cinemaName}},{{paymentData.screenName}}</div>
                         </li>
                         <li>
                             <strong>인원</strong>
@@ -83,9 +83,9 @@
             <div class="section__content">
                 <div class="payment__summary">
                     <ul>
-                        <li>상품금액 <span>{{totalPrice}}원</span></li>
+                        <li>상품금액 <span>{{paymentData.price}}원</span></li>
                         <li>할인금액 <span>{{discount}}원</span></li>
-                        <li>결제금액 <span>{{payPrice}}원</span></li>
+                        <li>결제금액 <span>{{paymentData.totalPrice}}원</span></li>
                     </ul>
                     <button class="btn" onclick="requestPay()">결제하기</button>
                 </div>
@@ -102,12 +102,12 @@
 
     function requestPay() {
 
-        var orderUid = '{{reservationId}}';
-        var itemName = '{{movieTitle}}';
-        var paymentPrice = '{{payPrice}}';
-        var buyerName = '{{userName}}';
-        var buyerEmail = '{{email}}';
-        var phone = '{{phone}}';
+        var orderUid = '{{paymentData.reservationId}}';
+        var itemName = '{{paymentData.movieTitle}}';
+        var paymentPrice = '{{paymentData.totalPrice}}';
+        var buyerName = '{{paymentData.username}}';
+        var buyerEmail = '{{paymentData.email}}';
+        var phone = '{{paymentData.phone}}';
 
         console.log(orderUid, itemName, paymentPrice, buyerName, buyerEmail, phone);
 
@@ -116,7 +116,7 @@
                     pg : 'html5_inicis.INIpayTest',
                     pay_method : 'card',
                     merchant_uid: orderUid, // 예매 번호
-                    name : '{{movieTitle}}', // 영화 제목
+                    name : '{{paymentData.movieTitle}}', // 영화 제목
                     amount : paymentPrice, // 티켓 가격
                     buyer_email : buyerEmail, // 유저 이메일
                     buyer_name : buyerName, // 유저 이름
@@ -143,7 +143,7 @@
                             window.location.href = "/payment/success?reservationId=" + rsp.merchant_uid;
                         });
                     } else {
-                        // alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
+                        alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
                         alert('결제 실패. 좌석 페이지로 이동합니다.');
                         window.location.href = "/seat"; // TODO: 결제 실패 페이지를 만들지, 좌석 페이지로 redirect 할지
                     }

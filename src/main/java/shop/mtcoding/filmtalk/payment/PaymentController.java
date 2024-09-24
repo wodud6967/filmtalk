@@ -95,21 +95,22 @@ public class PaymentController {
 //        return "payment/view";  // 결제 페이지로 이동
 //    }
 
-    @GetMapping("/payment/success")
-    public String paymentSuccess(@RequestParam("reservationId") Long reservationId, Model model) {
-        PaymentResponse.PaymentViewDTO paymentViewDTO = paymentService.getPaymentViewData(reservationId);
 
-        model.addAttribute("userName", paymentViewDTO.getUsername());
-        model.addAttribute("posterImg", paymentViewDTO.getMoviePosterUrl());
-        model.addAttribute("reservId", paymentViewDTO.getReservationId());  // 예매번호 (8자리)
-        model.addAttribute("showTime", paymentViewDTO.getShowtime());
-        model.addAttribute("cinema", paymentViewDTO.getCinemaName() + " " + paymentViewDTO.getScreenName());
-        model.addAttribute("people", "성인 " + paymentViewDTO.getPeople());
-        model.addAttribute("seat", paymentViewDTO.getSeats());  // 좌석 정보 처리
-        model.addAttribute("price", paymentViewDTO.getPrice());
-
-        return "payment/success";
-    }
+//    @GetMapping("/payment/success")
+//    public String paymentSuccess(@RequestParam("reservationId") Long reservationId, Model model) {
+//        PaymentResponse.PaymentViewDTO paymentViewDTO = paymentService.getPaymentViewData(reservationId);
+//
+//        model.addAttribute("userName", paymentViewDTO.getUsername());
+//        model.addAttribute("posterImg", paymentViewDTO.getMoviePosterUrl());
+//        model.addAttribute("reservId", paymentViewDTO.getReservationId());  // 예매번호 (8자리)
+//        model.addAttribute("showTime", paymentViewDTO.getShowtime());
+//        model.addAttribute("cinema", paymentViewDTO.getCinemaName() + " " + paymentViewDTO.getScreenName());
+//        model.addAttribute("people", "성인 " + paymentViewDTO.getPeople());
+//        model.addAttribute("seat", paymentViewDTO.getSeats());  // 좌석 정보 처리
+//        model.addAttribute("price", paymentViewDTO.getPrice());
+//
+//        return "payment/success";
+//    }
 
 
 

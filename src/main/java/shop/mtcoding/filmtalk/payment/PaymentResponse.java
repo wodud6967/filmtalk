@@ -15,6 +15,8 @@ public class PaymentResponse {
         public static class PaymentViewDTO {
             private Long reservationId;        // 예약 ID
             private String username;           // 유저 이름
+            private String email;
+            private String phone;
             private String moviePosterUrl;     // 영화 포스터 이미지
             private String movieTitle;         // 영화 제목
             private Timestamp showtime;        // 상영 시간
