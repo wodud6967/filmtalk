@@ -25,7 +25,7 @@ values ('sasang_lotte_img.jpg', 'unique_sasang_lotte_img.jpg', '화명cgv', 2);
 
 -- 첫 번째 레코드
 insert into admin_tb (username, password, email, phone, name, role, approved, profile_url, created_at, cinema_id)
-values ('ssar', '1234', 'ssar@nate.com', '01048086967', '강재영', 'ROLE_ADMIN', true, 'http://example.com/profile1.jpg', now(), 1);
+values ('admin', '1234', 'ssar@nate.com', '01048086967', '강재영', 'ROLE_ADMIN', true, 'http://example.com/profile1.jpg', now(), 1);
 
 -- 두 번째 레코드
 insert into admin_tb (username, password, email, phone, name, role, approved, profile_url, created_at, cinema_id)

@@ -40,5 +40,11 @@ public class AdminRepositoryTest {
 
 
 
+    @Test
+    public void mFindByOneUsernameAndPassword_test(){
+       Admin admin = adminRepository.mFindByOneUsernameAndPassword("ssar","1234").get();
+        System.out.println(admin.getUsername());
+        System.out.println(admin.getName());
+    }
 
 }

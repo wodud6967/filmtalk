@@ -11,6 +11,16 @@ import java.util.List;
 
 public class AdminRequest {
     @Data
+    public static class LoginDTO {
+
+        @NotEmpty
+        private String username;
+        @NotEmpty
+        private String password;
+
+    }
+
+    @Data
     public static class SaveMovieDTO {
         @NotEmpty(message = "영화 제목은 필수 입력 항목입니다.")
         private String movieNm;
@@ -86,7 +96,7 @@ public class AdminRequest {
             return movie;
 
         }
-
-
     }
-}
+    }
+
+
