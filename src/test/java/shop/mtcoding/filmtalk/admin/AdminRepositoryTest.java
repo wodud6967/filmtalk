@@ -1,35 +1,21 @@
 package shop.mtcoding.filmtalk.admin;
 
-import jakarta.servlet.http.PushBuilder;
-import jakarta.transaction.Transactional;
-import org.hibernate.query.sql.internal.ParameterRecognizerImpl;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import retrofit2.http.PUT;
 import shop.mtcoding.filmtalk.cinema.Cinema;
 import shop.mtcoding.filmtalk.cinema.CinemaRepository;
-import shop.mtcoding.filmtalk.movie.Movie;
 import shop.mtcoding.filmtalk.movie.MovieRepository;
 import shop.mtcoding.filmtalk.screen.Screen;
-import shop.mtcoding.filmtalk.screen.ScreenQueryRepository;
 import shop.mtcoding.filmtalk.screen.ScreenRepository;
 import shop.mtcoding.filmtalk.showtime.Showtime;
 import shop.mtcoding.filmtalk.showtime.ShowtimeRepository;
-import shop.mtcoding.filmtalk.user.User;
-import shop.mtcoding.filmtalk.user.UserRepository;
 
-import java.sql.Timestamp;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 public class AdminRepositoryTest {
@@ -56,7 +42,7 @@ public class AdminRepositoryTest {
                 .orElseThrow(() -> new IllegalArgumentException("Cinema not found"));
 
         // CinemaWithScreensDTO에 영화관 정보를 저장
-        AdminResponse.CinemaWithScreensDTO cinemaWithScreensDTO = new AdminResponse.CinemaWithScreensDTO(cinema);
+        AdminShowtimeResponse.CinemaWithScreensDTO cinemaWithScreensDTO = new AdminShowtimeResponse.CinemaWithScreensDTO(cinema);
 
         System.out.println("--------------");
         // 상영관들의 ID 리스트를 추출
@@ -67,7 +53,7 @@ public class AdminRepositoryTest {
         LocalDate date12 = LocalDate.of(2024, 9, 12);
         // 각 상영관에 대한 ScreenDTO 생성
         for (Screen screen : cinema.getScreens()) {
-            AdminResponse.ScreenDTO screenDTO = new AdminResponse.ScreenDTO(screen,date12 );
+            AdminShowtimeResponse.ScreenDTO screenDTO = new AdminShowtimeResponse.ScreenDTO(screen,date12 );
             cinemaWithScreensDTO.addScreen(screenDTO);  // 각 상영관 정보를 추가
         }
         System.out.println("22222222222222");
@@ -80,7 +66,7 @@ public class AdminRepositoryTest {
 
         // 상영시간을 각 상영관에 추가
         for (Showtime showtime : showtimes) {
-            AdminResponse.ShowtimeDTO showtimeDTO = new AdminResponse.ShowtimeDTO(showtime);
+            AdminShowtimeResponse.ShowtimeDTO showtimeDTO = new AdminShowtimeResponse.ShowtimeDTO(showtime);
 
             // 해당 상영관을 찾아서 showtime을 추가
             cinemaWithScreensDTO.getScreens().stream()
@@ -91,9 +77,9 @@ public class AdminRepositoryTest {
 
         // 영화관 및 상영관 정보 출력
         System.out.println("영화관 이름: " + cinemaWithScreensDTO.getCinemaName());
-        for (AdminResponse.ScreenDTO screenDTO : cinemaWithScreensDTO.getScreens()) {
+        for (AdminShowtimeResponse.ScreenDTO screenDTO : cinemaWithScreensDTO.getScreens()) {
             System.out.println("상영관 이름: " + screenDTO.getScreenName());
-            for (AdminResponse.ShowtimeDTO showtimeDTO : screenDTO.getShowtimes()) {
+            for (AdminShowtimeResponse.ShowtimeDTO showtimeDTO : screenDTO.getShowtimes()) {
                 System.out.println("  영화 이름: " + showtimeDTO.getMovieName());
                 System.out.println("  상영 시간: " + showtimeDTO.getStartedAt());
             }
