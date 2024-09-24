@@ -29,9 +29,13 @@ public class SeatRepositoryTest {
 
     @Test
     public void 쇼타임ID로영화상영관영화관조회(){
+<<<<<<< HEAD
 
         Long id = 1L;
 
+=======
+        int id = 1;
+>>>>>>> 13a7477 (írebase 충돌해결ì)
         Optional<Showtime> showtime = showtimeRepository.mFindById(id);
         Timestamp startedAt = showtime.get().getStartedAt();
         LocalDate date = startedAt.toLocalDateTime().toLocalDate();
@@ -157,10 +161,20 @@ public class SeatRepositoryTest {
         //given
         Long showtimeId = 1L;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 13a7477 (írebase 충돌해결ì)
         Integer i = seatRepository.mFindCountOfTotalSeat(showtimeId);
 
         System.out.println(i);
     }
 
+<<<<<<< HEAD
+=======
+
+
+
+
+>>>>>>> 13a7477 (írebase 충돌해결ì)
 }

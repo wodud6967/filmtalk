@@ -216,4 +216,3 @@ function didYouSelectAll(){
     return true;
 
 }
-
