@@ -194,6 +194,33 @@ values (2, 1, '2024-09-27 16:00:00', 10);
 
 
 
+--TODO 주헌 DB추가
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-23 14:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-24 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-25 18:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-26 14:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (1, 1, '2024-09-27 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 2, '2024-09-23 14:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 3, '2024-09-24 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-25 18:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-26 14:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-27 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-25 15:00:00', 10);
+
+
+
+
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at , price)
 values (2, 1, '2024-09-12 20:00:00', 10);

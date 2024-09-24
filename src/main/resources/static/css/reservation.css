@@ -231,3 +231,12 @@ header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
 }
+.buttonbox{
+    display: flex;
+    justify-content: end;
+}
+.selected {
+    background-color: #e74c3c;
+    color: white;
+    border-color: #e74c3c;
+}

@@ -1,6 +1,8 @@
 package shop.mtcoding.filmtalk.showtime;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,15 @@ public class ShowtimeController {
 
     private final ShowtimeService showtimeService;
     private final RegionService regionService;
+    private final HttpSession session;
+
+    @GetMapping("/reservation/goSeat/{showtimeId}")
+    public ResponseEntity<?> goSeat(@PathVariable("showtimeId") Long showtimeId) {
+        System.out.println("1");
+        session.setAttribute("showtimeId", showtimeId);
+        System.out.println("2");
+        return ResponseEntity.ok(Resp.ok(null));
+    }
 
     @GetMapping("/reservation/movie/{date}/{id}")
     public ResponseEntity<?> dats(@PathVariable("date") Long date,@PathVariable("id")Long id ){
