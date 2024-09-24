@@ -157,7 +157,6 @@ public class SeatRepositoryTest {
         //given
         Long showtimeId = 1L;
 
-
         Integer i = seatRepository.mFindCountOfTotalSeat(showtimeId);
 
         System.out.println(i);
