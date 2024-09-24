@@ -1,3 +1,4 @@
+
 async function getSeats() {
     try {
         const hiddenData = document.getElementById('hidden-data');
@@ -21,6 +22,7 @@ async function getSeats() {
         alert("좌석 정보를 불러오는 중 오류가 발생했습니다.");
     }
 }
+
 
 getSeats();
 
@@ -72,7 +74,6 @@ function renderSeats(body) {
         } else {
             seatButton.classList.add('available'); // 예약안된 좌석은 Class 이름에 available 추가
             let isSelected = false; // 지금은 선택 안되어있으니 false
-
 
             seatButton.addEventListener('click', function () { // 클라이언트가 클릭을 시작..!
 
@@ -178,8 +179,11 @@ function renderSeats(body) {
         }
 
         rowElement.appendChild(seatButton); // 버튼을 현재 줄에 추가
+
     });
 }
+
+
 
 
 let selectedCount = 0; // 현재 선택된 좌석 수
@@ -198,11 +202,13 @@ function getCount(value) {
     selectedSeats = []; // 인원이 변경되면 선택된 좌석 seatNum을 초기화
     selectedSeatsIds = []; // 인원이 변경되면 선택된 좌석 seatIds를 초기화
 
+
     document.querySelectorAll('.seat.selected').forEach(seat => {
         seat.classList.remove('selected');
         seat.style.backgroundColor = ''; // 선택된 좌석을 해제
     });
     console.log(`선택 가능한 좌석 수: ${maxSelectableSeats}`);
+
 }
 
 // 인원수에 맞게 좌석 선택했는지 & 좌석 선택했는지 확인
@@ -223,3 +229,4 @@ function didYouSelectAll(){
     return true;
 
 }
+
