@@ -28,15 +28,6 @@ public interface ScreenRepository extends JpaRepository<Screen, Long> {
     List<Screen> findScreensWithShowtimesByIdsAndDate(@Param("screenIds") List<Long> screenIds,
                                                       @Param("selectedDate") LocalDate selectedDate);
 
-    @Query(value = "SELECT s.*, st.* " +
-            "FROM screen_tb s " +
-            "LEFT JOIN showtime_tb st " +
-            "ON s.id = st.screen_id " +
-            "AND FORMATDATETIME(st.started_at, 'yyyy-MM-dd') = :selectedDate " +
-            "WHERE s.id IN (:screenIds)",
-            nativeQuery = true)
-    List<Object[]> findScreensWithShowtimesByIdsAndDate2(@Param("screenIds") List<Long> screenIds,
-                                                        @Param("selectedDate") String selectedDate);
 
 
     //Admin이 테스트중 5일의 상영관의 상영시간을 가져오기 in :cinemaIds

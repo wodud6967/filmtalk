@@ -101,36 +101,7 @@ public class AdminRepositoryTest {
     }
 
 
-    @Test
-    public void findScreensWithShowtimesByIdsAndDate_test2() {
-        // 1. 사전 데이터 준비
-        Long cinemaId = 1L;
-        Cinema cinemas = cinemaRepository.mFindByIdWithScreen(cinemaId); // Cinema 엔티티와 그 하위 Screen 목록을 로드
-        List<Long> screenIds = new ArrayList<>();
-        cinemas.getScreens().forEach(screen -> screenIds.add(screen.getId())); // Screen의 ID 목록을 추출
 
-        LocalDate date12 = LocalDate.of(2024, 9, 12); // 2024년 9월 12일
-        LocalDate date13 = LocalDate.of(2024, 9, 13); // 2024년 9월 13일
-
-        // 2. 테스트 대상 로직 실행
-        List<Object[]> resultForDate12 = screenRepository.findScreensWithShowtimesByIdsAndDate2(screenIds, "2024-09-12");
-        List<Object[]> resultForDate13 = screenRepository.findScreensWithShowtimesByIdsAndDate2(screenIds, "2024-09-13");
-
-        // 3. 결과 검증
-        System.out.println("12일 결과:");
-        resultForDate12.forEach(row -> {
-            System.out.println("Screen ID: " + row[0] + ", Screen Name: " + row[1]);
-            System.out.println("Started At: " + row[2] + ", Movie ID: " + row[3]);
-        });
-
-        System.out.println("13일 결과:");
-        resultForDate13.forEach(row -> {
-            System.out.println("Screen ID: " + row[0] + ", Screen Name: " + row[1]);
-            System.out.println("Started At: " + row[2] + ", Movie ID: " + row[3]);
-        });
-
-
-    }
 
 
     @Test
