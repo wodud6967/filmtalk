@@ -83,6 +83,7 @@ public class SeatResponse {
             // 좌석 수
             this.totalSeats = totalSeat;
             this.remainingSeats = totalSeats - reservedSeat;
+            System.out.println(remainingSeats);
 
         }
 
@@ -132,19 +133,23 @@ public class SeatResponse {
             this.seats = new ArrayList<>();
             this.reservedSeats = new ArrayList<>();
 
+            System.out.println("반복문 돌기 직전");
+            
             for (int i = 0; i < seatArray.length; i++) {
                 for (int j = 0; j < seatArray[i].length; j++) {
                     if (seatArray[i][j] != null) {
                         Seat seat = seatArray[i][j];
+                        System.out.println(seat.getId());
                         seats.add(new SeatInfo(seat.getId(), seat.getRowNum(), seat.getColNum()));
-                        if (reservedSeatPS != null && reservedSeatPS.contains(seat)) {
+                        if (reservedSeatPS != null && !reservedSeatPS.isEmpty() && reservedSeatPS.contains(seat)) {
                             reservedSeats.add(new ReservedSeatInfo(seat.getId(), seat.getRowNum(), seat.getColNum()));
                         }
-
                         //seats.add(new SeatInfo(seat.getRowNum(), seat.getColNum(), seat.isAvailable())); // 예: 좌석의 가용 여부를 포함
                     }
                 }
             }
+
+            System.out.println("다돌았다");
 
         }
 

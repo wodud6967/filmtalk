@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.filmtalk.core.error.ex.Exception404;
+import shop.mtcoding.filmtalk.core.error.ex.ExceptionApi404;
 import shop.mtcoding.filmtalk.reservation.Reservation;
 import shop.mtcoding.filmtalk.reservation.ReservationRepository;
 import shop.mtcoding.filmtalk.screen.Screen;
@@ -46,15 +47,31 @@ public class SeatService {
         Integer totalSeat = seatRepository.mFindCountOfTotalSeat(id);
         Integer reservedSeat = ticketRepsoitory.mFindCountOfReservedSeats(id);
 
+        System.out.println("예약된 좌석 수 " + reservedSeat);
 
         return new SeatResponse.DTO(showtimePS, screenPS, totalSeat, reservedSeat);
     }
 
     public SeatResponse.SeatDTO 좌석렌더링(long id) {
 
-        List<Seat> seatPS = seatRepository.mFindAllByShowtimeId(id); // 좌석 영속
+        System.out.println("좌석 렌더링. 서비스. id = " + id);
 
-        List<Seat> reservedSeatPS = ticketRepsoitory.mFindSeatByShowtimeId(id); // 예약된 좌석 영속
+        // 쇼타임 id 조회
+        Showtime showtimePS = showtimeRepository.findById(id)
+                .orElseThrow(() -> new ExceptionApi404("해당 상영시간 정보가 없습니다."));
+
+        // 좌석 영속
+        List<Seat> seatPS = seatRepository.mFindAllByShowtimeId(showtimePS.getId());
+
+        if(seatPS.isEmpty()){
+            throw new ExceptionApi404("해당 상영관의 좌석 정보를 불러올 수 없습니다.");
+        }
+
+        // 예약된 좌석 영속
+        // 빈 배열이면 예약된 좌석 없음
+        List<Seat> reservedSeatPS = ticketRepsoitory.mFindSeatByShowtimeId(id);
+
+        System.out.println(reservedSeatPS);
 
         int maxCols = 0; // 최대 column 갯수
         int maxRows = 0; // 최대 Row 갯수
@@ -98,13 +115,13 @@ public class SeatService {
 
         }
 
+        System.out.println("여까지는되나");
         return new SeatResponse.SeatDTO(seatInfos, seatArray, reservedSeatPS);
     }
 
     @Transactional
     public Long 예매등록티켓생성(User sessionUser, Showtime showtime, List<Long> selectedSeatsIds){
 
-        System.out.println("=========서비스시작============");
         // 예매 객체 생성
         Reservation reservation = new Reservation();
         reservation.setUser(sessionUser);
@@ -112,7 +129,6 @@ public class SeatService {
         reservation.setCreatedAt(timestamp);
 
         Reservation reservationPS = reservationRepository.save(reservation);
-        System.out.println("===========예매완료=============");
 
         // 좌석 갯수만큼 Ticket 생성 후 save
         for(Long seatId : selectedSeatsIds){

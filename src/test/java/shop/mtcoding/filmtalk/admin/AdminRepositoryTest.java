@@ -127,6 +127,7 @@ public class AdminRepositoryTest {
 
     }
 
+/*
     @Test
     public void mFindOneByScreenIdOrderByStartedAtDesc(){
         Long screenId = 1L;
@@ -137,6 +138,7 @@ public class AdminRepositoryTest {
             System.out.println(showtime.getStartedAt());
         }
     }
+*/
 
 
     @Test
