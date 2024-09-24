@@ -1,6 +1,7 @@
 async function getSeats() {
-    // 나중에 session값 hidden으로 숨겨서 가져오기
-    let showtimeId = 2; // showtime 2번
+    // session 의 showtimeId
+    const hiddenData = document.getElementById('hidden-data');
+    let showtimeId = hiddenData.getAttribute('data-showtimeid');
 
     // fetch 요청하기
     let response = await fetch(`/seat/` + showtimeId, {
@@ -17,6 +18,8 @@ async function getSeats() {
 }
 
 let selectedSeats = []; // 선택된 좌석을 저장할 배열
+let selectedSeatsIds = []; // 선택된 좌석의 pk를 저장할 배열
+
 
 // 좌석 렌더링
 function renderSeats(responseBody) {
@@ -53,7 +56,7 @@ function renderSeats(responseBody) {
         let seatButton = document.createElement('button'); // button 선언
         seatButton.className = 'seat'; // 버튼의 calss명은은 seat
         seatButton.textContent = seatInfo.row + seatInfo.col; // A + 1
-        seatButton.id = 'seat-' + seatInfo.id; // seat + pk
+        seatButton.id = seatInfo.id; // seat + pk
 
         if (isReserved) { // TRUE
             seatButton.classList.add('reserved');
@@ -65,6 +68,10 @@ function renderSeats(responseBody) {
 
             seatButton.addEventListener('click', function () { // 클라이언트가 클릭을 시작..!
 
+                if(maxSelectableSeats == 0){
+                    alert("인원을 먼저 선택해주세요")
+                }
+
                 isSelected = seatButton.classList.contains('selected'); // 버튼의 현재 선택 상태 확인
 
                 if (isSelected) {
@@ -74,6 +81,8 @@ function renderSeats(responseBody) {
 
                     // 선택 해제 시 선택된 좌석에서 제거
                     selectedSeats = selectedSeats.filter(seat => seat !== seatButton.textContent);
+                    // 선택 해제 시 선택된 좌석의 id를 배열에서 제거
+                    selectedSeatsIds = selectedSeatsIds.filter(seat => seat !== seatButton.id);
                 } else {
                     if (selectedCount < maxSelectableSeats) { // 선택 가능한 좌석 수 체크
                         // 선택할 때마다 배열을 새로 구성
@@ -83,7 +92,9 @@ function renderSeats(responseBody) {
 
                         selectedCount++; // 선택된 좌석 수 증가
                         selectedSeats.push(seatButton.textContent); // 선택된 좌석을 배열에 추가
+                        selectedSeatsIds.push(seatButton.id); // 선택된 좌석의 id 를 배열에 추가
                         console.log(selectedSeats);
+                        console.log(selectedSeatsIds);
                         /*
                                                 // selected 클래스를 포함하고 있을 때 해당 seatButton의 textContent를 출력
                                                 if(seatButton.classList.contains('selected')){
@@ -111,24 +122,32 @@ function renderSeats(responseBody) {
                                         ${selectedSeats.map(seat => `<tr><td>${seat}</td></tr>`).join('')}
                                     </table>`;
 
-                            document.getElementById("selectedSeats").value = selectedSeats.join(','); // 배열을 문자열로 변환
+                            document.getElementById("peopleNum").innerHTML = `
+                                    일반 ${selectedCount}명
+                            `;
 
-                            let price = selectedCount * 20000;
-                            let totalPrice = price.toLocaleString();
-                            console.log(totalPrice);
-                            document.getElementById("totalPrice").value = totalPrice;
+                            document.getElementById("selectedSeatsIds").value = selectedSeatsIds.join(','); // 배열을 문자열로 변환
 
+                            const hiddenData = document.getElementById('hidden-data');
+                            const price = hiddenData.getAttribute('data-price');
+
+                            // 일반
+                            let pureTotalPrice = selectedCount * price;
+                            let commaTotalPrice = pureTotalPrice.toLocaleString();
+
+                            console.log(commaTotalPrice);
+                            document.getElementById("totalPrice").value = commaTotalPrice;
 
                             document.getElementById("paymentBox").innerHTML = '';
                             document.getElementById("paymentBox").innerHTML = `
                                             <table>
                                                 <tr>
                                                     <td>일반</td>
-                                                    <td>20,000원 * ${selectedCount}</td>
+                                                    <td>${price}원 X ${selectedCount}</td>
                                                 </tr>
                                                 <tr>
                                                     <td>총금액  &nbsp&nbsp</td>
-                                                    <td style="color: red">${totalPrice}원</td><!-- 빨간색 -->
+                                                    <td style="color: red">${commaTotalPrice}원</td><!-- 빨간색 -->
                                                 </tr>
                             
                                             </table>
@@ -136,7 +155,13 @@ function renderSeats(responseBody) {
 
                         }
                     } else {
-                        alert(`최대 ${maxSelectableSeats}개의 좌석만 선택할 수 있습니다.`);
+
+                        if(selectedCount == 0){
+                            alert(`인원을 먼저 선택해주세요`);
+                        }else{
+                            alert(`최대 ${maxSelectableSeats}개의 좌석만 선택할 수 있습니다.`);
+                        }
+
                     }
                 }
             });
@@ -153,9 +178,19 @@ getSeats();
 let selectedCount = 0; // 현재 선택된 좌석 수
 let maxSelectableSeats = 0; // 선택할 수 있는 최대 좌석 수
 
+// 인원 선택 시
 function getCount(value) {
-    maxSelectableSeats = parseInt(value); // 선택할 수 있는 최대 좌석 수를 저장
-    selectedCount = 0; // 인원이 변경되면 선택된 좌석을 초기화
+
+    if(value == 0){
+        maxSelectableSeats = 0; // 최대 좌석 수 초기화 0
+    }else{
+        maxSelectableSeats = parseInt(value); // 선택할 수 있는 최대 좌석 수를 저장 1 2 3 4
+    }
+
+    selectedCount = 0; // 인원이 변경되면 선택된 좌석수를 초기화
+    selectedSeats = []; // 인원이 변경되면 선택된 좌석 seatNum을 초기화
+    selectedSeatsIds = []; // 인원이 변경되면 선택된 좌석 seatIds를 초기화
+
     document.querySelectorAll('.seat.selected').forEach(seat => {
         seat.classList.remove('selected');
         seat.style.backgroundColor = ''; // 선택된 좌석을 해제
@@ -163,8 +198,21 @@ function getCount(value) {
     console.log(`선택 가능한 좌석 수: ${maxSelectableSeats}`);
 }
 
-function toPayment(){
+// 인원수에 맞게 좌석 선택했는지 & 좌석 선택했는지 확인
+function didYouSelectAll(){
 
+    let choosedCount = document.querySelectorAll('.seat.selected').length;
 
+    if(maxSelectableSeats != choosedCount){
+        alert("관람인원과 선택 좌석 수가 동일하지 않습니다.");
+        return false;
+    }
+
+    if(choosedCount == 0){
+        alert("관람인원을 선택해 주세요.");
+        return false;
+    }
+
+    return true;
 
 }

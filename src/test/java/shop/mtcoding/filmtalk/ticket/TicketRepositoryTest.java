@@ -24,4 +24,14 @@ public class TicketRepositoryTest {
         System.out.println(ticketRepsoitory.mFindSeatByShowtimeId(showtimeId).get(1).getId());
     }
 
+    @Test
+    public void mFindCountOfReservedSeats_test(){
+        //given
+        Long showtimeId = 1L;
+
+        Integer i = ticketRepsoitory.mFindCountOfReservedSeats(showtimeId);
+
+        System.out.println(i);
+    }
+
 }
