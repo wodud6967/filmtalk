@@ -215,6 +215,8 @@ insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-26 14:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-27 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 1, '2024-09-25 15:00:00', 10);
 
 
 

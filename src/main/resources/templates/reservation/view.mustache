@@ -33,7 +33,7 @@
 <main id="main">
     <h2>예약 메인페이지</h2>
     <section id="sec1" class="inner">
-        <div class="container">
+        <div class="container" id="main-box">
             <!-- 사이드바 -->
             <div class="sidebar">
                 <div>01 상영시간</div>
@@ -91,29 +91,9 @@
         location.href = "/seat"
     }
 
-    // async function fetchAndDisplay(url, container, makeItem) {
-    //     let response = await fetch(url, { method: "get" });
-    //     let data = await response.json();
-    //     console.log("data ", data);
-    //     console.log("body ", data.body);
-    //
-    //     $(container).empty(); // 컨테이너를 비움
-    //
-    //     for (let item of data.body) {
-    //         let dom = makeItem(item);
-    //         $(container).append(dom);
-    //     }
-    // }
-    //
-    // async function cinemas(regionId) {
-    //     await fetchAndDisplay("http://localhost:8080/reservation/region/" + regionId, "#cinema-box", makeBox);
-    // }
-    //
-    // async function movies(cinemaId) {
-    //     await fetchAndDisplay("http://localhost:8080/reservation/cinema/" + cinemaId, "#movie-box", makeMovie);
-    // }
-
     async function cinemas(regionId) {
+        $(".cinema__item").removeClass("selected");
+        $("#region-" + regionId).addClass("selected");
         // 1. get 요청하면 body 없다.
         // 2. 한줄 한줄 실행하면서 테스트
         // 3. get 요청으로 데이터를 보내려면 주소에 담아 보낸다. (이유는? where 절에 쓸 것을 보내기 때문에)
@@ -136,10 +116,13 @@
     }
 
     function makeBox(cinema) {
-        return `<div onclick="movies(${cinema.id})"  class="cinema__detail__item">${cinema.name}</div>`;
+        return `<div onclick="movies(${cinema.id})" id="cinema-${cinema.id}"  class="cinema__detail__item">${cinema.name}</div>`;
     }
 
     async function movies(cinemaId) {
+        $(".cinema__detail__item").removeClass("selected");
+        $(`#cinema-${cinemaId}`).addClass("selected");
+        console.log(cinemaId)
         let response = await fetch("http://localhost:8080/reservation/cinema/" + cinemaId, {
             method: "get"
         });
@@ -157,35 +140,40 @@
 
     function makeMovie(movie) {
         console.log(movie.ratingGrade);
-        return ` <div class="movie__item" onclick="dates(${movie.id})">
+        return ` <div class="movie__item" id="movie-${movie.id}" onclick="dates(${movie.id})">
                         <img src="/img/${movie.ratingGrade}.png" >
                         <span>${movie.movieNm}</span>`;
     }
 
     function dates(movieId) {
         console.log("날짜 누를 때 ", movieId);
+        $(".movie__item").removeClass("selected");
+        $(`#movie-${movieId}`).addClass("selected");
 
         $("#date-box").empty();
-        for(let i = 0; i < 6; i++){
+        for (let i = 0; i < 6; i++) {
             let date = new Date();
-            date.setDate(date.getDate()+i)
+            date.setDate(date.getDate() + i)
             $("#date-box").append(makeDate(date.getDate(), movieId));
         }
     }
-    function makeDate(dates,movieId) {
-        console.log("날짜 만들 때 ",dates, movieId);
-        return `<div class="date__item" onclick="time(${dates}, ${movieId})">${dates}</div>`
+
+    function makeDate(dates, movieId) {
+        console.log("날짜 만들 때 ", dates, movieId);
+        return `<div class="date__item" id="date-${dates}" onclick="time(${dates}, ${movieId})">${dates}</div>`
     }
 
     async function time(date, id) {
-        let response = await fetch("http://localhost:8080/reservation/movie/" + date +"/"+id, {
+        $(".date__item").removeClass("selected");
+        $(`#date-${date}`).addClass("selected");
+        let response = await fetch("http://localhost:8080/reservation/movie/" + date + "/" + id, {
             method: "get"
         });
         let data = await response.json();
         console.log("data ", data);
         console.log("body ", data.body);
         $("#showtime-box").empty();
-        if(data.body.length === 0){
+        if (data.body.length === 0) {
             $("#showtime-box").append("<div>상영 시간이 없습니다.</div>");
         }
         for (showtime of data.body) {
@@ -194,13 +182,43 @@
         }
     }
 
-    function makeShowtime(showtime) {
-        return ` <div class="time__item">
-                                <div>${showtime.time}</div>
+    function goNextPageSeat(showtimeId){
+        let response = fetch("http://localhost:8080/reservation/goSeat/"+showtimeId,{
+            method: "get"
+        });
+        console.log("3");
 
+        window.location.href = "/seat";  // 페이지 리다이렉션
+
+        console.log("4");
+        // window.location.href=`/seat/${showtimeId}`
+    }
+
+
+    function makeShowtime(showtime) {
+        return ` <div class="time__item" id="times-${showtime.id}" onclick="makeButton(${showtime.id})">
+                                <div>${showtime.time}</div>
                             </div>`;
     }
-   // <div class="seats">85/90</div>
+
+    function makeButton(showtimeID) {
+        $(".time__item").removeClass("selected");
+        $(`#times-${showtimeID}`).addClass("selected");
+        let dom = button(showtimeID);
+        $("#button-box").empty();
+        $("#main-box").after(dom);
+        console.log(showtimeID);
+    }
+
+
+    function button(showtimeID) {
+        return `<div id="button-box" class ="buttonbox">
+<button class ="time__item" onclick="goNextPageSeat(${showtimeID})" >확인</button> </div>`
+    }
+
+
+
+    // <div class="seats">85/90</div>
 
 </script>
 
