@@ -17,6 +17,7 @@
 {{>layout/header}}
 
 <main>
+    <div id="hidden-data" data-price="{{model.price}}" data-showtimeid="{{showtimeId}}"></div>
 
     <div class="container mt-5">
         <!-- 상단 인원 / 좌석 -->
@@ -31,11 +32,21 @@
                         <div class="text-center">
                             <label>일반</label>
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
-                                <button class="btn btn-outline-primary" id="count0" value="0" onclick="resetCount()">0</button><!-- 0 클릭 시 초기화 -->
-                                <button class="btn btn-outline-primary" id="count1" value="1" onclick="getCount(this.value)">1</button>
-                                <button class="btn btn-outline-primary" id="count2" value="2" onclick="getCount(this.value)">2</button>
-                                <button class="btn btn-outline-primary" id="count3" value="3" onclick="getCount(this.value)">3</button>
-                                <button class="btn btn-outline-primary" id="count4" value="4" onclick="getCount(this.value)">4</button>
+                                <button class="btn btn-outline-primary" id="count0" value="0"
+                                        onclick="getCount(this.value)">0
+                                </button><!-- 0 클릭 시 초기화 -->
+                                <button class="btn btn-outline-primary" id="count1" value="1"
+                                        onclick="getCount(this.value)">1
+                                </button>
+                                <button class="btn btn-outline-primary" id="count2" value="2"
+                                        onclick="getCount(this.value)">2
+                                </button>
+                                <button class="btn btn-outline-primary" id="count3" value="3"
+                                        onclick="getCount(this.value)">3
+                                </button>
+                                <button class="btn btn-outline-primary" id="count4" value="4"
+                                        onclick="getCount(this.value)">4
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -45,9 +56,9 @@
 
                     <!-- 상영 정보 -->
                     <div class="text-center mb-4">
-                        <img class="screen__img" src="img/cinema01.jpg">
-                        <p class="font-weight-bold">{{model.cinemaNm}} | {{model.screenNm}} | 남은좌석 281/303</p>
-                        <p>{{model.startedAt}}</p><p>~ 22:10</p><!-- 2024.09.04 (수) 20:15 -->
+                        <img class="screen__img" src="img/cinema01.jpg"><!-- model.cinema 이미지로 수정 -->
+                        <p class="font-weight-bold">{{model.cinemaNm}} | {{model.screenNm}} | 남은좌석 {{model.remainingSeats}}/{{model.totalSeats}}</p>
+                        <p>{{model.wholeShowTime}} ~ {{model.endedAt}}</p><!-- 2024.09.04 (수) 20:15 -->
                     </div>
                 </div>
             </div>
@@ -70,7 +81,7 @@
         </div>
         <div class="blackbox__middle__container">
             <div class="blackbox__img__div">
-                <img class="movie__img" src="img/movie_name1.jpg">
+                <img class="movie__img" src="{{model.posterUrl}}">
             </div>
             <div class="blackbox__movie__div">
                 <div>{{model.movieNm}}</div>
@@ -84,7 +95,7 @@
                     </tr>
                     <tr>
                         <td>일시</td>
-                        <td>{{model.startedAt}}</td><!-- 2024.9.14(토) 12:00 -->
+                        <td>{{model.wholeShowTime}}</td><!-- 2024.9.14(토) 12:00 -->
                     </tr>
                     <tr>
                         <td>상영관</td>
@@ -92,7 +103,7 @@
                     </tr>
                     <tr>
                         <td>인원</td>
-                        <td>일반 2명</td><!-- js로 -->
+                        <td id="peopleNum"></td><!-- js로 -->
                     </tr>
                 </table>
             </div>
@@ -105,14 +116,13 @@
         </div>
         <div class="col text-right">
             <form action="/seat/reservation" method="post">
-<!--                <input type="hidden" name="showtimeId" value="">-->
-                <input type="hidden" name="showtimeId" value="2">
-                <input type="hidden" name="selectedSeats" id="selectedSeats">
+                <!--                <input type="hidden" name="showtimeId" value="">-->
+                <input type="hidden" name="showtimeId" value="{{showtimeId}}">
+                <input type="hidden" name="selectedSeatsIds" id="selectedSeatsIds">
                 <input type="hidden" name="totalPrice" id="totalPrice">
-                <button class="btn btn-secondary" type="submit">결제선택</button>
+                <button onclick="return didYouSelectAll()" class="btn btn-secondary" type="submit">결제선택</button>
             </form>
         </div>
-    </div>
     </div>
 
     <!-- 부트스트랩 JS 및 jQuery -->

@@ -29,7 +29,7 @@ public class SeatRepositoryTest {
 
     @Test
     public void 쇼타임ID로영화상영관영화관조회(){
-        Long id = 1L;
+        Long id = 1;
         Optional<Showtime> showtime = showtimeRepository.mFindById(id);
         Timestamp startedAt = showtime.get().getStartedAt();
         LocalDate date = startedAt.toLocalDateTime().toLocalDate();
@@ -150,5 +150,15 @@ public class SeatRepositoryTest {
 
     }
 
+    @Test
+    public void mFindCountOfTotalSeat_test(){
+        //given
+        Long showtimeId = 1L;
+
+
+        Integer i = seatRepository.mFindCountOfTotalSeat(showtimeId);
+
+        System.out.println(i);
+    }
 
 }

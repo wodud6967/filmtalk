@@ -10,12 +10,14 @@ import shop.mtcoding.filmtalk.screen.Screen;
 import shop.mtcoding.filmtalk.screen.ScreenRepository;
 import shop.mtcoding.filmtalk.showtime.Showtime;
 import shop.mtcoding.filmtalk.showtime.ShowtimeRepository;
+import shop.mtcoding.filmtalk.ticket.Ticket;
 import shop.mtcoding.filmtalk.ticket.TicketRepsoitory;
 import shop.mtcoding.filmtalk.user.User;
 
 import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -41,7 +43,11 @@ public class SeatService {
         Screen screenPS = screenRepository.mFindAllById(screenId)
                 .orElseThrow(() -> new Exception404("상영관정보가 없습니다."));
 
-        return new SeatResponse.DTO(showtimePS, screenPS);
+        Integer totalSeat = seatRepository.mFindCountOfTotalSeat(id);
+        Integer reservedSeat = ticketRepsoitory.mFindCountOfReservedSeats(id);
+
+
+        return new SeatResponse.DTO(showtimePS, screenPS, totalSeat, reservedSeat);
     }
 
     public SeatResponse.SeatDTO 좌석렌더링(long id) {
@@ -96,22 +102,30 @@ public class SeatService {
     }
 
     @Transactional
-    public void 예매등록티켓생성(User sessionUser){
+    public Long 예매등록티켓생성(User sessionUser, Showtime showtime, List<Long> selectedSeatsIds){
 
-        // 예매 생성
+        System.out.println("=========서비스시작============");
+        // 예매 객체 생성
         Reservation reservation = new Reservation();
-
         reservation.setUser(sessionUser);
-
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         reservation.setCreatedAt(timestamp);
 
         Reservation reservationPS = reservationRepository.save(reservation);
+        System.out.println("===========예매완료=============");
 
-        // 좌석 생성
-        Long reservationPSId = reservationPS.getId();
+        // 좌석 갯수만큼 Ticket 생성 후 save
+        for(Long seatId : selectedSeatsIds){
+            // 비영속 티켓 객체 생성
+            Ticket ticket = new Ticket();
+            ticket.setReservation(reservationPS);
+            ticket.setShowtime(showtime);
+            ticket.setCreatedAt(timestamp);
+            ticket.setSeat(seatRepository.findById(seatId).orElseThrow(() -> new Exception404("해당 좌석을 찾을 수 없습니다.")));
+            ticketRepsoitory.save(ticket);
+        }
 
-
+        return reservationPS.getId();
 
     }
 
