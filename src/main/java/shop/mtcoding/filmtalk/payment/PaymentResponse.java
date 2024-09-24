@@ -24,8 +24,8 @@ public class PaymentResponse {
             private String screenName;         // 상영관 이름
             private int people;
             private List<SeatDTO> seats;        // 좌석 목록
-            private Double totalPrice;           // 최종 결제 금액
-            private Double price;              // 결제 금액
+            private Integer totalPrice;           // 최종 결제 금액
+            private Integer price;              // 결제 금액
             // private Timestamp payDate;         // 결제 날짜
 
 

@@ -63,10 +63,14 @@ public class SeatController {
         Showtime showtime = Showtime.builder().id(showtimeId).build();
         System.out.println(showtimeId);
         Long reservationId = seatService.예매등록티켓생성(sessionUser, showtime, selectedSeatsIds);
-        session.setAttribute("reservationId", reservationId);
+        session.setAttribute("sessionReservationId", reservationId);
+
+        double d = Double.parseDouble(totalPrice);
+
+        session.setAttribute("sessionTotalPrice", d);
         System.out.println("세션에 저장된 reservationId : " + session.getAttribute("reservationId"));
         System.out.println("세션에 저장된 showtimeId : " + session.getAttribute("showtimeId"));
-        return "/payment/view";
+        return "redirect:/api/payment/view";
     }
 
 }

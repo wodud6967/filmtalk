@@ -127,8 +127,8 @@ public class PaymentService {
                 ))
                 .collect(Collectors.toList());
 
-        int people = tickets.size();  // 티켓 개수 = 인원 수
-        Double totalPrice = people * showtime.getPrice(); // 티켓 수 * 가격
+        int people = tickets.size();  // 티켓 개수 = 인원 수 // TODO: seatNumber로 출력
+        Integer totalPrice = people * showtime.getPrice(); // 티켓 수 * 가격
 
         return new PaymentResponse.PaymentViewDTO(
                 reservationId,

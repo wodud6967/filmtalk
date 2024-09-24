@@ -48,28 +48,39 @@ public class PaymentController {
 
 
     // TODO: 좌석 - 결제 연결 전 테스트용 더미 사용
-    @GetMapping("/payment/view")
+    @GetMapping("/api/payment/view")
     public String viewPaymentPage(HttpSession session, Model model) {
 
+        System.out.println("----------------------------------------------------");
         Long sessionReservationId = (Long) session.getAttribute("sessionReservationId");
         Double sessionTotalPrice = (Double) session.getAttribute("sessionTotalPrice");
+        System.out.println("sessionTotalPrice: " + sessionTotalPrice);
 
+        System.out.println("1");
         if (sessionReservationId == null || sessionTotalPrice == null) {
             throw new ExceptionApi404("Reservation or Price data is missing.");
         }
 
+        System.out.println("2");
+
         // 예약 정보와 연관된 데이터 조회
         PaymentResponse.PaymentViewDTO paymentData = paymentService.getPaymentViewData(sessionReservationId);
 
+        System.out.println("3");
+
         // 할인금액 0으로 고정
-        double discount = 0.0;
+        int discount = 0;
         // 결제금액은 상품금액에서 할인금액을 뺀 값
         double payPrice = sessionTotalPrice - discount;
+
+        System.out.println("4");
 
         model.addAttribute("paymentData", paymentData);
         model.addAttribute("mTotalPrice", sessionTotalPrice);
         model.addAttribute("discount", discount);
         model.addAttribute("payPrice", payPrice);
+
+        System.out.println("1");
 
         return "payment/view";
     }
