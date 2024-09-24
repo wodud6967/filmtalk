@@ -10,9 +10,10 @@ public class PaymentRequest {
 
     @Data
     public static class SaveDTO {
-        // TODO: 테스트 후 Long type으로 변경예정
-        private String reservationId;  // 예매 ID (결제 고유 번호) = merchant_uid
-        private String impUid;    // 가맹점 ID
+        private Long reservationId;  // 예매 ID  = merchant_uid
+        private String impUid;    // 결제 대행 서비스 고유 ID
+        private double price;
+        private Integer state;
     }
 
 }

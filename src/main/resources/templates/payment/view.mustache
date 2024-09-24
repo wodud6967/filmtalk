@@ -27,26 +27,28 @@
             <div class="section__content">
                 <div class="movie__info">
                     <div class="poster__box">
-                        <img src="{{posterImg}}" alt="영화 포스터" class="img-fluid">
+                        <img src="{{paymentData.moviePosterUrl}}" alt="영화 포스터" class="img-fluid">
                     </div>
-                    <h3 class="movie__title">{{movieTitle}}</h3>
+                    <h3 class="movie__title">{{paymentData.movieTitle}}</h3>
                     <ul class="movie__details">
                         <li>
                             <strong>일시</strong>
-                            <div>{{showTime}}</div>
+                            <div>{{paymentData.showtime}}</div>
                         </li>
                         <li>
                             <strong>영화관</strong>
-                            <div>{{cinema}}관</div>
+                            <div>{{paymentData.cinemaName}},{{paymentData.screenName}}</div>
                         </li>
                         <li>
                             <strong>인원</strong>
-                            <div>{{people}}</div>
+                            <div>{{paymentData.people}}</div>
                         </li>
                         <hr>
                         <li>
+                            {{#seats}}
                             <strong>좌석</strong>
-                            <div>{{seat}}</div>
+                            <div>{{seatNumber}}</div>
+                                {{/seats}}
                         </li>
                     </ul>
                 </div>
@@ -81,9 +83,9 @@
             <div class="section__content">
                 <div class="payment__summary">
                     <ul>
-                        <li>상품금액 <span>{{price}}원</span></li>
+                        <li>상품금액 <span>{{paymentData.price}}원</span></li>
                         <li>할인금액 <span>{{discount}}원</span></li>
-                        <li>결제금액 <span>{{payPrice}}원</span></li>
+                        <li>결제금액 <span>{{paymentData.totalPrice}}원</span></li>
                     </ul>
                     <button class="btn" onclick="requestPay()">결제하기</button>
                 </div>
@@ -100,12 +102,12 @@
 
     function requestPay() {
 
-        var orderUid = '{{reservationId}}';
-        var itemName = '{{movieTitle}}';
-        var paymentPrice = '{{payPrice}}';
-        var buyerName = '{{userName}}';
-        var buyerEmail = '{{email}}';
-        var phone = '{{phone}}';
+        var orderUid = '{{paymentData.reservationId}}';
+        var itemName = '{{paymentData.movieTitle}}';
+        var paymentPrice = '{{paymentData.totalPrice}}';
+        var buyerName = '{{paymentData.username}}';
+        var buyerEmail = '{{paymentData.email}}';
+        var phone = '{{paymentData.phone}}';
 
         console.log(orderUid, itemName, paymentPrice, buyerName, buyerEmail, phone);
 
@@ -114,7 +116,7 @@
                     pg : 'html5_inicis.INIpayTest',
                     pay_method : 'card',
                     merchant_uid: orderUid, // 예매 번호
-                    name : itemName, // 영화 제목
+                    name : '{{paymentData.movieTitle}}', // 영화 제목
                     amount : paymentPrice, // 티켓 가격
                     buyer_email : buyerEmail, // 유저 이메일
                     buyer_name : buyerName, // 유저 이름
@@ -132,13 +134,14 @@
                             headers: {"Content-Type": "application/json"},
                             data: JSON.stringify({
                                 "impUid": rsp.imp_uid,      // 포트원 결제 고유번호
-                                "reservationId": rsp.merchant_uid   // 주문번호 (예매번호)
+                                "reservationId": rsp.merchant_uid,   // 주문번호 (예매번호) -> 서버로 reservationId 전달
+                                "price": paymentPrice       // 결제 금액
                             })
                         }).done(function (response) {
                             console.log(response);
                             alert('결제가 완료되었습니다.');
-                            window.location.href = "/payment/success";
-                        })
+                            window.location.href = "/payment/success?reservationId=" + rsp.merchant_uid;
+                        });
                     } else {
                         alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
                         alert('결제 실패. 좌석 페이지로 이동합니다.');

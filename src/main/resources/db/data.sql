@@ -5,6 +5,7 @@ values ('cos', '1234', 'cos@nate.com','01048086967', now());
 insert into user_tb(username, password, email, phone, created_at)
 values ('love', '1234', 'love@nate.com','01048086967', now());
 
+
 -- 서면 지역 데이터 삽입
 insert into region_tb (city, name)
 values ('부산', '서면');
