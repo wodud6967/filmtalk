@@ -15,7 +15,6 @@ import shop.mtcoding.filmtalk.reservation.Reservation;
 import shop.mtcoding.filmtalk.reservation.ReservationRepository;
 import shop.mtcoding.filmtalk.screen.Screen;
 import shop.mtcoding.filmtalk.screen.ScreenRepository;
-import shop.mtcoding.filmtalk.seat.Seat;
 import shop.mtcoding.filmtalk.seat.SeatRepository;
 import shop.mtcoding.filmtalk.showtime.Showtime;
 import shop.mtcoding.filmtalk.showtime.ShowtimeRepository;
