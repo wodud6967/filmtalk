@@ -47,9 +47,20 @@ public class AdminController {
     }
 
     @GetMapping("/admin/member")
-    public String member(){
+    public String member(HttpServletRequest request){
+        AdminMemberResponse models = adminService.관리자리스트보여주기();
+        request.setAttribute("models", models);
         return "admin/member";
     }
+    @GetMapping("/admin/test/member")
+    public ResponseEntity<AdminMemberResponse> testMember() {
+        // 서비스에서 AdminMemberResponse 객체 가져오기
+        AdminMemberResponse models = adminService.관리자리스트보여주기();
+
+        // ResponseEntity로 반환
+        return ResponseEntity.ok(models);
+    }
+
     @GetMapping("/admin/movie")
     public String movie(HttpServletRequest request) {
         List<AdminResponse.MovieDTO> RawMovies = adminService.API영화리스트보여주기();
@@ -163,8 +174,11 @@ public class AdminController {
             dateList.add(dateMap);
         }
 
-        AdminShowtimeResponse.CinemaScheduleWithMoviesDTO cinemaSchedule = adminService.상영관별상영스케줄(sessionAdmin, startDate);
-
+        AdminShowtimeResponse.CinemaScheduleWithMoviesDTO cinemaSchedule = adminService.상영관별상영스케줄(sessionAdmin, selectedDate);
+        // DTO 상태를 확인
+        for (int i = 0; i < cinemaSchedule.getCinemaSchedule().getScreens().size(); i++) {
+            System.out.println("Screen " + (i + 1) + " can add showtime: " + cinemaSchedule.getCinemaSchedule().getScreens().get(i).getCanAddShowtime());
+        }
         model.addAttribute("dates", dateList);  // 생성된 날짜 리스트를 모델에 추가
         request.setAttribute("model", cinemaSchedule);
 
@@ -178,6 +192,10 @@ public class AdminController {
         LocalDate startDate = LocalDate.of(2024, 9, 12);
         // DTO 생성
         AdminShowtimeResponse.CinemaScheduleWithMoviesDTO cinemaSchedule = adminService.상영관별상영스케줄(sessionAdmin, startDate);
+        // DTO 상태를 확인
+        for (int i = 0; i < cinemaSchedule.getCinemaSchedule().getScreens().size(); i++) {
+            System.out.println("Screen " + (i + 1) + " can add showtime: " + cinemaSchedule.getCinemaSchedule().getScreens().get(i).getCanAddShowtime());
+        }
 
         // JSON 형식으로 DTO 반환
         return ResponseEntity.ok(cinemaSchedule);

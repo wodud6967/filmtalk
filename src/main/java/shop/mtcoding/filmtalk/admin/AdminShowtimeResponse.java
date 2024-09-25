@@ -65,17 +65,15 @@ public class AdminShowtimeResponse {
         private Long screenId;
         private String screenName;
         private List<ShowtimeDTO> showtimes = new ArrayList<>();  // 상영시간이 없어도 빈 리스트로 초기화
-        private LocalDateTime  nextAvailableTime;
-        private boolean canAddShowtime;
+        private LocalDateTime nextAvailableTime;  // 다음 상영 가능 시간 (서비스에서 처리)
+        private String canAddShowtime;  // 상영 시간 추가 가능 여부 (서비스에서 처리)
 
         // 상영시간 최대 개수
         private static final int MAX_SHOWTIMES = 8;
 
-        public ScreenDTO(Screen screen, LocalDate selectedDate) {
+        public ScreenDTO(Screen screen) {
             this.screenId = screen.getId();
             this.screenName = screen.getName();
-            this.nextAvailableTime = LocalDateTime.of(selectedDate, LocalTime.of(12, 0));  // 날짜와 시간을 결합해서 초기화
-            this.canAddShowtime = true;
         }
 
         // ShowtimeDTO를 추가하는 메서드
@@ -83,35 +81,12 @@ public class AdminShowtimeResponse {
             this.showtimes.add(showtimeDTO);
         }
 
-        public void calculateNextAvailableTime(LocalDate selectedDate) {
-            if (showtimes.isEmpty()) {
-                // 상영 시간이 없을 경우, 해당 날짜의 12:00을 기본값으로 설정
-                this.nextAvailableTime = LocalDateTime.of(selectedDate, LocalTime.of(12, 0));
-            } else {
-                ShowtimeDTO lastShowtime = showtimes.get(showtimes.size() - 1);
 
-                try {
-                    // 마지막 상영 시간 종료 시간을 계산
-                    LocalTime lastStartTime = LocalTime.parse(lastShowtime.getStartedAt());
-                    LocalDateTime lastEndTime = LocalDateTime.of(selectedDate, lastStartTime)
-                            .plusMinutes(lastShowtime.getRuntime());
-
-                    // 종료 시간에 30분을 더해 다음 상영 가능 시간 계산
-                    this.nextAvailableTime = lastEndTime.plusMinutes(30);
-                } catch (Exception e) {
-                    // 오류 발생 시 기본값 설정
-                    this.nextAvailableTime = LocalDateTime.of(selectedDate, LocalTime.of(12, 0));
-                }
-            }
-
-            // 상영 시간 추가 가능 여부 확인
-            this.canAddShowtime = this.showtimes.size() < MAX_SHOWTIMES;
-        }
 
         // 다음 상영 시간을 String으로 포맷팅하여 반환하는 메서드
         public String getFormattedNextAvailableTime() {
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            return this.nextAvailableTime.format(formatter);  // "YYYY-MM-DD HH:mm" 형식으로 반환
+            return this.nextAvailableTime != null ? this.nextAvailableTime.format(formatter) : "N/A";  // nextAvailableTime이 있을 경우 포맷팅
         }
     }
 
