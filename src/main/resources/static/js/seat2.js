@@ -1,4 +1,3 @@
-
 async function getSeats() {
     try {
         const hiddenData = document.getElementById('hidden-data');
