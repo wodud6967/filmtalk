@@ -29,8 +29,6 @@ public class UserController {
     public String login(@Valid UserRequest.LoginDTO loginDTO, Errors errors) {
         User sessionUser = userSerivce.로그인(loginDTO);
         session.setAttribute("sessionUser", sessionUser);
-        //TODO 주헌
-        //session.setAttribute();
         return "redirect:/";
     }
 

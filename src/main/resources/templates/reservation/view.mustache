@@ -192,24 +192,16 @@
         }
     }
 
+
     function goNextPageSeat(showtimeId){
-<<<<<<< HEAD
-        let response = fetch("http://localhost:8080/reservation/api/goSeat/"+showtimeId,{
-=======
+
         let response = fetch("http://localhost:8080/api/reservation/goSeat/"+showtimeId,{
->>>>>>> bda760c (api붙이기)
+
             method: "get"
         });
-        console.log("3");
-
-
-
-
-        window.location.href = "/api/seat";  // 페이지 리다이렉션
-
-        console.log("4");
-        // window.location.href=`/seat/${showtimeId}`
+            window.location.href = "/api/seat";  // 페이지 리다이렉트
     }
+
 
 
     function makeShowtime(showtime) {

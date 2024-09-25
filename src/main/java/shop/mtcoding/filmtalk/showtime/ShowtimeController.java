@@ -4,6 +4,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import shop.mtcoding.filmtalk.core.util.Resp;
 import shop.mtcoding.filmtalk.region.Region;
 import shop.mtcoding.filmtalk.region.RegionService;
+import shop.mtcoding.filmtalk.user.User;
 import shop.mtcoding.filmtalk.user.UserSerivce;
 
 import java.util.List;
@@ -24,8 +26,16 @@ public class ShowtimeController {
     private final RegionService regionService;
     private final HttpSession session;
 
-    @GetMapping("/reservation/api/goSeat/{showtimeId}")
+//    @GetMapping("/reservation/api/goSeat/{showtimeId}")
+//    public ResponseEntity<?> goSeat(@PathVariable("showtimeId") Long showtimeId) {
+//        System.out.println("1");
+//        session.setAttribute("showtimeId", showtimeId);
+//        System.out.println("2");
+//        return ResponseEntity.ok(Resp.ok(null));
+//    }
+    @GetMapping("/api/reservation/goSeat/{showtimeId}")
     public ResponseEntity<?> goSeat(@PathVariable("showtimeId") Long showtimeId) {
+        // 로그인 정보가 있으면 showtimeId 저장
         session.setAttribute("showtimeId", showtimeId);
         return ResponseEntity.ok(Resp.ok(null));
     }
