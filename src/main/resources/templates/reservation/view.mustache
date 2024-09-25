@@ -193,7 +193,7 @@
     }
 
     function goNextPageSeat(showtimeId){
-        let response = fetch("http://localhost:8080/api/reservation/goSeat/"+showtimeId,{
+        let response = fetch("http://localhost:8080/reservation/api/goSeat/"+showtimeId,{
             method: "get"
         });
         console.log("3");

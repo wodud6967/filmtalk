@@ -7,7 +7,7 @@
     <title>title</title> <!-- 좌석 선택 -->
     <!-- 부트스트랩 CSS 링크 -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/seat.css">
+    <link rel="stylesheet" href="/css/seat.css">
     <link rel="stylesheet" href="/css/header.css">
 
 </head>
@@ -46,7 +46,7 @@
 
                     <!-- 상영 정보 -->
                     <div class="text-center mb-4">
-                        <img class="screen__img" src="img/cinema01.jpg"><!-- model.cinema 이미지로 수정 -->
+                        <img class="screen__img" src="/img/cinema01.jpg"><!-- model.cinema 이미지로 수정 -->
                         <p class="font-weight-bold">{{model.cinemaNm}} | {{model.screenNm}} | 남은좌석 {{model.remainingSeats}}/{{model.totalSeats}}</p>
                         <p>{{model.wholeShowTime}} ~ {{model.endedAt}}</p><!-- 2024.09.04 (수) 20:15 -->
                     </div>
@@ -105,7 +105,7 @@
             </div>
         </div>
         <div class="col text-right">
-            <form action="/seat/reservation" method="post">
+            <form action="/api/seat/reservation" method="post">
                 <!--                <input type="hidden" name="showtimeId" value="">-->
                 <input type="hidden" name="showtimeId" value="{{showtimeId}}">
                 <input type="hidden" name="selectedSeatsIds" id="selectedSeatsIds">
@@ -118,7 +118,7 @@
     <!-- 부트스트랩 JS 및 jQuery -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.3/dist/umd/popper.min.js"></script>
-    <script src="js/seat2.js"></script>
+    <script src="/js/seat2.js"></script>
 </main>
 
 {{>layout/footer}}

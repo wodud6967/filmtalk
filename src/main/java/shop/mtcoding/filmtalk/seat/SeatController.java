@@ -24,7 +24,10 @@ public class SeatController {
 
     @GetMapping("/api/seat")
     public String seat(HttpServletRequest request) {
+
+
         long showtimeId = (long) session.getAttribute("showtimeId");
+
         SeatResponse.DTO model = seatService.좌석메인화면(showtimeId);
         request.setAttribute("model", model);
         return "seat/view";
@@ -41,6 +44,10 @@ public class SeatController {
 
     @GetMapping("/api/seat/{showtimeId}")
     public @ResponseBody ResponseEntity<?> seatSelect(@PathVariable("showtimeId") Long showtimeId){
+        System.out.println("1");
+        System.out.println("1");
+        System.out.println("1");
+        System.out.println("1");
         System.out.println("1");
         System.out.println("좌석 렌더링용 showtimeId " + showtimeId);
         SeatResponse.SeatDTO seatDTO = seatService.좌석렌더링(showtimeId);
