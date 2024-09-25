@@ -187,15 +187,15 @@ values (2, 2, '2024-09-23 14:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 3, '2024-09-24 16:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 1, '2024-09-25 18:00:00', 10);
+values (2, 1, '2024-09-25 20:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 1, '2024-09-26 14:00:00', 10);
+values (2, 1, '2024-09-26 18:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 1, '2024-09-27 16:00:00', 10);
+values (2, 1, '2024-09-27 18:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 6, '2024-09-28 16:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (3, 7, '2024-09-28 16:00:00', 10);
+values (3, 7, '2024-09-28 19:00:00', 10);
 
 
 
