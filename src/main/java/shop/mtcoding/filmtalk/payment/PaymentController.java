@@ -6,10 +6,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.*;
 import shop.mtcoding.filmtalk.core.error.ex.ExceptionApi404;
 import shop.mtcoding.filmtalk.core.util.Resp;
@@ -126,7 +122,7 @@ public class PaymentController {
         model.addAttribute("paymentData", paymentData);
         model.addAttribute("mTotalPrice", sessionTotalPrice);  // 총 금액
         model.addAttribute("discount", discount);  // 할인 금액
-        model.addAttribute("payPrice", payPrice);  // 최종 결제 금액
+        // model.addAttribute("payPrice", payPrice);  // 최종 결제 금액
         model.addAttribute("bookingNumber", bookingNumber);
 
         return "payment/success";

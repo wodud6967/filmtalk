@@ -26,6 +26,9 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.stream.Collectors;
 
+import static shop.mtcoding.filmtalk.seat.SeatResponse.DTO.calculateEndTime;
+import static shop.mtcoding.filmtalk.seat.SeatResponse.DTO.convertTimeStampToString;
+
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -156,20 +159,23 @@ public class PaymentService {
 
         return new PaymentResponse.PaymentViewDTO(
                 reservationId,
-                reservation.getUser().getUsername(),
-                email,
-                phone,
-                posterUrl.get(0),
-                movie.getMovieNm(),
-                showtime.getStartedAt(),
-                cinema.getName(),
-                screen.getName(),
-                people,
-                seatNumbers,
-                totalPrice,
-                totalPrice
+                reservation.getUser().getUsername(),  // 유저 이름
+                reservation.getUser().getEmail(),     // 이메일
+                reservation.getUser().getPhone(),     // 전화번호
+                showtime.getMovie().getPosterUrls().get(0).getUrl(),  // 영화 포스터 URL
+                showtime.getMovie().getMovieNm(),     // 영화 제목
+                convertTimeStampToString(Timestamp.valueOf(showtime.getStartedAt().toLocalDateTime()), "yyyy.MM.dd(E) HH:mm"),  // 상영 시작 시간 (전체 날짜와 시간 포함)
+                calculateEndTime(Timestamp.valueOf(showtime.getStartedAt().toLocalDateTime()), showtime.getMovie().getRuntime()),  // 종료 시간
+                convertTimeStampToString(Timestamp.valueOf(showtime.getStartedAt().toLocalDateTime()), "yyyy.MM.dd(E) HH:mm"),  // 전체 상영 시간 (yyyy.MM.dd HH:mm)
+                showtime.getScreen().getCinema().getName(),  // 영화관 이름
+                showtime.getScreen().getName(),              // 상영관 이름
+                reservation.getTickets().size(),             // 관람 인원 수
+                reservation.getTickets().stream()
+                        .map(ticket -> ticket.getSeat().getSeatNumber())  // 좌석 목록
+                        .collect(Collectors.toList()),
+                reservation.getTickets().size() * showtime.getPrice(),  // 총 결제 금액
+                reservation.getTickets().size() * showtime.getPrice()   // 결제 금액
         );
-
     }
 
 
