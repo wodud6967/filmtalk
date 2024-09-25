@@ -157,13 +157,13 @@ public class AdminController {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
 
         // 12일부터 시작하는 날짜 리스트 생성
-        LocalDate startDate = LocalDate.of(2024, 9, 12);
+        LocalDate startDate = LocalDate.of(2024, 9, 25);
         LocalDate selectedDate = LocalDate.of(2024, 9, day); // URL에서 선택된 날짜 사용
         LocalDate today = startDate; // 12일을 "오늘"로 취급
 
         List<Map<String, Object>> dateList = new ArrayList<>();
         for (int i = 0; i < 7; i++) {
-            LocalDate currentDate = startDate.plusDays(i);  // 12일부터 7일간 생성
+            LocalDate currentDate = startDate.plusDays(i);  // 25일부터 7일간 생성
 
             Map<String, Object> dateMap = new HashMap<>();
             dateMap.put("formattedDate", currentDate.format(DateTimeFormatter.ofPattern("dd")));  // "dd" 형식
@@ -189,7 +189,7 @@ public class AdminController {
     public ResponseEntity<?> showtimetest() {
         Admin sessionAdmin = (Admin) session.getAttribute("sessionAdmin");
         int cinemaId = 1;
-        LocalDate startDate = LocalDate.of(2024, 9, 12);
+        LocalDate startDate = LocalDate.of(2024, 9, 25);
         // DTO 생성
         AdminShowtimeResponse.CinemaScheduleWithMoviesDTO cinemaSchedule = adminService.상영관별상영스케줄(sessionAdmin, startDate);
         // DTO 상태를 확인

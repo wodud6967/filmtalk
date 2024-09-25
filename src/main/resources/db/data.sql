@@ -271,7 +271,26 @@ values (3, 'B1', 'B', '1'), (3, 'B2', 'B', '2'), (3, 'B3', 'B', '3'), (3, 'B4', 
 
 
 
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 7, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
 
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 9, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 12, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 13, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 14, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 15, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+
+insert into seat_tb (showtime_id, seat_number, row_num, col_num)
+select 16, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
 
 
 
