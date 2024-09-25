@@ -31,7 +31,6 @@ public class SeatRepositoryTest {
     public void 쇼타임ID로영화상영관영화관조회(){
 
 
-
         Long id = 1L;
 
 
