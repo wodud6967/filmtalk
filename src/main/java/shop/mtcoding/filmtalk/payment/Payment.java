@@ -23,7 +23,7 @@ public class Payment {
     @Column(nullable = false, length = 40)
     private String type; // 신용카드 or 간편결제(카카오페이, 토스페이 등)
     @Column(nullable = false)
-    private Double price; // 결제 금액
+    private Integer price; // 결제 금액
 
     @Column(nullable = false)
     private Timestamp payDate; // 결제 일자
@@ -52,7 +52,7 @@ public class Payment {
 
 
     @Builder
-    public Payment(Long id, String type, Double price, Timestamp payDate, Timestamp cnclDate, String mycoupon, Integer point, Integer state, String impUid, Reservation reservation, String bookingNumber) {
+    public Payment(Long id, String type, Integer price, Timestamp payDate, Timestamp cnclDate, String mycoupon, Integer point, Integer state, String impUid, Reservation reservation, String bookingNumber) {
         this.id = id;
         this.type = type;
         this.price = price;

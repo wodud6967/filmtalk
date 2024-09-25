@@ -39,7 +39,7 @@
                     <div class="divider"></div>
                     <div class="info_row">
                         <span class="info_label">상영 일시</span>
-                        <span>{{paymentData.showtime}}</span>
+                        <span>{{paymentData.showtime}} ~ {{paymentData.endtime}}</span>
                     </div>
                     <div class="info_row">
                         <span class="info_label">상영관</span>
@@ -73,7 +73,7 @@
                 </div>
 
                 <div class="bottom_section">
-                    <span>총 결제 금액</span> <strong>{{payPrice}}원</strong>
+                    <span>총 결제 금액</span> <strong>{{paymentData.totalPrice}}원</strong>
                 </div>
             </div>
         </div>

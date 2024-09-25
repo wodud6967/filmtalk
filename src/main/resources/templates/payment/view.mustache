@@ -33,7 +33,7 @@
                     <ul class="movie__details">
                         <li>
                             <strong>일시</strong>
-                            <div>{{paymentData.showtime}}</div>
+                            <div>{{paymentData.showtime}} ~ {{paymentData.endtime}}</div>
                         </li>
                         <li>
                             <strong>영화관</strong>
@@ -45,10 +45,9 @@
                         </li>
                         <hr>
                         <li>
-                            {{#seats}}
                             <strong>좌석</strong>
-                            <div>{{seatNumber}}</div>
-                                {{/seats}}
+                            <div>{{#paymentData.seatNumbers}}{{.}} {{/paymentData.seatNumbers}}</div>
+
                         </li>
                     </ul>
                 </div>
