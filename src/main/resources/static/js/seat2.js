@@ -1,3 +1,4 @@
+
 async function getSeats() {
     try {
         const hiddenData = document.getElementById('hidden-data');
@@ -181,9 +182,6 @@ function renderSeats(body) {
     });
 }
 
-//함수 실행시키기
-getSeats();
-
 
 let selectedCount = 0; // 현재 선택된 좌석 수
 let maxSelectableSeats = 0; // 선택할 수 있는 최대 좌석 수
@@ -228,3 +226,4 @@ function didYouSelectAll(){
     return true;
 
 }
+
