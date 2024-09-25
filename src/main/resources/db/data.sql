@@ -201,12 +201,7 @@ values (3, 7, '2024-09-28 19:00:00', 10);
 
 
 
-<<<<<<< HEAD
 
-
--- 호정 seat_tb 데이터 추가 ( 9월 25일 ~ 28일 상영시간에 대한 좌석 )
-=======
->>>>>>> c0f0391 (1번째 ì¶충돌해결)
 insert into seat_tb (showtime_id, seat_number, row_num, col_num)
 values
     (8, 'A1', 'A', '1'), (8, 'A2', 'A', '2'), (8, 'A3', 'A', '3'), (8, 'A4', 'A', '4'), (8, 'A5', 'A', '5'),
@@ -234,11 +229,7 @@ values
 
 
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> c0f0391 (1번째 ì¶충돌해결)
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at , price)
 values (2, 1, '2024-09-12 20:00:00', 10);
