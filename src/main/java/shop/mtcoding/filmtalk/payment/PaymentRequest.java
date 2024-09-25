@@ -14,6 +14,7 @@ public class PaymentRequest {
         private String impUid;    // 결제 대행 서비스 고유 ID
         private double price;
         private Integer state;
+        private String merchantUid; // 결제 트랜잭션에 사용되는 UUID로 생성된 ID
     }
 
 }

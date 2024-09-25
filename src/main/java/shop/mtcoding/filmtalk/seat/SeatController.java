@@ -60,6 +60,8 @@ public class SeatController {
         double d = Double.parseDouble(totalPrice);
         session.setAttribute("sessionTotalPrice", d);
         //System.out.println("세션에 저장된 reservationId : " + session.getAttribute("reservationId"));
+        System.out.println("세션에 저장된 reservationId : " + session.getAttribute("sessionReservationId"));
+        System.out.println("세션에 저장된 showtimeId : " + session.getAttribute("showtimeId"));
         return "redirect:/api/payment/view";
     }
 

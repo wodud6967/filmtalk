@@ -24,10 +24,7 @@ import shop.mtcoding.filmtalk.ticket.TicketRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -47,25 +44,39 @@ public class PaymentService {
     private final SeatRepository seatRepository;
 
 
-    // 아임포트 결제부분
+    // ================ 아임포트 결제부분 ======================
     // 결제 요청 전 고유한 merchant_uid 생성 메소드
     public String generateMerchantUid(Long reservationId) {
         // reservationId와 고유한 UUID를 조합해서 고유한 merchant_uid 생성
         return "reservation_" + reservationId + "_" + UUID.randomUUID().toString();
     }
 
+    // 결제 직후 랜덤 8자리 예매번호 생성
+    public String generateBookingNumber() {
+        Random random = new Random();
+        StringBuilder sb = new StringBuilder();
+        for(int i=0; i<8; i++) {
+            sb.append(random.nextInt(10));
+        }
+
+        return sb.toString();
+    }
+
     // 결제 요청 처리 로직
     @Transactional
     public void save(PaymentRequest.SaveDTO saveDTO) {
-
         try {
-            // 클라이언트가 결제 됐다고 알림 -> SaveDTO로 / 예매ID(reservationId), 가맹점ID(impUid)
+            // 새로운 결제 요청 시 고유한 merchant_uid 생성
+            String merchantUid = generateMerchantUid(saveDTO.getReservationId());
+
+            System.out.println("=============================================================");
+            System.out.println("Merchant UID: " + merchantUid);
+
+            // 클라이언트에서 결제 성공 여부를 확인 -> SaveDTO로
             IamportResponse<com.siot.IamportRestClient.response.Payment> iamportResponse = iamportClient.paymentByImpUid(saveDTO.getImpUid());
 
-            // 결제 완료가 아니면
+            // 결제 완료가 아니면 // 티켓도 2장 삭제
             if(!iamportResponse.getResponse().getStatus().equals("paid")) {
-                // 티켓도 2장 삭제
-
                 // 주문&결제 삭제 (예매=부모 삭제하면, 티켓도 삭제 되는지 확인)
                 // reservationRepository.deleteById(saveDTO.getReservationId());
                 Long reservationId = saveDTO.getReservationId();
@@ -73,9 +84,19 @@ public class PaymentService {
                 throw new ExceptionApi500("결제가 완료되지 않았습니다.");
             }
 
-            // 결제 정보 저장
+            // 결제 성공 시 예매번호 생성
+            String bookingNumber = generateBookingNumber();
+
+            // 만약 bookingNumber가 제대로 생성되지 않았다면 예외 발생
+            if (bookingNumber == null || bookingNumber.isEmpty()) {
+                throw new ExceptionApi500("예매번호 생성에 실패했습니다.");
+            }
+
+            // 예약 정보 조회
             Reservation reservationPS = reservationRepository.findById(saveDTO.getReservationId())
                     .orElseThrow(() -> new ExceptionApi404("예매 내역을 찾을 수 없습니다."));
+
+            // 결제 정보 저장
             Payment payment = Payment.builder()
                     .price(saveDTO.getPrice())
                     .state(2)
@@ -84,6 +105,7 @@ public class PaymentService {
                     .impUid(saveDTO.getImpUid())
                     .type("card")
                     .mycoupon(null)
+                    .bookingNumber(generateBookingNumber())
                     .reservation(reservationPS)
                     .build();
 
@@ -120,12 +142,15 @@ public class PaymentService {
         List<String> posterUrl = posterRepository.findPosterUrlByMovieId(movie.getId());
 
         // 좌석 정보 처리 (티켓을 통해 좌석 번호 가져옴)
-        List<PaymentResponse.PaymentViewDTO.SeatDTO> seatDTOs = tickets.stream()
-                .map(ticket -> new PaymentResponse.PaymentViewDTO.SeatDTO(
-                        ticket.getSeat().getId(),
-                        ticket.getSeat().getSeatNumber() // 좌석 번호 처리
-                ))
+        List<String> seatNumbers = tickets.stream()
+                .map(ticket -> ticket.getSeat().getSeatNumber())
                 .collect(Collectors.toList());
+//        List<PaymentResponse.PaymentViewDTO.SeatDTO> seatDTOs = tickets.stream()
+//                .map(ticket -> new PaymentResponse.PaymentViewDTO.SeatDTO(
+//                        ticket.getSeat().getId(),
+//                        ticket.getSeat().getSeatNumber() // 좌석 번호 처리
+//                ))
+//                .collect(Collectors.toList());
 
         int people = tickets.size();  // 티켓 개수 = 인원 수 // TODO: seatNumber로 출력
         Integer totalPrice = people * showtime.getPrice(); // 티켓 수 * 가격
@@ -141,7 +166,7 @@ public class PaymentService {
                 cinema.getName(),
                 screen.getName(),
                 people,
-                seatDTOs,
+                seatNumbers,
                 totalPrice,
                 totalPrice
         );
