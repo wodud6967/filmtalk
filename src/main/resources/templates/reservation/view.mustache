@@ -93,6 +93,10 @@
 
     async function cinemas(regionId) {
         $(".cinema__item").removeClass("selected");
+        $(".cinema__detail__item").removeClass("selected");
+        $(".movie__item").removeClass("selected");
+        $(".date__item").removeClass("selected");
+        $(".time__item").removeClass("selected");
         $("#region-" + regionId).addClass("selected");
         // 1. get 요청하면 body 없다.
         // 2. 한줄 한줄 실행하면서 테스트
@@ -121,6 +125,9 @@
 
     async function movies(cinemaId) {
         $(".cinema__detail__item").removeClass("selected");
+        $(".movie__item").removeClass("selected");
+        $(".date__item").removeClass("selected");
+        $(".time__item").removeClass("selected");
         $(`#cinema-${cinemaId}`).addClass("selected");
         console.log(cinemaId)
         let response = await fetch("http://localhost:8080/reservation/cinema/" + cinemaId, {
@@ -148,6 +155,8 @@
     function dates(movieId) {
         console.log("날짜 누를 때 ", movieId);
         $(".movie__item").removeClass("selected");
+        $(".date__item").removeClass("selected");
+        $(".time__item").removeClass("selected");
         $(`#movie-${movieId}`).addClass("selected");
 
         $("#date-box").empty();
@@ -165,6 +174,7 @@
 
     async function time(date, id) {
         $(".date__item").removeClass("selected");
+        $(".time__item").removeClass("selected");
         $(`#date-${date}`).addClass("selected");
         let response = await fetch("http://localhost:8080/reservation/movie/" + date + "/" + id, {
             method: "get"
@@ -188,7 +198,10 @@
         });
         console.log("3");
 
-        window.location.href = "/seat";  // 페이지 리다이렉션
+
+
+
+        window.location.href = "/api/seat";  // 페이지 리다이렉션
 
         console.log("4");
         // window.location.href=`/seat/${showtimeId}`
