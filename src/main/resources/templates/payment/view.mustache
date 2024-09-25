@@ -37,11 +37,11 @@
                         </li>
                         <li>
                             <strong>영화관</strong>
-                            <div>{{paymentData.cinemaName}},{{paymentData.screenName}}</div>
+                            <div>{{paymentData.cinemaName}} {{paymentData.screenName}}</div>
                         </li>
                         <li>
                             <strong>인원</strong>
-                            <div>{{paymentData.people}}</div>
+                            <div>성인 {{paymentData.people}}</div>
                         </li>
                         <hr>
                         <li>
@@ -101,7 +101,7 @@
     IMP.init("imp28446715"); // 고객사 식별코드
 
     function requestPay() {
-
+        var merchantUid = 'merchant_' + new Date().getTime();
         var orderUid = '{{paymentData.reservationId}}';
         var itemName = '{{paymentData.movieTitle}}';
         var paymentPrice = '{{paymentData.totalPrice}}';
@@ -109,13 +109,13 @@
         var buyerEmail = '{{paymentData.email}}';
         var phone = '{{paymentData.phone}}';
 
-        console.log(orderUid, itemName, paymentPrice, buyerName, buyerEmail, phone);
+        console.log(merchantUid. orderUid, itemName, paymentPrice, buyerName, buyerEmail, phone);
 
         IMP.request_pay({
                     // m_redirect_url: "/payment",
                     pg : 'html5_inicis.INIpayTest',
                     pay_method : 'card',
-                    merchant_uid: orderUid, // 예매 번호
+                    merchant_uid: merchantUid, // 예매 번호
                     name : '{{paymentData.movieTitle}}', // 영화 제목
                     amount : paymentPrice, // 티켓 가격
                     buyer_email : buyerEmail, // 유저 이메일
@@ -125,7 +125,7 @@
                 },
                 function(rsp) {
                     if (rsp.success) {
-                        alert('call back!!: ' + JSON.stringify(rsp));
+                        console.log('결제 성공! imp_uid: ' + rsp.imp_uid + ', merchant_uid: ' + rsp.merchant_uid);
                         // 결제 성공 시: 결제 승인 또는 가상계좌 발급에 성공한 경우
                         // jQuery로 HTTP 요청
                         jQuery.ajax({
@@ -134,16 +134,17 @@
                             headers: {"Content-Type": "application/json"},
                             data: JSON.stringify({
                                 "impUid": rsp.imp_uid,      // 포트원 결제 고유번호
-                                "reservationId": rsp.merchant_uid,   // 주문번호 (예매번호) -> 서버로 reservationId 전달
+                                "merchantUId": rsp.merchant_uid,   // 주문번호 (예매번호) -> 서버로 reservationId 전달
+                                "reservationId" : orderUid,
                                 "price": paymentPrice       // 결제 금액
                             })
                         }).done(function (response) {
                             console.log(response);
                             alert('결제가 완료되었습니다.');
-                            window.location.href = "/payment/success?reservationId=" + rsp.merchant_uid;
+                            window.location.href = "/api/payment/success?reservationId=" + orderUid;
                         });
                     } else {
-                        alert("success? "+ rsp.success+ ", 결제에 실패하였습니다. 에러 내용: " + JSON.stringify(rsp));
+                        console.error("결제 실패: " + rsp.error_msg);
                         alert('결제 실패. 좌석 페이지로 이동합니다.');
                         window.location.href = "/seat"; // TODO: 결제 실패 페이지를 만들지, 좌석 페이지로 redirect 할지
                     }

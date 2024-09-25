@@ -22,36 +22,36 @@
     <section id="sec1" class="inner">
         <h2 id="sec1__title">결제 완료</h2>
         <br>
-        <h3>{{userName}} 회원님 결제가 완료 되었습니다.</h3>
+        <h3>{{paymentData.username}} 회원님, 결제가 완료 되었습니다.</h3>
         <br>
 
         <!-- 영화 정보 및 포스터 영역 -->
         <div id="sec1__order_info">
             <div class="order_info_top">
                 <div class="order_info_left">
-                    <img src="{{posterImg}}" alt="영화 포스터">
+                    <img src="{{paymentData.moviePosterUrl}}" alt="영화 포스터">
                 </div>
                 <div class="order_info_right">
                     <div class="info_row">
                         <span class="info_label">예매번호</span>
-                        <span>{{reservId}}</span>
+                        <span>{{bookingNumber}}</span>
                     </div>
                     <div class="divider"></div>
                     <div class="info_row">
                         <span class="info_label">상영 일시</span>
-                        <span>{{showTime}}</span>
+                        <span>{{paymentData.showtime}}</span>
                     </div>
                     <div class="info_row">
                         <span class="info_label">상영관</span>
-                        <span>{{cinema}}</span>
+                        <span>{{paymentData.cinemaName}} {{paymentData.screenName}}</span>
                     </div>
                     <div class="info_row">
                         <span class="info_label">관람 인원</span>
-                        <span>{{people}}</span>
+                        <span>{{paymentData.people}}</span>
                     </div>
                     <div class="info_row">
                         <span class="info_label">좌석</span>
-                        <span>{{seat}}</span>
+                        <span>{{#paymentData.seatNumbers}}{{.}} {{/paymentData.seatNumbers}}</span>
                     </div>
                 </div>
             </div>
@@ -59,7 +59,7 @@
             <!-- 결제 정보 하단 영역 -->
             <div class="order_info_bottom">
                 <div class="bottom_section">
-                    <span>주문 금액</span> <strong>{{price}}원</strong>
+                    <span>주문 금액</span> <strong>{{paymentData.price}}원</strong>
                 </div>
 
                 <div class="bottom_section middle">
@@ -68,7 +68,7 @@
                     </div>
                     <br><br>
                     <div class="middle_row">
-                        <span>관람권 or 할인권</span> <strong>{{coupon}}원</strong>
+                        <span>관람권 or 할인권</span> <strong>{{discount}}원</strong>
                     </div>
                 </div>
 

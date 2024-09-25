@@ -12,15 +12,12 @@ import shop.mtcoding.filmtalk.screen.ScreenRepository;
 import shop.mtcoding.filmtalk.showtime.Showtime;
 import shop.mtcoding.filmtalk.showtime.ShowtimeRepository;
 import shop.mtcoding.filmtalk.ticket.Ticket;
-import shop.mtcoding.filmtalk.ticket.TicketRepsoitory;
+import shop.mtcoding.filmtalk.ticket.TicketRepository;
 import shop.mtcoding.filmtalk.user.User;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
 
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -31,7 +28,7 @@ public class SeatService {
     private final SeatQueryRepository seatQueryRepository;
     private final ShowtimeRepository showtimeRepository;
     private final ScreenRepository screenRepository;
-    private final TicketRepsoitory ticketRepsoitory;
+    private final TicketRepository ticketRepository;
     private final ReservationRepository reservationRepository;
 
     public SeatResponse.DTO 좌석메인화면(long id) {
@@ -45,7 +42,7 @@ public class SeatService {
                 .orElseThrow(() -> new Exception404("상영관정보가 없습니다."));
 
         Integer totalSeat = seatRepository.mFindCountOfTotalSeat(id);
-        Integer reservedSeat = ticketRepsoitory.mFindCountOfReservedSeats(id);
+        Integer reservedSeat = ticketRepository.mFindCountOfReservedSeats(id);
 
         System.out.println("예약된 좌석 수 " + reservedSeat);
 
@@ -67,11 +64,7 @@ public class SeatService {
             throw new ExceptionApi404("해당 상영관의 좌석 정보를 불러올 수 없습니다.");
         }
 
-        // 예약된 좌석 영속
-        // 빈 배열이면 예약된 좌석 없음
-        List<Seat> reservedSeatPS = ticketRepsoitory.mFindSeatByShowtimeId(id);
-
-        System.out.println(reservedSeatPS);
+        List<Seat> reservedSeatPS = ticketRepository.mFindSeatByShowtimeId(id); // 예약된 좌석 영속
 
         int maxCols = 0; // 최대 column 갯수
         int maxRows = 0; // 최대 Row 갯수
@@ -138,7 +131,7 @@ public class SeatService {
             ticket.setShowtime(showtime);
             ticket.setCreatedAt(timestamp);
             ticket.setSeat(seatRepository.findById(seatId).orElseThrow(() -> new Exception404("해당 좌석을 찾을 수 없습니다.")));
-            ticketRepsoitory.save(ticket);
+            ticketRepository.save(ticket);
         }
 
         return reservationPS.getId();

@@ -37,6 +37,10 @@ public class Payment {
 
     private Integer point ; // 결제 시 적용할 포인트
 
+    // 결제완료 후 부여되는 8자리의 예매(결제)번호
+    @Column(nullable = false)
+    private String bookingNumber;
+
     @Column(nullable = false)
     private Integer state ; // 결제 상태 (0:결제전, 1:결제완료, 2:취소)
 
@@ -48,7 +52,7 @@ public class Payment {
 
 
     @Builder
-    public Payment(Long id, String type, Double price, Timestamp payDate, Timestamp cnclDate, String mycoupon, Integer point, Integer state, String impUid, Reservation reservation) {
+    public Payment(Long id, String type, Double price, Timestamp payDate, Timestamp cnclDate, String mycoupon, Integer point, Integer state, String impUid, Reservation reservation, String bookingNumber) {
         this.id = id;
         this.type = type;
         this.price = price;
@@ -59,6 +63,7 @@ public class Payment {
         this.state = state;
         this.impUid = impUid;
         this.reservation = reservation;
+        this.bookingNumber = bookingNumber;
 
     }
 }

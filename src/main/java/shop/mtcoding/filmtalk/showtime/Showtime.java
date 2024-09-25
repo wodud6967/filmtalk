@@ -30,6 +30,7 @@
         private Integer price;
 
 
+
         @Column(nullable = false)
         private Timestamp startedAt;
 

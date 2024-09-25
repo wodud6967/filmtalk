@@ -23,7 +23,7 @@ public class PaymentResponse {
             private String cinemaName;         // 영화관 이름
             private String screenName;         // 상영관 이름
             private int people;
-            private List<SeatDTO> seats;        // 좌석 목록
+            private List<String> seatNumbers;        // 좌석 목록
             private Integer totalPrice;           // 최종 결제 금액
             private Integer price;              // 결제 금액
             // private Timestamp payDate;         // 결제 날짜
@@ -38,7 +38,7 @@ public class PaymentResponse {
                 this.cinemaName = getCinemaName();
                 this.screenName = getScreenName();
                 this.people = getPeople();
-                this.seats = getSeats();
+                //this.seats = getSeats();
                 this.totalPrice = getTotalPrice();
                 this.price = getPrice();
             }
