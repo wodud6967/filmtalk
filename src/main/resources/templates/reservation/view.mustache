@@ -193,7 +193,11 @@
     }
 
     function goNextPageSeat(showtimeId){
+<<<<<<< HEAD
         let response = fetch("http://localhost:8080/reservation/api/goSeat/"+showtimeId,{
+=======
+        let response = fetch("http://localhost:8080/api/reservation/goSeat/"+showtimeId,{
+>>>>>>> bda760c (api붙이기)
             method: "get"
         });
         console.log("3");
