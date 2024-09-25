@@ -312,8 +312,12 @@
                                     </div>
                                 {{/showtimes}}
                                 <!-- 여기서 data-screen-id는 숫자로 설정 -->
-                                <button class="btn-add-time" data-screen-id="{{screenId}}" data-next-available-time="{{formattedNextAvailableTime}}" data-toggle="modal" data-target="#addTimeModal">+</button>
+                        {{#canAddShowtime}}
+                                    <button class="btn-add-time" data-screen-id="{{screenId}}" data-next-available-time="{{formattedNextAvailableTime}}" data-toggle="modal" data-target="#addTimeModal">+</button>
+                        {{/canAddShowtime}}
 
+                                    <!-- canAddShowtime이 false일 때 렌더링 -->
+                                    <!-- 버튼이 안 보이도록 숨길 수도 있음 -->
 
                             </div>
                         </div>
@@ -496,27 +500,29 @@
             console.log("------------");
             const container = $('#screenContainer');
 
-            console.log(container);
-
             // 기존의 상영 스케줄을 클리어
             container.empty();
 
             // 상영관과 상영 스케줄을 다시 렌더링
             data.cinemaSchedule.screens.forEach(screen => {
                 console.log("Screen:", screen);  // 각 screen 데이터 확인
-                //console.log("Showtimes:", screen.showtimes);  // screen의 showtimes 배열 확인
                 const showtimes = screen.showtimes || [];
-                const screenElement = `
-            <div class="screen-item" id="screen${screen.screenId}" data-screen-id="${screen.screenId}">
-                <div class="screen-title">${screen.screenName}</div>
-                <div class="items">
-                    ${screen.showtimes.map(showtime => `
-                        <div class="time-item">
-                            <span>${showtime.startedAt}</span>
-                            <span class="movie-name">${showtime.movieName}</span>
-                            <span class="movie-runtime">${showtime.runtime}분</span>
-                        </div>
-                    `).join('')}
+                let screenElement = `
+        <div class="screen-item" id="screen${screen.screenId}" data-screen-id="${screen.screenId}">
+            <div class="screen-title">${screen.screenName}</div>
+            <div class="items">
+                ${showtimes.map(showtime => `
+                    <div class="time-item">
+                        <span>${showtime.startedAt}</span>
+                        <span class="movie-name">${showtime.movieName}</span>
+                        <span class="movie-runtime">${showtime.runtime}분</span>
+                    </div>
+                `).join('')}
+        `;
+
+                // canAddShowtime이 true일 경우에만 + 버튼 추가
+                if (screen.canAddShowtime) {
+                    screenElement += `
                 <button class="btn-add-time"
                     data-screen-id="${screen.screenId}"
                     data-next-available-time="${screen.formattedNextAvailableTime}"
@@ -524,10 +530,14 @@
                     data-target="#addTimeModal">
                     +
                 </button>
+            `;
+                }
 
-                </div>
-            </div>
+                screenElement += `
+            </div> <!-- items -->
+        </div> <!-- screen-item -->
         `;
+
                 container.append(screenElement);
             });
         }

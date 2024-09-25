@@ -26,8 +26,7 @@ import java.sql.Timestamp;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -161,10 +160,13 @@ public class AdminService {
 
         // 영화 목록을 가져옴
         List<Movie> movies = movieRepository.findAll();
-        List<AdminShowtimeResponse.movieDTO> movieDTOList = movies.stream()
-                .map(AdminShowtimeResponse.movieDTO::new)
-                .collect(Collectors.toList());
+        List<AdminShowtimeResponse.movieDTO> movieDTOList = new ArrayList<>();
+        for (Movie movie : movies) {
+            movieDTOList.add(new AdminShowtimeResponse.movieDTO(movie));
+        }
+
         Long cinemaId = 1L;
+
         // 영화관 정보를 가져옴
         Cinema cinema = cinemaRepository.findById(cinemaId)
                 .orElseThrow(() -> new IllegalArgumentException("Cinema not found"));
@@ -173,34 +175,79 @@ public class AdminService {
         AdminShowtimeResponse.CinemaWithScreensDTO cinemaWithScreensDTO = new AdminShowtimeResponse.CinemaWithScreensDTO(cinema);
 
         // 상영관들의 ID 리스트를 추출
-        List<Long> screenIds = cinema.getScreens()
-                .stream()
-                .map(Screen::getId)
-                .collect(Collectors.toList());
+        List<Long> screenIds = new ArrayList<>();
+        for (Screen screen : cinema.getScreens()) {
+            screenIds.add(screen.getId());
+        }
 
         // 각 상영관에 대한 ScreenDTO 생성
         for (Screen screen : cinema.getScreens()) {
-            AdminShowtimeResponse.ScreenDTO screenDTO = new AdminShowtimeResponse.ScreenDTO(screen, selectedDate);
+            AdminShowtimeResponse.ScreenDTO screenDTO = new AdminShowtimeResponse.ScreenDTO(screen);
             cinemaWithScreensDTO.addScreen(screenDTO);  // 각 상영관 정보를 추가
         }
 
         // 상영시간을 조회 (주어진 날짜와 상영관 ID 리스트에 맞게)
         List<Showtime> showtimes = showtimeRepository.findByScreenIdsAndShowDate(screenIds, selectedDate);
 
-        // 상영시간을 각 상영관에 추가
-        for (Showtime showtime : showtimes) {
-            AdminShowtimeResponse.ShowtimeDTO showtimeDTO = new AdminShowtimeResponse.ShowtimeDTO(showtime);
+        // 각 상영관에 대해 showtime 추가 및 검증
+        for (AdminShowtimeResponse.ScreenDTO screenDTO : cinemaWithScreensDTO.getScreens()) {
+            // 상영관에 해당하는 상영시간 필터링
+            List<Showtime> screenShowtimes = new ArrayList<>();
+            for (Showtime showtime : showtimes) {
+                if (showtime.getScreen().getId().equals(screenDTO.getScreenId())) {
+                    screenShowtimes.add(showtime);
+                }
+            }
 
-            // 해당 상영관을 찾아서 showtime을 추가
-            cinemaWithScreensDTO.getScreens().stream()
-                    .filter(screenDTO -> screenDTO.getScreenId().equals(showtime.getScreen().getId()))
-                    .findFirst()
-                    .ifPresent(screenDTO -> {
-                        screenDTO.addShowtime(showtimeDTO);
-                        screenDTO.calculateNextAvailableTime(selectedDate);  // 다음 상영 가능 시간 계산
-                    });
+            // 상영 시간이 있을 경우
+            if (!screenShowtimes.isEmpty()) {
+                for (Showtime showtime : screenShowtimes) {
+                    AdminShowtimeResponse.ShowtimeDTO showtimeDTO = new AdminShowtimeResponse.ShowtimeDTO(showtime);
+                    screenDTO.addShowtime(showtimeDTO);
+
+                    // 마지막 상영 종료 시간을 계산 (상영 시작 시간 + 런타임 + 30분)
+                    LocalDateTime showtimeEnd = showtime.getStartedAt().toLocalDateTime()
+                            .plusMinutes(showtime.getMovie().getRuntime() + 30);
+
+                    // selectedDate의 다음날 자정 기준으로 비교
+                    LocalDateTime midnight = selectedDate.plusDays(1).atTime(0, 0);  // 다음날 자정
+
+                    // 자정 기준 검증
+                    if (showtimeEnd.isBefore(midnight)) {
+                        screenDTO.setCanAddShowtime("true");
+                        screenDTO.setNextAvailableTime(showtimeEnd);
+                    } else {
+                        screenDTO.setCanAddShowtime(null);
+                    }
+                }
+            } else {
+                // 상영 시간이 없을 경우
+                LocalDate previousDate = selectedDate.minusDays(1);
+
+                System.out.println("상영시간이 없을경우");
+                List<Showtime> previousDayShowtimes = showtimeRepository.findByScreenIdsAndShowDate(Collections.singletonList(screenDTO.getScreenId()), previousDate);
+
+                if (previousDayShowtimes.isEmpty()) {
+                    // 전날에도 상영 시간이 없는 경우
+                    screenDTO.setNextAvailableTime(selectedDate.atStartOfDay()); // 0시로 설정
+                    screenDTO.setCanAddShowtime("true");
+                } else {
+                    // 전날 상영 시간이 있는 경우
+                    Showtime lastShowtime = previousDayShowtimes.get(previousDayShowtimes.size() - 1);
+                    LocalDateTime previousEndTime = lastShowtime.getStartedAt().toLocalDateTime()
+                            .plusMinutes(lastShowtime.getMovie().getRuntime() + 30);
+
+                    if (previousEndTime.isBefore(selectedDate.atStartOfDay())) {
+                        screenDTO.setNextAvailableTime(selectedDate.atStartOfDay()); // 0시로 설정
+                    } else {
+                        screenDTO.setNextAvailableTime(previousEndTime);
+                    }
+                    screenDTO.setCanAddShowtime("true");
+                }
+            }
         }
 
+        // 최종적으로 CinemaScheduleWithMoviesDTO 반환
         return new AdminShowtimeResponse.CinemaScheduleWithMoviesDTO(cinemaWithScreensDTO, movieDTOList);
     }
 
@@ -235,6 +282,22 @@ public class AdminService {
 
 
     }
+
+
+    public AdminMemberResponse 관리자리스트보여주기() {
+        List<Admin> admins = adminRepository.findAll();
+
+        // Admin 리스트를 adminDTO 리스트로 변환
+        List<AdminMemberResponse.adminDTO> adminDTOs = admins.stream()
+                .map(AdminMemberResponse.adminDTO::new)  // 각 Admin 객체를 adminDTO로 변환
+                .collect(Collectors.toList());
+
+        AdminMemberResponse response = new AdminMemberResponse();
+        response.setAdminList(adminDTOs);  // 변환된 adminDTO 리스트를 설정
+
+        return response;
+    }
+
 }
 
 

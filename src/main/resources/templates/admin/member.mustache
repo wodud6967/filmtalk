@@ -556,69 +556,37 @@
                 <thead>
                 <tr>
                     <th>선택</th>
-                    <th>지역</th>
-                    <th>영화관</th>
+                    <th>영화관 ID</th>
                     <th>이름</th>
                     <th>이메일</th>
                     <th>전화번호</th>
-                    <th>직급</th>
+                    <th>직급</th> <!-- 한글로 변환된 직급 -->
                     <th>프로필</th>
-                    <th>승인여부</th>
+                    <th>승인 여부</th>
                     <th>편집</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>user@inucreative.com</td>
-                    <td>2024/08/28 10:12</td>
-                    <td>사용자</td>
-                    <td>서울구</td>
-                    <td>부서1</td>
-                    <td>12345</td>
-                    <td><span class="status-label status-user">용자</span></td>
-                    <td>
-                        <label class="toggle-switch">
-                            <input type="checkbox" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </td>
-                    <td><button class="edit-btn">✏️</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>qkreogur789@inucreative.com</td>
-                    <td>2024/07/12 15:23</td>
-                    <td>에이든</td>
-                    <td>부산구</td>
-                    <td>부서2</td>
-                    <td>54321</td>
-                    <td><span class="status-label status-admin">이던</span></td>
-                    <td>
-                        <label class="toggle-switch">
-                            <input type="checkbox">
-                            <span class="slider"></span>
-                        </label>
-                    </td>
-                    <td><button class="edit-btn">✏️</button></td>
-                </tr>
-                <tr>
-                    <td><input type="checkbox"></td>
-                    <td>test4@test.com</td>
-                    <td>2024/08/28 10:27</td>
-                    <td>테스트</td>
-                    <td>인천구</td>
-                    <td>부서3</td>
-                    <td>98765</td>
-                    <td><span class="status-label status-test">스트</span></td>
-                    <td>
-                        <label class="toggle-switch">
-                            <input type="checkbox" checked>
-                            <span class="slider"></span>
-                        </label>
-                    </td>
-                    <td><button class="edit-btn">✏️</button></td>
-                </tr>
+                {{#models}}
+                    {{#adminList}}
+                        <tr>
+                            <td><input type="checkbox"></td>
+                            <td>{{cinemaId}}</td>
+                            <td>{{name}}</td>
+                            <td>{{email}}</td>
+                            <td>{{phone}}</td>
+                            <td>{{role}}</td> <!-- 한국어로 변환된 역할 -->
+                            <td><span class="status-label status-user">{{name}}</span></td>
+                            <td>
+                                <label class="toggle-switch">
+                                    <input type="checkbox" {{#approved}}checked{{/approved}}>
+                                    <span class="slider"></span>
+                                </label>
+                            </td>
+                            <td><button class="edit-btn">✏️</button></td>
+                        </tr>
+                    {{/adminList}}
+                {{/models}}
                 </tbody>
             </table>
 

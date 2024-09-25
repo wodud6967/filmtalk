@@ -165,10 +165,9 @@ insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-12 16:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (1, 1, '2024-09-12 18:00:00', 10);
+
 insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (1, 1, '2024-09-13 14:00:00', 20);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 1, '2024-09-13 16:00:00', 20);
+values (1, 1, '2024-09-11 23:30:00', 10);
 
 
 
@@ -195,29 +194,7 @@ insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-27 16:00:00', 10);
 
 
---TODO 주헌 DB추가
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (1, 1, '2024-09-23 14:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (1, 1, '2024-09-24 16:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (1, 1, '2024-09-25 18:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (1, 1, '2024-09-26 14:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (1, 1, '2024-09-27 16:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 2, '2024-09-23 14:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 3, '2024-09-24 16:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 1, '2024-09-25 18:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 1, '2024-09-26 14:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 1, '2024-09-27 16:00:00', 10);
-insert into showtime_tb (movie_id, screen_id, started_at, price)
-values (2, 1, '2024-09-25 15:00:00', 10);
+
 
 insert into seat_tb (showtime_id, seat_number, row_num, col_num)
 values
@@ -242,36 +219,14 @@ values
     (8, 'J1', 'J', '1'), (8, 'J2', 'J', '2'), (8, 'J3', 'J', '3'), (8, 'J4', 'J', '4'), (8, 'J5', 'J', '5'),
     (8, 'J6', 'J', '6'), (8, 'J7', 'J', '7'), (8, 'J8', 'J', '8'), (8, 'J9', 'J', '9');
 
--- 나머지 showtime_id에 대한 동일한 패턴의 데이터
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 9, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 10, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 13, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 14, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 15, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 18, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 19, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 20, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 23, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 24, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 25, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
-insert into seat_tb (showtime_id, seat_number, row_num, col_num)
-select 26, seat_number, row_num, col_num from seat_tb where showtime_id = 8;
+
 
 
 -- 1번 영화 (movie_id = 1), 서면롯데시네마 Screen 2에서 상영
 insert into showtime_tb (movie_id, screen_id, started_at , price)
 values (2, 1, '2024-09-12 20:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at , price)
+values (2, 1, '2024-09-12 22:00:00', 10);
 
 
 -- 2번 영화 (movie_id = 2), 사상롯데시네마 Screen 1에서 상영

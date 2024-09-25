@@ -6,6 +6,7 @@ import org.springframework.data.repository.query.Param;
 import shop.mtcoding.filmtalk.cinema.Cinema;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.List;
@@ -20,6 +21,7 @@ public interface ShowtimeRepository extends JpaRepository<Showtime,Long> {
 
     @Query("select st from Showtime st join fetch st.movie m left join fetch st.screen sc where st.id=:id")
     Showtime mFindByIdWithMovieWithScreen(@Param("id") Long id);
+
     //뭐 다 담은 것
     @Query("select st.startedAt, stb.name, ct.name, rt.city, mt.movieNm, mt.ratingGrade from Showtime st left join st.screen stb left join stb.cinema ct left join ct.region rt left join st.movie mt")
     List<Showtime> mFindAll();
@@ -41,5 +43,6 @@ public interface ShowtimeRepository extends JpaRepository<Showtime,Long> {
             @Param("screenIds") List<Long> screenIds,
             @Param("showDate") LocalDate showDate
     );
+
 
 }
