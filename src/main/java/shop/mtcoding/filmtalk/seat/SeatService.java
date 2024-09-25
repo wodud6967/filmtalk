@@ -42,16 +42,26 @@ public class SeatService {
                 .orElseThrow(() -> new Exception404("상영관정보가 없습니다."));
 
         Integer totalSeat = seatRepository.mFindCountOfTotalSeat(id);
+
+
+        if(totalSeat == null || totalSeat == 0){
+            throw new Exception404("좌석 정보가 없습니다.");
+        }
+
         Integer reservedSeat = ticketRepository.mFindCountOfReservedSeats(id);
 
-        System.out.println("예약된 좌석 수 " + reservedSeat);
+        if(reservedSeat == null){
+            reservedSeat = 0;
+        }
+
+        //System.out.println("예약된 좌석 수 " + reservedSeat);
 
         return new SeatResponse.DTO(showtimePS, screenPS, totalSeat, reservedSeat);
     }
 
     public SeatResponse.SeatDTO 좌석렌더링(long id) {
 
-        System.out.println("좌석 렌더링. 서비스. id = " + id);
+//        System.out.println("좌석 렌더링. 서비스. id = " + id);
 
         // 쇼타임 id 조회
         Showtime showtimePS = showtimeRepository.findById(id)
@@ -64,7 +74,13 @@ public class SeatService {
             throw new ExceptionApi404("해당 상영관의 좌석 정보를 불러올 수 없습니다.");
         }
 
-        List<Seat> reservedSeatPS = ticketRepository.mFindSeatByShowtimeId(id); // 예약된 좌석 영속
+
+        // 예약된 좌석 영속
+        // 빈 배열이면 예약된 좌석 없음
+        List<Seat> reservedSeatPS = ticketRepository.mFindSeatByShowtimeId(id);
+
+        //System.out.println(reservedSeatPS);
+
 
         int maxCols = 0; // 최대 column 갯수
         int maxRows = 0; // 최대 Row 갯수

@@ -203,6 +203,7 @@ values (3, 7, '2024-09-28 16:00:00', 10);
 
 
 
+-- 호정 seat_tb 데이터 추가 ( 9월 25일 ~ 28일 상영시간에 대한 좌석 )
 insert into seat_tb (showtime_id, seat_number, row_num, col_num)
 values
     (8, 'A1', 'A', '1'), (8, 'A2', 'A', '2'), (8, 'A3', 'A', '3'), (8, 'A4', 'A', '4'), (8, 'A5', 'A', '5'),

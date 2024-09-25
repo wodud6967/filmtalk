@@ -7,6 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 import shop.mtcoding.filmtalk.reservation.ReservationRepository;
 import shop.mtcoding.filmtalk.reservation.ReservationService;
 import shop.mtcoding.filmtalk.ticket.Ticket;
+import shop.mtcoding.filmtalk.ticket.TicketRepository;
 
 import java.sql.Timestamp;
 import java.time.LocalDateTime;

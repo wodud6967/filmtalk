@@ -22,7 +22,7 @@ public class SeatController {
     private final SeatService seatService;
     private final HttpSession session;
 
-    @GetMapping("/seat")
+    @GetMapping("/api/seat")
     public String seat(HttpServletRequest request) {
         long showtimeId = (long) session.getAttribute("showtimeId");
         SeatResponse.DTO model = seatService.좌석메인화면(showtimeId);
