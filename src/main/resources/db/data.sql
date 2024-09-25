@@ -192,6 +192,13 @@ insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-26 14:00:00', 10);
 insert into showtime_tb (movie_id, screen_id, started_at, price)
 values (2, 1, '2024-09-27 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (2, 6, '2024-09-28 16:00:00', 10);
+insert into showtime_tb (movie_id, screen_id, started_at, price)
+values (3, 7, '2024-09-28 16:00:00', 10);
+
+
+
 
 
 
@@ -218,6 +225,9 @@ values
     (8, 'I6', 'I', '6'), (8, 'I7', 'I', '7'), (8, 'I8', 'I', '8'), (8, 'I9', 'I', '9'),
     (8, 'J1', 'J', '1'), (8, 'J2', 'J', '2'), (8, 'J3', 'J', '3'), (8, 'J4', 'J', '4'), (8, 'J5', 'J', '5'),
     (8, 'J6', 'J', '6'), (8, 'J7', 'J', '7'), (8, 'J8', 'J', '8'), (8, 'J9', 'J', '9');
+
+
+
 
 
 

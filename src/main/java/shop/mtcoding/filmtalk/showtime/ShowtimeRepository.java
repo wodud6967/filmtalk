@@ -44,5 +44,4 @@ public interface ShowtimeRepository extends JpaRepository<Showtime,Long> {
             @Param("showDate") LocalDate showDate
     );
 
-
 }

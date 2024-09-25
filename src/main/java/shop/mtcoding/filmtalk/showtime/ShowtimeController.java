@@ -24,11 +24,9 @@ public class ShowtimeController {
     private final RegionService regionService;
     private final HttpSession session;
 
-    @GetMapping("/reservation/goSeat/{showtimeId}")
+    @GetMapping("/reservation/api/goSeat/{showtimeId}")
     public ResponseEntity<?> goSeat(@PathVariable("showtimeId") Long showtimeId) {
-        System.out.println("1");
         session.setAttribute("showtimeId", showtimeId);
-        System.out.println("2");
         return ResponseEntity.ok(Resp.ok(null));
     }
 
