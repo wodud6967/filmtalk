@@ -228,4 +228,3 @@ function didYouSelectAll(){
     return true;
 
 }
-
