@@ -9,9 +9,19 @@ https://github.com/wodud6967/filmtalk
 
 ## 시연 영상
 
+https://youtu.be/ijSlULvpAPI
+
 ## ppt
 
+https://www.notion.so/getinthere/PPT-e8fd9a9d2aac408ab124278748dc2d52
+
 ## 1. 팀원 소개
+
+### 강재영(팀장) - 관리자 
+### 신민재 - 결제
+### 윤주헌 - 예매선택
+### 허성재 - 영화
+### 김호정 - 좌석선택
 
 ## 2. 앱소개
 
@@ -54,13 +64,17 @@ https://github.com/wodud6967/filmtalk
 ![Screenshot_80](https://github.com/user-attachments/assets/ecb60085-2be2-4497-92a7-0a2c1647a9cf)
 
 
+## 3. 테이블 설계
 
-## 3. 개밸환경
+![asd](https://github.com/user-attachments/assets/cd210a7f-0fff-4539-8c35-b9be97071253)
 
-## 4. 프로젝트 아키텍쳐
 
-## 5.테이블 설계
+## 4. naming conventions[코드 컨밴션]
 
-### GitHub
+![asdasdasdasd](https://github.com/user-attachments/assets/993ac8c5-f00a-4825-95a1-6bfa435c526b)
 
-### naming conventions[코드 컨밴션]
+
+## 5. git flow
+
+![d](https://github.com/user-attachments/assets/a2dca73c-ced5-4622-bf4d-10ddb1b2f956)
+
