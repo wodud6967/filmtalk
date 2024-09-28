@@ -1,8 +1,32 @@
-# FilmTalk
+<div align= "center">
+    <img src="https://capsule-render.vercel.app/api?type=wave&color=0:0a0a0a,100:ffec1f&height=120&text=FilmTalk%20Project&animation=&fontColor=ffffff&fontSize=50" />
+    </div>
+    <div style="text-align: left;">
+    <div style="margin: ; text-align: left;" "text-align: left;"> </div>
+    </div>
+    
 
-![logo](https://github.com/user-attachments/assets/50a436db-334d-457f-81da-7b998437fdfe)
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/50a436db-334d-457f-81da-7b998437fdfe" alt="logo" />
+</div>
 
 
+<div style="text-align: left;"> 
+    <div style="font-weight: 700; font-size: 15px; text-align: left; color: #c9d1d9;">  </div> 
+    </div>
+    <div style="text-align: left;">
+    <h2 style="border-bottom: 1px solid #21262d; color: #c9d1d9;"> 기술 스택 </h2> <br> 
+          <img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat-square&logo=Spring Boot&logoColor=white">
+          <img src="https://img.shields.io/badge/Java-007396?style=flat-square&logo=Java&logoColor=white">
+          <img src="https://img.shields.io/badge/Javascript-F7DF1E?style=flat-square&logo=Javascript&logoColor=white">
+          <img src="https://img.shields.io/badge/HTML5-E34F26?style=flat-square&logo=HTML5&logoColor=white">
+          <br>
+          <img src="https://img.shields.io/badge/Github-181717?style=flat-square&logo=Github&logoColor=white">
+          <img src="https://img.shields.io/badge/Figma-F24E1E?style=flat-square&logo=Figma&logoColor=white">
+          <img src="https://img.shields.io/badge/Notion-000000?style=flat-square&logo=Notion&logoColor=white">
+          <img src="https://img.shields.io/badge/Slack-4A154B?style=flat-square&logo=Slack&logoColor=white">
+          </div>
+    </div>
 
 ## 백엔드 github
 https://github.com/wodud6967/filmtalk
