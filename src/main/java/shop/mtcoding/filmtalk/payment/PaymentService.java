@@ -71,9 +71,6 @@ public class PaymentService {
             // 새로운 결제 요청 시 고유한 merchant_uid 생성
             String merchantUid = generateMerchantUid(saveDTO.getReservationId());
 
-            System.out.println("=============================================================");
-            System.out.println("Merchant UID: " + merchantUid);
-
             // 클라이언트에서 결제 성공 여부를 확인 -> SaveDTO로
             IamportResponse<com.siot.IamportRestClient.response.Payment> iamportResponse = iamportClient.paymentByImpUid(saveDTO.getImpUid());
 
